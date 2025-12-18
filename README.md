@@ -100,5 +100,5 @@ for advanced SCP: SL plugin development.
 </p>
 
 <p align="center">
-<strong>Built by developers, for developers.</strong>
+<strong>Built by Florentina<3, for developers.</strong>
 </p>
