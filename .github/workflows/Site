@@ -2,8 +2,8 @@ name: Deploy HTML to GitHub Pages
 
 on:
   push:
-    branches: [ "master" ]  # trigger quando fai push su master
-  workflow_dispatch:        # permette esecuzione manuale
+    branches: ["master"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,12 +23,13 @@ jobs:
       # 2️⃣ Configura Pages
       - uses: actions/configure-pages@v5
 
-      # 3️⃣ Carica i file HTML/CSS/JS come artifact
+      # 3️⃣ Carica SOLO index.html (e eventuali file statici) come artifact
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'   # tutto il contenuto della repo
+          path: './index.html'   # pubblica solo questo file
 
       # 4️⃣ Deploy su GitHub Pages
       - id: deployment
         uses: actions/deploy-pages@v4
+
 
