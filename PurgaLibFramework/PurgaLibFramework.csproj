@@ -417,7 +417,6 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Handler\Elevator.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Handler\Player.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Handler\Round.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Hooks\LabAPIHooks.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\PluginManager\Plugin.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\Config.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\Loader.cs" />
@@ -434,6 +433,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="bin\Debug\LabApi.dll" />
+      <Content Include="bin\Debug\PluginAPI.dll" />
       <Content Include="bin\Debug\PurgaLibFramework.dll" />
       <Content Include="PurgaLibFramework\Copyright.txt" />
       <Content Include="PurgaLibFramework\NuGet\Copyright.txt" />

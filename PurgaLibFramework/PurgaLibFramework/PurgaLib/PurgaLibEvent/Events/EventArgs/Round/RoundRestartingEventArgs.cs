@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round
+﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round
 {
     public class RoundRestartingEventArgs : System.EventArgs
     {

@@ -1,39 +1,39 @@
 ﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
-
-public static class Round
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server
 {
-    public static bool IsStarted { get; private set; } = false;
-    
-    public static void Start()
+    public static class Round
     {
-        PurgaLibEvent.Events.Handler.Round.OnStarting(new RoundStartingEventArgs());
+        public static bool IsStarted { get; private set; } = false;
 
-        LabApi.Features.Wrappers.Round.Start();
+        public static void Start()
+        {
+            PurgaLibEvent.Events.Handler.RoundHandler.OnStarting(new RoundStartingEventArgs());
+            LabApi.Features.Wrappers.Round.Start();
 
-        IsStarted = true;
-        
-        PurgaLibEvent.Events.Handler.Round.OnStarted(new RoundStartedEventArgs());
-    }
-    
-    public static void Restart()
-    {
-        PurgaLibEvent.Events.Handler.Round.OnRestarting(new RoundRestartingEventArgs());
-        
-        LabApi.Features.Wrappers.Round.Restart();
-        
-        IsStarted = true;
-        
-        PurgaLibEvent.Events.Handler.Round.OnStarted(new RoundStartedEventArgs());
-    }
-    
-    public static void Stop()
-    {
-        LabApi.Features.Wrappers.Round.End();
-        
-        IsStarted = false;
-        
-        PurgaLibEvent.Events.Handler.Round.OnEnded(new RoundEndedEventArgs("Unknown"));
+            IsStarted = true;
+            
+            PurgaLibEvent.Events.Handler.RoundHandler.OnStarted(new RoundStartedEventArgs());
+        }
+
+        public static void Restart()
+        {
+            PurgaLibEvent.Events.Handler.RoundHandler.OnRestarting(new RoundRestartingEventArgs());
+            
+            LabApi.Features.Wrappers.Round.Restart();
+
+            IsStarted = true;
+            
+            PurgaLibEvent.Events.Handler.RoundHandler.OnStarted(new RoundStartedEventArgs());
+        }
+
+        public static void Stop()
+        {
+            LabApi.Features.Wrappers.Round.End();
+
+            IsStarted = false;
+            
+            PurgaLibEvent.Events.Handler.RoundHandler.OnEnded(new RoundEndedEventArgs("Unknown"));
+        }
     }
 }

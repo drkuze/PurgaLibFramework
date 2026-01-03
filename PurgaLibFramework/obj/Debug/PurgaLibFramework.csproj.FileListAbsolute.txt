@@ -127,7 +127,6 @@ C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\obj\Debug\Purga
 C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\PurgaLibFramework.dll.config
 C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\PurgaLibFramework.dll
 C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\PurgaLibFramework.pdb
-C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\LabApi.dll
 C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\YamlDotNet.dll
 C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\LabApi.xml
 C:\Users\Papa\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\YamlDotNet.xml

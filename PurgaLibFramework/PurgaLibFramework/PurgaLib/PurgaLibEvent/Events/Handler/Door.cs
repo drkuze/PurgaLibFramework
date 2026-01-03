@@ -1,15 +1,42 @@
 ﻿using System;
+using LabApi.Events.Handlers;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Map;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler
 {
-    public static class Door
+    public static class DoorHandler
     {
-        public static event EventHandler<DoorInteractingEventArgs> Interacting;
+        private static EventHandler<DoorInteractingEventArgs> _interacting;
 
-        internal static void OnInteracting(DoorInteractingEventArgs ev)
+        public static event EventHandler<DoorInteractingEventArgs> Interacting
         {
-            EventManager.Invoke(Interacting, null, ev);
+            add
+            {
+                bool wasEmpty = _interacting == null;
+                _interacting += value;
+                if (wasEmpty)
+                    RegisterLabApi();
+            }
+            remove
+            {
+                _interacting -= value;
+            }
+        }
+
+        private static void OnInteracting(DoorInteractingEventArgs ev)
+        {
+            _interacting?.Invoke(null, ev);
+        }
+
+        public static void RegisterLabApi()
+        {
+            PlayerEvents.InteractingDoor += ev =>
+            {
+                var args = new DoorInteractingEventArgs(ev.Player, ev.Door);
+                OnInteracting(args);
+            };
+            Log.Success("[PurgaLib] DoorHandler registered on LabApi.");
         }
     }
 }

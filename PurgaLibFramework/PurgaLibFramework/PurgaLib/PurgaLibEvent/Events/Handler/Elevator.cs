@@ -1,15 +1,42 @@
 ﻿using System;
+using LabApi.Events.Handlers;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Map;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler
 {
-    public static class Elevator
+    public static class ElevatorHandler
     {
-        public static event EventHandler<ElevatorUsingEventArgs> Interacting;
+        private static EventHandler<ElevatorUsingEventArgs> _interacting;
 
-        internal static void OnInteracting(ElevatorUsingEventArgs ev)
+        public static event EventHandler<ElevatorUsingEventArgs> Interacting
         {
-            EventManager.Invoke(Interacting, null, ev);
+            add
+            {
+                bool wasEmpty = _interacting == null;
+                _interacting += value;
+                if (wasEmpty)
+                    RegisterLabApi();
+            }
+            remove
+            {
+                _interacting -= value;
+            }
+        }
+
+        private static void OnInteracting(ElevatorUsingEventArgs ev)
+        {
+            _interacting?.Invoke(null, ev);
+        }
+
+        public static void RegisterLabApi()
+        {
+            PlayerEvents.InteractingElevator += ev =>
+            {
+                var args = new ElevatorUsingEventArgs(ev.Player, ev.Elevator);
+                OnInteracting(args);
+            };
+            Log.Success("[PurgaLib] ElevatorHandler registered on LabApi.");
         }
     }
 }
