@@ -11,8 +11,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader
         private PurgaLoader _purgaLoader;
         public static Loader Instance { get; private set; }
         public override string Name { get; } = "PurgaLibLoader";
-        public override string Description { get; } = "The loader of PurgaLibAPI";
-        public override string Author { get; } = "PurgaLibTeam";
+        public override string Description { get; } = "The loader of PurgaLib";
+        public override string Author { get; } = "Florentina";
         public override Version Version { get; } = new Version(0, 0, 5);
         public override Version RequiredApiVersion { get; } = new Version(1,0,0,0);
         
@@ -22,6 +22,10 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader
             ElevatorHandler.RegisterLabApi();
             PlayerHandler.RegisterLabApi();
             RoundHandler.RegisterLabApi();
+            TeslaHandler.RegisterLabApi();
+            
+            _purgaLoader = new PurgaLoader();
+            _purgaLoader.LoadPlugins();
             
             Instance = this;
             
@@ -36,10 +40,6 @@ Welcome to:
 ██║     ╚██████╔╝██║  ██║╚██████╔╝██║  ██║███████╗██║██████╔╝
 ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝╚═════╝ [*] by Florentina
 ", ConsoleColor.DarkMagenta);
-            
-            _purgaLoader = new PurgaLoader();
-            _purgaLoader.LoadPlugins();
-            
         }
 
         public override void Disable()

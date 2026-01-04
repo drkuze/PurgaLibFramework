@@ -2,6 +2,8 @@
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
 using PlayerChangingRoleEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerChangingRoleEventArgs;
 using PlayerDyingEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerDyingEventArgs;
 using PlayerHurtingEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerHurtingEventArgs;
@@ -27,6 +29,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
         private static EventHandler<PlayerUsingItemEventArgs> _usingItem;
         private static EventHandler<PlayerInteractingDoorEventArgs> _interactingDoor;
         private static EventHandler<PlayerInteractingElevatorEventArgs> _interactingElevator;
+        private static EventHandler<PlayerVerifiedEventArgs> _verified;
 
         public static event EventHandler<PlayerJoinedEventArgs> Joined
         {
@@ -105,6 +108,12 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
             add { Add(ref _interactingElevator, value, RegisterLabApi); }
             remove { _interactingElevator -= value; }
         }
+        
+        public static event EventHandler<PlayerVerifiedEventArgs> Verified
+        {
+            add { Add(ref _verified, value, RegisterLabApi); }
+            remove { _verified -= value; }
+        }
 
         private static void Add<T>(ref EventHandler<T> field, EventHandler<T> handler, Action register) where T : System.EventArgs
         {
@@ -121,21 +130,69 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
 
         public static void RegisterLabApi()
         {
-            PlayerEvents.Joined += ev => On(_joined, new PlayerJoinedEventArgs(ev.Player));
-            PlayerEvents.Left += ev => On(_left, new PlayerLeftEventArgs(ev.Player));
-            PlayerEvents.Spawning += ev => On(_spawning, new PlayerSpawningEventArgs(ev.Player));
-            PlayerEvents.Spawned += ev => On(_spawned, new PlayerSpawnedEventArgs(ev.Player));
-            PlayerEvents.Dying += ev => On(_dying, new PlayerDyingEventArgs(ev.Player, ev.Attacker, ev.DamageHandler.ToString()));
-            PlayerEvents.Hurting += ev => On(_hurting, new PlayerHurtingEventArgs(ev.Player, ev.Attacker, ev.DamageHandler.GetHashCode()));
-            PlayerEvents.ChangingRole += ev => On(_changingRole, new PlayerChangingRoleEventArgs(ev.Player, ev.NewRole, ev.OldRole));
-            PlayerEvents.ChangedRole += ev => On(_changedRole, new PlayerChangedRoleEventArgs(ev.Player.ReferenceHub, ev.OldRole, ev.NewRole, ev.ChangeReason, ev.SpawnFlags));
-            PlayerEvents.PickingUpItem += ev => On(_pickingUpItem, new PlayerPickingUpItemEventArgs(ev.Player.ReferenceHub, ev.Pickup.Base));
-            PlayerEvents.DroppingItem += ev => On(_droppingItem, new PlayerDroppingItemEventArgs(ev.Player.ReferenceHub, ev.Item.Base, ev.Throw));
-            PlayerEvents.UsingItem += ev => On(_usingItem, new PlayerUsingItemEventArgs(ev.Player.ReferenceHub, ev.UsableItem.Base));
-            PlayerEvents.InteractingDoor += ev => On(_interactingDoor, new PlayerInteractingDoorEventArgs(ev.Player.ReferenceHub, ev.Door.Base, ev.IsAllowed));
-            PlayerEvents.InteractingElevator += ev => On(_interactingElevator, new PlayerInteractingElevatorEventArgs(ev.Player.ReferenceHub, ev.Elevator.Base, ev.Panel));
+            PlayerEvents.Joined += ev =>
+                On(_joined, new PlayerJoinedEventArgs(ev.Player));
 
-            Log.Success("[PurgaLib] PlayerHandler registered on LabApi.");
+            PlayerEvents.Left += ev =>
+            {
+                On(_left, new PlayerLeftEventArgs(ev.Player));
+                
+                if (!string.IsNullOrEmpty(ev.Player.UserId))
+                    VerifiedPlayersCache.Verified.Remove(ev.Player.UserId);
+            };
+
+            PlayerEvents.Spawning += ev =>
+                On(_spawning, new PlayerSpawningEventArgs(ev.Player));
+
+            PlayerEvents.Spawned += ev =>
+            {
+                var player = ev.Player;
+                On(_spawned, new PlayerSpawnedEventArgs(player));
+
+                string userId = player.UserId;
+                if (string.IsNullOrEmpty(userId))
+                    return;
+
+                if (VerifiedPlayersCache.Verified.Add(userId))
+                    On(_verified, new PlayerVerifiedEventArgs(player));
+
+                if (CreditTagsHandler.IsContributor(player))
+                    CreditTagsHandler.ApplyContributorTag(player);
+            }; 
+
+            PlayerEvents.Dying += ev =>
+                On(_dying, new PlayerDyingEventArgs(ev.Player, ev.Attacker, ev.DamageHandler.ToString()));
+
+            PlayerEvents.Hurting += ev =>
+                On(_hurting, new PlayerHurtingEventArgs(ev.Player, ev.Attacker, ev.DamageHandler.GetHashCode()));
+
+            PlayerEvents.ChangingRole += ev =>
+                On(_changingRole, new PlayerChangingRoleEventArgs(ev.Player, ev.NewRole, ev.OldRole));
+
+            PlayerEvents.ChangedRole += ev =>
+                On(_changedRole, new PlayerChangedRoleEventArgs(
+                    ev.Player.ReferenceHub,
+                    ev.OldRole,
+                    ev.NewRole,
+                    ev.ChangeReason,
+                    ev.SpawnFlags));
+
+            PlayerEvents.PickingUpItem += ev =>
+                On(_pickingUpItem, new PlayerPickingUpItemEventArgs(ev.Player.ReferenceHub, ev.Pickup.Base));
+
+            PlayerEvents.DroppingItem += ev =>
+                On(_droppingItem, new PlayerDroppingItemEventArgs(ev.Player.ReferenceHub, ev.Item.Base, ev.Throw));
+
+            PlayerEvents.UsingItem += ev =>
+                On(_usingItem, new PlayerUsingItemEventArgs(ev.Player.ReferenceHub, ev.UsableItem.Base));
+
+            PlayerEvents.InteractingDoor += ev =>
+                On(_interactingDoor, new PlayerInteractingDoorEventArgs(ev.Player.ReferenceHub, ev.Door.Base, ev.IsAllowed));
+
+            PlayerEvents.InteractingElevator += ev =>
+                On(_interactingElevator, new PlayerInteractingElevatorEventArgs(ev.Player.ReferenceHub, ev.Elevator.Base, ev.Panel));
+
+            Log.Success("[PurgaLib] PlayerHandler registered on LabAPI.");
         }
     }
 }

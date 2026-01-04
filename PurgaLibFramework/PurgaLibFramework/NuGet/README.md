@@ -12,4 +12,7 @@ ALPHA – API may change.
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-Thank you a lot for the 599 downloads!! now events work better + better API.
+For version 0.0.5 ChangeLogs:
+- better API
+- Events now register automatically.
+- Loader improvement
