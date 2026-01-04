@@ -10,14 +10,12 @@ C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\Cares
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\CommandSystem.Core.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\DnsClient.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\Facepunch.Steamworks.Win64.dll
-C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\LabApi.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\Mirror.Components.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\Mirror.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\Mono.Security.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\mscorlib.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\netstandard.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\NorthwoodLib.dll
-C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\PluginAPI.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\Pooling.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\System.ComponentModel.Composition.dll
 C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLibFramework\bin\Debug\System.Configuration.dll
