@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
 using PlayerRoles;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handlers
 {
@@ -49,7 +50,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handl
                 defaultRole.OnAssign(ev.Player);
             };
 
-            Console.WriteLine("[PurgaLib] CustomRoleHandler events registered.");
+            Log.Success("[PurgaLib] CustomRoleHandler events registered.");
         }
 
         private static CustomRole GetDefaultRole()

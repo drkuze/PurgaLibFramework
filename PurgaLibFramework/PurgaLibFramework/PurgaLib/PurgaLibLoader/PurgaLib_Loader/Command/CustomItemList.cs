@@ -10,7 +10,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 public class CustomItemList : ICommand
 {
-    public string Command { get; } = "list";
+    public string Command { get; } = "listitems";
     public string[] Aliases { get; } = { };
     public string Description { get; } = "Lists all registered custom items.";
 

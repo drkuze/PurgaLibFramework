@@ -45,7 +45,7 @@ public class CustomRoleGive : ICommand
         return true;
     }
 
-    public string Command { get; } = "give";
+    public string Command { get; } = "giveroles";
     public string[] Aliases { get; } = { };
     public string Description { get; } = "Gives a custom role to a player.";
 }

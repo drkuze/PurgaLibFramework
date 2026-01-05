@@ -11,7 +11,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
 public class CustomItemGive : ICommand
 {
-    public string Command { get; } = "give";
+    public string Command { get; } = "giveitems";
     public string[] Aliases { get; } = { };
     public string Description { get; } = "Gives a custom item to a player.";
 

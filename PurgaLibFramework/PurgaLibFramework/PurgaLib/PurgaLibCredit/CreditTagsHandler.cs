@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LabApi.Features.Wrappers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit
 {

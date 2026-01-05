@@ -1,13 +1,15 @@
 ﻿using System;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Handlers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+using PlayerBannedEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerBannedEventArgs;
 using PlayerChangingRoleEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerChangingRoleEventArgs;
 using PlayerDyingEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerDyingEventArgs;
 using PlayerHurtingEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerHurtingEventArgs;
 using PlayerJoinedEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerJoinedEventArgs;
+using PlayerKickedEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerKickedEventArgs;
 using PlayerLeftEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerLeftEventArgs;
 using PlayerSpawnedEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerSpawnedEventArgs;
 using PlayerSpawningEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerSpawningEventArgs;
@@ -17,6 +19,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
     public static class PlayerHandler
     {
         private static EventHandler<PlayerJoinedEventArgs> _joined;
+        private static EventHandler<PlayerBannedEventArgs> _banned;
+        private static EventHandler<PlayerKickedEventArgs> _kicked;
         private static EventHandler<PlayerLeftEventArgs> _left;
         private static EventHandler<PlayerHurtingEventArgs> _hurting;
         private static EventHandler<PlayerDyingEventArgs> _dying;
@@ -30,7 +34,17 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
         private static EventHandler<PlayerInteractingDoorEventArgs> _interactingDoor;
         private static EventHandler<PlayerInteractingElevatorEventArgs> _interactingElevator;
         private static EventHandler<PlayerVerifiedEventArgs> _verified;
-
+        
+        public static event EventHandler<PlayerBannedEventArgs> Banned
+        {
+            add { Add(ref _banned, value, RegisterLabApi);}
+            remove { _banned -= value; }
+        } 
+        public static event EventHandler<PlayerKickedEventArgs> Kicked
+        {
+            add{ Add(ref _kicked, value, RegisterLabApi); }
+            remove { _kicked -= value; }
+        } 
         public static event EventHandler<PlayerJoinedEventArgs> Joined
         {
             add { Add(ref _joined, value, RegisterLabApi); }
@@ -191,6 +205,12 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
 
             PlayerEvents.InteractingElevator += ev =>
                 On(_interactingElevator, new PlayerInteractingElevatorEventArgs(ev.Player.ReferenceHub, ev.Elevator.Base, ev.Panel));
+            
+            PlayerEvents.Banned += ev =>
+                On(_banned, new PlayerBannedEventArgs(ev.Player, ev.Reason, ev.Duration));
+            
+            PlayerEvents.Kicked += ev =>
+                On(_kicked, new PlayerKickedEventArgs(ev.Player, ev.Reason));
 
             Log.Success("[PurgaLib] PlayerHandler registered on LabAPI.");
         }

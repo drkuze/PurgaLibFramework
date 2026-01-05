@@ -6,13 +6,13 @@ Features
 - Modular design
 - Developer-friendly API 
 
-Status
-ALPHA – API may change.
+Status **ALPHA**
 
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-For version 0.0.5 ChangeLogs:
+For version 0.0.7 ChangeLogs:
 - better API
-- Events now register automatically.
-- Loader improvement
+- New Custom Item & Custom Role's
+- Npc's
+- Credit Tags

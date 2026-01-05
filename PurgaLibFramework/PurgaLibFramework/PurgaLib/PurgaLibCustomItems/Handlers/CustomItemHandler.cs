@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using InventorySystem.Items;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.EventsArgs;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handlers

@@ -1,6 +1,7 @@
 ﻿using System;
 using LabApi.Features.Console;
 using LabApi.Loader.Features.Plugins;
+using LabApi.Loader.Features.Plugins.Enums;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handlers;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handlers;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler;
@@ -15,9 +16,10 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader
         public override string Name { get; } = "PurgaLibLoader";
         public override string Description { get; } = "The loader of PurgaLib";
         public override string Author { get; } = "Florentina";
-        public override Version Version { get; } = new Version(0, 0, 6);
+        public override Version Version { get; } = new Version(0, 0, 7);
         public override Version RequiredApiVersion { get; } = new Version(1,0,0,0);
-        
+        public override LoadPriority Priority { get; } = LoadPriority.Lowest;
+
         public override void Enable()
         {
             DoorHandler.RegisterLabApi();

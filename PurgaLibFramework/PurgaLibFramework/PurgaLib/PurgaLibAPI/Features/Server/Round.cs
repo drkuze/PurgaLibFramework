@@ -1,6 +1,6 @@
 ﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server
 {
     public static class Round
     {

@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using LabApi.Features.Console;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.PluginManager;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_Loader.LoaderEvent
 {
@@ -61,7 +61,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                             if (requireProp != null && typeof(Version).IsAssignableFrom(requireProp.PropertyType))
                             {
                                 var requiredVersion = (Version)requireProp.GetValue(pluginInstance);
-                                Version currentVersion = new Version(0, 0, 5); 
+                                Version currentVersion = new Version(0, 0, 7); 
                                 if (requiredVersion > currentVersion)
                                 {
                                     Logger.Error($"[PurgaLibFramework] [{pluginName}] Requires PurgaLib version {requiredVersion}. Plugin blocked!");
@@ -94,7 +94,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                                 if (val is bool b)
                                     enabled = b;
                             }
-
+                            
                             if (enabled)
                             {
                                 var onEnabled = type.GetMethod(
@@ -108,7 +108,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                             }
                             string pluginAuthor = GetProperty(pluginInstance, "Author");
                             string pluginVersion = GetProperty(pluginInstance, "Version");
-
+                            
                             Logger.Raw(
                                 $"[PurgaLibFramework] [{pluginName}] Loaded v{pluginVersion} by {pluginAuthor}",
                                 ConsoleColor.Cyan

@@ -1,4 +1,4 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLib_API.Server
+﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server
 {
     public static class Server
     {
