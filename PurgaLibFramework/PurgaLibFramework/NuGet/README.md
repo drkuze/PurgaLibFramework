@@ -11,7 +11,5 @@ Status **BETA**
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-For version 0.1.0 ChangeLogs:
-- better API for player management and better Cassie.
-- New Event's
-- Bug fixes
+For version 0.1.2 ChangeLogs:
+- Added API for currentSpecatingPlayers.

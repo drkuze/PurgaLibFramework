@@ -419,6 +419,7 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnElevatorUsing.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnInteractingTesla.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerBannedEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerChangedRoleEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerDiedEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerKickedEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerVerifiedEventArgs.cs" />

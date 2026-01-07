@@ -13,8 +13,8 @@ public static class Cassie
     {
         LabApi.Features.Wrappers.Cassie.Message(
             message,
-            isSubtitles: isSubtitles,
-            isNoisy: isNoisy
+            isNoisy: isNoisy,
+            isSubtitles: isSubtitles
         );
     }
     public static void Clear()

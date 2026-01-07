@@ -62,6 +62,17 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Play
 
                 return lab == null ? null : Player.Get(lab);
             }
+            
+            public static IReadOnlyCollection<Player> GetSpectatorsOf(Player target)
+            {
+                if (target == null) return new List<Player>();
+
+                return LabApi.Features.Wrappers.Player.List
+                    .Where(p => p.CurrentSpectators.Contains(target.Base))
+                    .Select(Player.Get)
+                    .Where(p => p != null)
+                    .ToList();
+            }
         }
         
         public static class State

@@ -5,6 +5,7 @@ using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
 using PlayerBannedEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerBannedEventArgs;
+using PlayerChangedRoleEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerChangedRoleEventArgs;
 using PlayerChangingRoleEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerChangingRoleEventArgs;
 using PlayerDyingEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerDyingEventArgs;
 using PlayerHurtingEventArgs = PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player.PlayerHurtingEventArgs;
@@ -165,8 +166,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
                     
                     MEC.Timing.CallDelayed(0f, () =>
                     {
-                        if (player != null)
-                            player.SetRole(PlayerRoles.RoleTypeId.Spectator);
+                        player.SetRole(PlayerRoles.RoleTypeId.Spectator);
                     });
                 }
 
@@ -201,7 +201,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
 
             PlayerEvents.ChangedRole += ev =>
                 On(_changedRole, new PlayerChangedRoleEventArgs(
-                    ev.Player.ReferenceHub,
+                    ev.Player,
                     ev.OldRole,
                     ev.NewRole,
                     ev.ChangeReason,
