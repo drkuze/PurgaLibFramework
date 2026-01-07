@@ -3,10 +3,19 @@
 public static class Cassie
 {
     public static void Message(string message)
+        => Message(message, false, true);
+
+    public static void Message(
+        string message,
+        bool isNoisy,
+        bool isSubtitles
+    )
     {
         LabApi.Features.Wrappers.Cassie.Message(
-            message
-            );
+            message,
+            isSubtitles: isSubtitles,
+            isNoisy: isNoisy
+        );
     }
     public static void Clear()
     {

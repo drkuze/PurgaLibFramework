@@ -468,6 +468,7 @@
       <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.6.nupkg" />
       <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.7.nupkg" />
       <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.8.nupkg" />
+      <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.9.nupkg" />
       <Content Include="PurgaLibFramework\NuGet\README.md" />
       <Content Include="PurgaLibFramework\PurgaLib\PurgaLibInstaller\Linux\Installer.sh" />
       <Content Include="PurgaLibFramework\PurgaLib\PurgaLibInstaller\Windows\Installer.ps1" />

@@ -36,7 +36,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit
 
             var roles = player.ReferenceHub.serverRoles;
             roles.GlobalHidden = true;
-            roles.GlobalBadge = rank;       
+            roles.SetText(rank);       
         }
     }
 }

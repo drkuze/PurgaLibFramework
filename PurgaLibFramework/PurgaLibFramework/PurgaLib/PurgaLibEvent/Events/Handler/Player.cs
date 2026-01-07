@@ -160,7 +160,15 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
                     return;
 
                 if (VerifiedPlayersCache.Verified.Add(userId))
+                {
                     On(_verified, new PlayerVerifiedEventArgs(player));
+                    
+                    MEC.Timing.CallDelayed(0f, () =>
+                    {
+                        if (player != null)
+                            player.SetRole(PlayerRoles.RoleTypeId.Spectator);
+                    });
+                }
 
                 if (CreditTagsHandler.IsContributor(player))
                     CreditTagsHandler.ApplyContributorTag(player);

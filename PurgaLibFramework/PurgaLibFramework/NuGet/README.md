@@ -6,11 +6,12 @@ Features
 - Modular design
 - Developer-friendly API 
 
-Status **ALPHA**
+Status **BETA**
 
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-For version 0.0.8 ChangeLogs:
-- better API for player
-- Added new events
+For version 0.1.0 ChangeLogs:
+- better API for player management and better Cassie.
+- New Event's
+- Bug fixes
