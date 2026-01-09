@@ -24,7 +24,14 @@
 </p>
 
 ---
+> [!Tip]
+> If you wanna contribute with the project, need help or just want to know the latest releases? Come to our discord Server:
+> https://discord.gg/PT8zKrUWys
 
+> [!Note]
+> Nuget Package: https://www.nuget.org/packages/PurgaLibFramework
+> Command: dotnet add package PurgaLibFramework --version 0.1.4
+---
 <p align="center">
 <strong>PurgaLib</strong> is a next-generation framework for<br>
 <strong>SCP: Secret Laboratory</strong>
