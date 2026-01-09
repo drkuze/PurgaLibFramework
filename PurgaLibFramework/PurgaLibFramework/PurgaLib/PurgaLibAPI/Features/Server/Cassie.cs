@@ -1,25 +1,17 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
-
-public static class Cassie
+﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server
 {
-    public static void Message(string message)
-        => Message(message, false, true);
-
-    public static void Message(
-        string message,
-        bool isNoisy,
-        bool isSubtitles
-    )
+    public static class Cassie
     {
-        LabApi.Features.Wrappers.Cassie.Clear();
-        LabApi.Features.Wrappers.Cassie.Message(
-            message,
-            isNoisy: isNoisy,
-            isSubtitles: isSubtitles
-        );
-    }
-    public static void Clear()
-    {
-        LabApi.Features.Wrappers.Cassie.Clear();
+        public static void Message(string message, bool isNoisy = true, bool isSubtitles = true)
+        {
+            LabApi.Features.Wrappers.Cassie.Clear();
+            
+            LabApi.Features.Wrappers.Cassie.Message(message, isNoisy: isNoisy, isSubtitles: isSubtitles, customSubtitles: message);
+        }
+        
+        public static void Clear()
+        {
+            LabApi.Features.Wrappers.Cassie.Clear();
+        }
     }
 }

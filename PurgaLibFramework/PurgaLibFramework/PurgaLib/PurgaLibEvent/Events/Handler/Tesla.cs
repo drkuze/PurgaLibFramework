@@ -31,16 +31,17 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hand
 
         public static void RegisterLabApi()
         {
-            PlayerEvents.TriggeredTesla += ev =>
+            PlayerEvents.TriggeringTesla += ev =>
             {
                 
                 var args = new OnInteractingTeslaEventArgs(ev.Player)
                 {
                     IsAllowed = true
                 };
-                if (!args.IsAllowed) 
-                    return;
                 OnInteracting(args);
+                
+                if (!args.IsAllowed) 
+                    ev.IsAllowed = false;
             };
 
             Log.Success("[PurgaLib] TeslaHandler registered on LabApi.");

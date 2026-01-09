@@ -455,6 +455,7 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\Command\CustomRoleRemove.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\Command\PluginList.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\ConfigManager.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\PurgaCommandLoader.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\PurgaLoader.cs" />
     </ItemGroup>
     <ItemGroup>

@@ -5,25 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c01975cb-3816-4a23-ba40-e78c7ddb9fb2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/EventArgs/Player/PlayerChangedRoleEventArgs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibLoader/PurgaLib_Loader/LoaderEvent/PurgaCommandLoader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PurgaLibFramework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PurgaLibFramework/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/NuGet/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/NuGet/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibAPI/Features/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibAPI/Features/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/NuGet/pack.nuspec" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/NuGet/pack.nuspec" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibAPI/Features/Server/Cassie.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibAPI/Features/Server/Cassie.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Tesla.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Tesla.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibLoader/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibLoader/Loader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibLoader/PurgaLib_Loader/LoaderEvent/PurgaLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibLoader/PurgaLib_Loader/LoaderEvent/PurgaLoader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/bin/Debug/PurgaLibFramework.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/bin/Debug/PurgaLibFramework.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/Debug/PurgaLibFramework.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/PurgaLibFramework.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/PurgaLibFramework.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PurgaLibFramework/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/PurgaLibFramework/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="78" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,45 +46,53 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibAPI/Features/Server/CassieAnnouncementPayload.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibCredit/CreditTagsHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibCustomItems/CustomItemsDatabase.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibCustomItems/Events/ItemUsingEventArgs.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibCustomItems/Handlers/CustomItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/EventArgs/Map/OnInteractingTesla.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/EventArgs/Player/VerifiedCache.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Door.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Elevator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/PurgaLibFramework/PurgaLibFramework/PurgaLib/PurgaLibEvent/Events/Handler/Tesla.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="36zNehensIGbnp3t0Zhxfdhte0w" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager">
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -129,7 +142,14 @@
       <workItem from="1767801085455" duration="2371000" />
       <workItem from="1767803612759" duration="33000" />
       <workItem from="1767803682535" duration="190000" />
-      <workItem from="1767804239820" duration="2670000" />
+      <workItem from="1767804239820" duration="9346000" />
+      <workItem from="1767902213777" duration="366000" />
+      <workItem from="1767902604059" duration="24000" />
+      <workItem from="1767907931607" duration="228000" />
+      <workItem from="1767908195765" duration="32000" />
+      <workItem from="1767908249238" duration="28000" />
+      <workItem from="1767973763645" duration="4620000" />
+      <workItem from="1767989885246" duration="7376000" />
     </task>
     <task id="LOCAL-00001" summary="Added nuspec for the project.">
       <option name="closed" value="true" />
@@ -211,7 +231,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767801966936</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added version 0.0.3 new ChangedRole Event Args and some fixed api bugs">
+      <option name="closed" value="true" />
+      <created>1767806952058</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1767806952058</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fixes">
+      <option name="closed" value="true" />
+      <created>1767814745934</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1767814745934</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,7 +270,13 @@
     <MESSAGE value="Added ref hub" />
     <MESSAGE value="Fixed some bugs." />
     <MESSAGE value="Added new version 0.1.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new version 0.1.1" />
+    <MESSAGE value="Added version 0.0.3 new ChangedRole Event Args and some fixed api bugs" />
+    <MESSAGE value="fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

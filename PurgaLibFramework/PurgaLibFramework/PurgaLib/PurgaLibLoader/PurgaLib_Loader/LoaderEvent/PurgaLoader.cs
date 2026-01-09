@@ -51,9 +51,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                         try
                         {
                             var pluginInstance = Activator.CreateInstance(type);
-
                             string pluginName = GetProperty(pluginInstance, "Name");
-
+                            
                             string pluginConfigFolder = Path.Combine(_configRootFolder, pluginName);
                             Directory.CreateDirectory(pluginConfigFolder);
                             
@@ -61,7 +60,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                             if (requireProp != null && typeof(Version).IsAssignableFrom(requireProp.PropertyType))
                             {
                                 var requiredVersion = (Version)requireProp.GetValue(pluginInstance);
-                                Version currentVersion = new Version(0, 1, 4); 
+                                Version currentVersion = new Version(0, 1, 6);
                                 if (requiredVersion > currentVersion)
                                 {
                                     Logger.Error($"[PurgaLibFramework] [{pluginName}] Requires PurgaLib version {requiredVersion}. Plugin blocked!");
@@ -73,7 +72,6 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                                 Logger.Error($"[PurgaLibFramework] [{pluginName}] Missing or invalid RequiredPurgaLibVersion. Plugin blocked!");
                                 continue;
                             }
-
                             
                             var configProperty = type.GetProperty("Config");
                             if (configProperty != null && typeof(IPurgaConfig).IsAssignableFrom(configProperty.PropertyType))
@@ -84,7 +82,9 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                             }
 
                             LoadedPlugins.Add(pluginInstance);
-
+                            
+                            CommandLoader.RegisterCommands(pluginInstance);
+                            
                             bool enabled = true;
                             var enabledProp = configProperty?.PropertyType.GetProperty("Enabled");
                             if (enabledProp != null)
@@ -94,25 +94,19 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                                 if (val is bool b)
                                     enabled = b;
                             }
-                            
+
                             if (enabled)
                             {
-                                var onEnabled = type.GetMethod(
-                                    "OnEnabled",
-                                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-                                );
-
+                                var onEnabled = type.GetMethod("OnEnabled", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                                 Log.SetPlugin(pluginName);
                                 onEnabled?.Invoke(pluginInstance, null);
                                 Log.ClearPlugin();
                             }
+                            
                             string pluginAuthor = GetProperty(pluginInstance, "Author");
                             string pluginVersion = GetProperty(pluginInstance, "Version");
-                            
-                            Logger.Raw(
-                                $"[PurgaLibFramework] [{pluginName}] Loaded v{pluginVersion} by {pluginAuthor}",
-                                ConsoleColor.Cyan
-                            );
+
+                            Logger.Raw($"[PurgaLibFramework] [{pluginName}] Loaded v{pluginVersion} by {pluginAuthor}", ConsoleColor.Cyan);
                         }
                         catch (Exception ex)
                         {
@@ -132,7 +126,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
             var baseType = type.BaseType;
             if (baseType == null) return false;
             if (!baseType.IsGenericType) return false;
-            return baseType.GetGenericTypeDefinition() == typeof(Plugin<>);
+            return baseType.GetGenericTypeDefinition() == typeof(PurgaLibEvent.Events.PluginManager.Plugin<>);
         }
 
         private string GetProperty(object plugin, string propertyName)
@@ -161,12 +155,9 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                         var configPath = Path.Combine(pluginConfigFolder, "config.yml");
                         ConfigManager.SaveConfig(configPath, configValue);
                     }
-
-                    var onDisabled = type.GetMethod(
-                        "OnDisabled",
-                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-                    );
-
+                    
+                    CommandLoader.UnregisterCommands(plugin);
+                    var onDisabled = type.GetMethod("OnDisabled", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                     Log.SetPlugin(pluginName);
                     onDisabled?.Invoke(plugin, null);
                     Log.ClearPlugin();

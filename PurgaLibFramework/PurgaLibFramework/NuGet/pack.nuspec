@@ -22,7 +22,7 @@
         
         <readme>README.md</readme>
 
-        <tags>SCP SL Framework Plugin API</tags>
+        <tags>SCPSL, Framework, PurgaLib, Utility</tags>
 
         <dependencies>
             <group targetFramework="net48" />
