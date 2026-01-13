@@ -12,7 +12,7 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-ALPHA-orange?style=for-the-badge&logo=testinglibrary"/>
+  <img src="https://img.shields.io/badge/Status-BETA-orange?style=for-the-badge&logo=testinglibrary"/>
   <img src="https://img.shields.io/badge/Platform-SCP:_Secret_Laboratory-black?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Language-C%23-239120?style=for-the-badge&logo=csharp&logoColor=white"/>
   <img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=githubactions"/>
@@ -30,7 +30,7 @@
 
 > [!Note]
 > Nuget Package: https://www.nuget.org/packages/PurgaLibFramework
-> Command: dotnet add package PurgaLibFramework --version 0.1.7
+> Command: dotnet add package PurgaLibFramework --version 0.1.9
 ---
 <p align="center">
 <strong>PurgaLib</strong> is a next-generation framework for<br>
