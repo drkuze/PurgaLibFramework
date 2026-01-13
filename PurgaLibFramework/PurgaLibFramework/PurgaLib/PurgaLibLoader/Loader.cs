@@ -24,6 +24,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader
         public override void Enable()
         {
             Instance = this;
+            PurgaUpdater.Initialize();
             
             DoorHandler.Initialize();
             Log.Success("[PurgaLib] DoorHandler registered successfully.");
