@@ -49,8 +49,6 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handl
                 var defaultRole = GetDefaultRole();
                 defaultRole.OnAssign(ev.Player);
             };
-
-            Log.Success("[PurgaLib] CustomRoleHandler events registered.");
         }
 
         private static CustomRole GetDefaultRole()

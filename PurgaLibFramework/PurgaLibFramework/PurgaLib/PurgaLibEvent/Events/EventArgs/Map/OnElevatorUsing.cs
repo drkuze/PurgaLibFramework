@@ -4,11 +4,11 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Even
 
 public class ElevatorUsingEventArgs : System.EventArgs
 {
-    public LabApi.Features.Wrappers.Player Player { get; }
+    public PurgaLibAPI.Features.Player Player { get; }
     public Elevator Elevator { get; }
     public bool IsAllowed { get; set; } = true;
 
-    public ElevatorUsingEventArgs(LabApi.Features.Wrappers.Player player, Elevator elevator)
+    public ElevatorUsingEventArgs(PurgaLibAPI.Features.Player player, Elevator elevator)
     {
         Player = player;
         Elevator = elevator;

@@ -5,18 +5,18 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibExample.Event;
 
 public class RoundStarted
 {
-    private void RoundStart(object sender, RoundStartingEventArgs ev)
+    private void RoundStart(RoundStartingEventArgs ev)
     {
         Server.Broadcast(Example.Instance.Config.Message, 5);
     }
 
     public void Register()
     {
-        PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler.RoundHandler.Starting += RoundStart;
+        PurgaLibEvent.Events.Handler.RoundHandler.Starting += RoundStart;
     }
 
     public void UnRegister()
     {
-        PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler.RoundHandler.Starting -= RoundStart;
+        PurgaLibEvent.Events.Handler.RoundHandler.Starting -= RoundStart;
     }
 }

@@ -1,50 +1,33 @@
 ﻿using System;
 using LabApi.Events.Handlers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Map;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler
 {
     public static class ElevatorHandler
     {
-        private static EventHandler<ElevatorUsingEventArgs> _interacting;
+        private static bool _initialized;
 
-        public static event EventHandler<ElevatorUsingEventArgs> Interacting
-        {
-            add
-            {
-                bool wasEmpty = _interacting == null;
-                _interacting += value;
-                if (wasEmpty)
-                    RegisterLabApi();
-            }
-            remove
-            {
-                _interacting -= value;
-            }
-        }
+        public static event Action<ElevatorUsingEventArgs> Interacting;
 
-        private static void OnInteracting(ElevatorUsingEventArgs ev)
+        public static void Initialize()
         {
-            _interacting?.Invoke(null, ev);
-        }
+            if (_initialized) return;
+            _initialized = true;
 
-        public static void RegisterLabApi()
-        {
             PlayerEvents.InteractingElevator += ev =>
             {
-                var args = new ElevatorUsingEventArgs(ev.Player, ev.Elevator)
+                var player = Player.Get(ev.Player);
+                var args = new ElevatorUsingEventArgs(player, ev.Elevator)
                 {
                     IsAllowed = true
                 };
-                OnInteracting(args);
-                
-                if(!args.IsAllowed)
-                    ev.IsAllowed = false;
-            
+
+                Interacting?.Invoke(args);
+
+                ev.IsAllowed = args.IsAllowed;
             };
-            
-            Log.Success("[PurgaLib] ElevatorHandler registered on LabApi.");
         }
     }
 }

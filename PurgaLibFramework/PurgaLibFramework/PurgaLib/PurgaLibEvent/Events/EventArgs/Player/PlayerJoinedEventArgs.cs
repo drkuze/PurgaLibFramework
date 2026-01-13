@@ -2,6 +2,6 @@
 
 public class PlayerJoinedEventArgs : System.EventArgs
 {
-    public LabApi.Features.Wrappers.Player Player { get; }
-    public PlayerJoinedEventArgs(LabApi.Features.Wrappers.Player player) => Player = player;
+    public PurgaLibAPI.Features.Player Player { get; }
+    public PlayerJoinedEventArgs(PurgaLibAPI.Features.Player player) => Player = player;
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using InventorySystem.Items;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.EventsArgs;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handlers
@@ -16,19 +15,19 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handl
         private static EventHandler<CustomItemUsedEventArgs> _used;
         private static EventHandler<CustomItemDroppedEventArgs> _dropped;
         private static EventHandler<CustomItemPickedUpEventArgs> _pickedUp;
-
+        
         public static event EventHandler<CustomItemUsedEventArgs> Used
         {
             add { bool wasEmpty = _used == null; _used += value; if (wasEmpty) RegisterEvents(); }
             remove => _used -= value;
         }
-
+        
         public static event EventHandler<CustomItemDroppedEventArgs> Dropped
         {
             add { bool wasEmpty = _dropped == null; _dropped += value; if (wasEmpty) RegisterEvents(); }
             remove => _dropped -= value;
         }
-
+        
         public static event EventHandler<CustomItemPickedUpEventArgs> PickedUp
         {
             add { bool wasEmpty = _pickedUp == null; _pickedUp += value; if (wasEmpty) RegisterEvents(); }
@@ -45,7 +44,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handl
         {
             var item = player.AddItem(custom.BaseType, ItemAddReason.Undefined);
             
-            ItemMap[item] = custom;
+            ItemMap[item!] = custom;
         }
 
         internal static bool TryGet(Item item, out CustomItem custom)
@@ -60,12 +59,12 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handl
             if (item != null && ItemMap.ContainsKey(item))
                 ItemMap.Remove(item);
         }
-
+        
         public static void RegisterEvents()
         {
             PlayerEvents.UsedItem += ev =>
             {
-                var item = ev.Item ?? ev.Player.CurrentItem;
+                var item = ev.Item;
                 if (!TryGet(item, out var custom)) return;
 
                 custom.OnUse(ev.Player);
@@ -85,14 +84,12 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handl
             
             PlayerEvents.PickedUpItem += ev =>
             {
-                var item = ev.Item ?? ev.Player.CurrentItem;
+                var item = ev.Item;
                 if (!TryGet(item, out var custom)) return;
 
                 custom.OnPickup(ev.Player);
                 _pickedUp?.Invoke(null, new CustomItemPickedUpEventArgs(ev.Player, item));
             };
-
-            Log.Success("[PurgaLib] CustomItemHandler events registered.");
         }
     }
 }

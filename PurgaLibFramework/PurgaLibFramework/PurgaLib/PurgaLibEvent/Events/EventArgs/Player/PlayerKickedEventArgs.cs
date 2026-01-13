@@ -2,10 +2,10 @@
 
 public class PlayerKickedEventArgs : System.EventArgs
 {
-    public LabApi.Features.Wrappers.Player Player { get; }
+    public PurgaLibAPI.Features.Player Player { get; }
     public string Reason { get; }
 
-    public PlayerKickedEventArgs(LabApi.Features.Wrappers.Player player, string reason)
+    public PlayerKickedEventArgs(PurgaLibAPI.Features.Player player, string reason)
     {
         Player = player;
         Reason = reason;

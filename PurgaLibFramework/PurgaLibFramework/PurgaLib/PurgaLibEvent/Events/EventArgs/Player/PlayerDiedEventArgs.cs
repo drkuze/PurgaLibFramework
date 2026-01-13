@@ -2,11 +2,11 @@
 {
     public class PlayerDiedEventArgs : System.EventArgs
     {
-        public LabApi.Features.Wrappers.Player Player { get; }
-        public LabApi.Features.Wrappers.Player Killer { get; }
+        public PurgaLibAPI.Features.Player Player { get; }
+        public PurgaLibAPI.Features.Player Killer { get; }
         public int DamageType { get; }
 
-        public PlayerDiedEventArgs(LabApi.Features.Wrappers.Player player, LabApi.Features.Wrappers.Player killer, int damageType)
+        public PlayerDiedEventArgs(PurgaLibAPI.Features.Player player, PurgaLibAPI.Features.Player killer, int damageType)
         {
             Player = player;
             Killer = killer;

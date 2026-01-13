@@ -1,4 +1,5 @@
-﻿using LabApi.Features.Wrappers;
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit.Features;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit
@@ -12,7 +13,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit
 
             if (!CreditDatabase.TryGetRank(player.UserId, out var rank))
                 return;
-
+            
+            Log.Info($"[PurgaLib] {player.Nickname} is a PurgaLib Contributor!");
             string text = CreditRankFormatter.ToDisplay(rank);
             if (string.IsNullOrEmpty(text))
                 return;

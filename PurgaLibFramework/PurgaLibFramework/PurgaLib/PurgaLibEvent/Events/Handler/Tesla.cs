@@ -1,50 +1,40 @@
 ﻿using System;
 using LabApi.Events.Handlers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Map;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler
 {
     public static class TeslaHandler
     {
-        private static EventHandler<OnInteractingTeslaEventArgs> _interacting;
+        private static bool _initialized;
 
-        public static event EventHandler<OnInteractingTeslaEventArgs> Interacting
+        public static event Action<OnInteractingTeslaEventArgs> InteractingTesla;
+
+        public static void Initialize()
         {
-            add
-            {
-                bool wasEmpty = _interacting == null;
-                _interacting += value;
-                if (wasEmpty)
-                    RegisterLabApi();
-            }
-            remove
-            {
-                _interacting -= value;
-            }
+            if (_initialized) return;
+            _initialized = true;
+
+            PlayerEvents.TriggeringTesla -= OnTriggeringTesla;
+            PlayerEvents.TriggeringTesla += OnTriggeringTesla;
         }
 
-        private static void OnInteracting(OnInteractingTeslaEventArgs args)
+        private static void OnTriggeringTesla(LabApi.Events.Arguments.PlayerEvents.PlayerTriggeringTeslaEventArgs ev)
         {
-            _interacting?.Invoke(null, args);
-        }
-
-        public static void RegisterLabApi()
-        {
-            PlayerEvents.TriggeringTesla += ev =>
+            var player = Player.Get(ev.Player);
+            var args = new OnInteractingTeslaEventArgs(player)
             {
-                
-                var args = new OnInteractingTeslaEventArgs(ev.Player)
-                {
-                    IsAllowed = true
-                };
-                OnInteracting(args);
-                
-                if (!args.IsAllowed) 
-                    ev.IsAllowed = false;
+                IsAllowed = true
             };
 
-            Log.Success("[PurgaLib] TeslaHandler registered on LabApi.");
+            InteractingTesla?.Invoke(args);
+
+            if (!args.IsAllowed)
+                ev.IsAllowed = false;
         }
+
+        public static void OnInteracting(OnInteractingTeslaEventArgs ev) 
+            => InteractingTesla?.Invoke(ev);
     }
 }

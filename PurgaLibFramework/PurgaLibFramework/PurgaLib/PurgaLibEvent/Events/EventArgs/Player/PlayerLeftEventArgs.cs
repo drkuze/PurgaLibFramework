@@ -2,6 +2,6 @@
 
 public class PlayerLeftEventArgs : System.EventArgs
 {
-    public LabApi.Features.Wrappers.Player Player { get; }
-    public PlayerLeftEventArgs(LabApi.Features.Wrappers.Player player) => Player = player;
+    public PurgaLibAPI.Features.Player Player { get; }
+    public PlayerLeftEventArgs(PurgaLibAPI.Features.Player player) => Player = player;
 }

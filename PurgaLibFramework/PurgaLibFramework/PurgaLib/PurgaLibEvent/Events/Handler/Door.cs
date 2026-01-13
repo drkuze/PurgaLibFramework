@@ -1,49 +1,44 @@
 ﻿using System;
 using LabApi.Events.Handlers;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Map;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler
 {
     public static class DoorHandler
     {
-        private static EventHandler<DoorInteractingEventArgs> _interacting;
+        private static bool _initialized;
 
-        public static event EventHandler<DoorInteractingEventArgs> Interacting
+        public static event Action<DoorInteractingEventArgs> Interacting;
+
+        public static void Initialize()
         {
-            add
-            {
-                bool wasEmpty = _interacting == null;
-                _interacting += value;
-                if (wasEmpty)
-                    RegisterLabApi();
-            }
-            remove
-            {
-                _interacting -= value;
-            }
+            if (_initialized) return;
+            _initialized = true;
+
+            PlayerEvents.InteractingDoor -= OnInteractingDoor;
+            PlayerEvents.InteractingDoor += OnInteractingDoor;
         }
 
-        private static void OnInteracting(DoorInteractingEventArgs ev)
+        private static void OnInteractingDoor(LabApi.Events.Arguments.PlayerEvents.PlayerInteractingDoorEventArgs ev)
         {
-            _interacting?.Invoke(null, ev);
-        }
+            var player = Player.Get(ev.Player);
+            var door = Door.Get(ev.Door);
 
-        public static void RegisterLabApi()
-        {
-            PlayerEvents.InteractingDoor += ev =>
+            var args = new DoorInteractingEventArgs(player, door)
             {
-                var args = new DoorInteractingEventArgs(ev.Player, ev.Door)
-                {
-                    IsAllowed =  true
-                };
-                OnInteracting(args);
-                
-                if (!args.IsAllowed) 
-                    ev.IsAllowed = false;
-                
+                IsAllowed = ev.IsAllowed
             };
-            Log.Success("[PurgaLib] DoorHandler registered on LabApi.");
+
+            Interacting?.Invoke(args);
+
+            ev.IsAllowed = args.IsAllowed;
         }
+
+        public static void AddHandler(Action<DoorInteractingEventArgs> handler)
+            => Interacting += handler;
+
+        public static void RemoveHandler(Action<DoorInteractingEventArgs> handler)
+            => Interacting -= handler;
     }
 }

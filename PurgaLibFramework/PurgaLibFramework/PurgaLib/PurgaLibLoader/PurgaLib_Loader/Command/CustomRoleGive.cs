@@ -21,9 +21,10 @@ public class CustomRoleGive : ICommand
             response = $"Usage: give <player> <roleId>";
             return false;
         }
-
-        string targetName = arguments[0];
-        string roleId = arguments[1];
+        
+        var args = arguments.ToArray();
+        string targetName = args[0];
+        string roleId = args[1];
         
         Player target = Player.List.FirstOrDefault(p => p.Nickname.Equals(targetName, StringComparison.OrdinalIgnoreCase));
         if (target == null)

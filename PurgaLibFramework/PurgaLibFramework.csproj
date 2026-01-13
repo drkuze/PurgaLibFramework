@@ -440,6 +440,9 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibCustomItems\Handlers\CustomItemHandler.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibCustomRoles\CustomRole.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibCustomRoles\Handlers\CustomRoleHandler.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\Attribute.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\Event{T}.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\IEvent.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnDoorInteracting.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnElevatorUsing.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnInteractingTesla.cs" />
@@ -452,7 +455,6 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\VerifiedCache.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnRoundEnded.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnRoundStarted.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnWaitingForPlayers.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerDyingEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerHurtingEventArgs.cs" />
@@ -479,6 +481,8 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\Command\CustomRoleList.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\Command\CustomRoleRemove.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\Command\PluginList.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\GithHubAPI\API.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\AutoUpdater.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\ConfigManager.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\PurgaCommandLoader.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibLoader\PurgaLib_Loader\LoaderEvent\PurgaLoader.cs" />
@@ -487,6 +491,7 @@
       <Content Include="bin\Debug\LabApi.dll" />
       <Content Include="bin\Debug\PluginAPI.dll" />
       <Content Include="bin\Debug\PurgaLibFramework.dll" />
+      <Content Include="bin\Release\PurgaLibFramework.dll" />
       <Content Include="PurgaLibFramework\Copyright.txt" />
       <Content Include="PurgaLibFramework\NuGet\Copyright.txt" />
       <Content Include="PurgaLibFramework\NuGet\ico.png" />
@@ -503,6 +508,12 @@
     <ItemGroup>
       <None Include="App.config" />
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="bin\Release\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

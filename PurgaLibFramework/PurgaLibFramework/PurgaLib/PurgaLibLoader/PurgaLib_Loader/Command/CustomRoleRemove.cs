@@ -22,8 +22,9 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                 return false;
             }
 
-            string targetName = arguments[0];
-            string roleId = arguments[1];
+            var args = arguments.ToArray();
+            string targetName = args[0];
+            string roleId = args[1];
 
             Player target = Player.List.FirstOrDefault(p => p.Nickname.Equals(targetName, StringComparison.OrdinalIgnoreCase));
             if (target == null)
@@ -44,6 +45,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
             response = $"Player '{target.Nickname}' had role '{role.Name}' removed.";
             return true;
         }
+
 
         public string Command { get; } = "removerole";
         public string[] Aliases { get; } = Array.Empty<string>();

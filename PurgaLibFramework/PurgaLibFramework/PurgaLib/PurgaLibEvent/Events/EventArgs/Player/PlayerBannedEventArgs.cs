@@ -2,11 +2,11 @@
 
 public class PlayerBannedEventArgs : System.EventArgs
 {
-    public LabApi.Features.Wrappers.Player Player { get; }
+    public PurgaLibAPI.Features.Player Player { get; }
     public string Reason { get; }
     public long Duration { get; }
 
-    public PlayerBannedEventArgs(LabApi.Features.Wrappers.Player player, string reason, long duration)
+    public PlayerBannedEventArgs(PurgaLibAPI.Features.Player player, string reason, long duration)
     {
         Player = player;
         Duration = duration;

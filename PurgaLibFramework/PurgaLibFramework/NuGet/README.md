@@ -6,10 +6,13 @@ Features
 - Modular design
 - Developer-friendly API 
 
-Status **BETA**
+Status **RELEASE**
 
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-For version 0.1.9 ChangeLogs:
-- Added Core, Enums and Extensions to the API making it more reliable
+For version 1.1.0 ChangeLogs:
+- API fixes
+- Event depends on our framework and no more in LabAPI
+
+TY ALL FOR 1,6K DOWNLOADS!!
