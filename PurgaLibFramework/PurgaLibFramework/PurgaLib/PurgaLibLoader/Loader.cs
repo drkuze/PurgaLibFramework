@@ -25,6 +25,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader
         {
             Instance = this;
             PurgaUpdater.Initialize();
+            PurgaUpdater.Instance.CheckUpdate();
             
             DoorHandler.Initialize();
             Log.Success("[PurgaLib] DoorHandler registered successfully.");

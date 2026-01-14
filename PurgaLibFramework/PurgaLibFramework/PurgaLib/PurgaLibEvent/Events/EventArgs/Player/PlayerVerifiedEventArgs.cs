@@ -9,6 +9,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Even
         public PlayerVerifiedEventArgs(PurgaLibAPI.Features.Player player)
         {
             Player = player  ?? throw new ArgumentNullException(nameof(player));
+            
         }
     }
 }

@@ -1,75 +1,84 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
-using UnityEngine;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
-
-public sealed class AutoWhitelist : PActor
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 {
-    private readonly HashSet<string> _whitelist = new();
-    private bool _isActive;
-    private const string KickReason = "Server is in whitelist mode";
-
-    public void Enable()
+    public sealed class AutoWhitelist : PActor
     {
-        if (_isActive) return;
-        _isActive = true;
-        KickNonWhitelistedPlayers();
-        Log.Info("Server whitelist mode enabled");
-    }
+        private readonly HashSet<string> _whitelist = new();
+        private bool _isActive;
+        private const string KickReason = "Server is in whitelist mode";
 
-    public void Disable()
-    {
-        if (!_isActive) return;
-        _isActive = false;
-        Log.Info("Server whitelist mode disabled");
-    }
+        public bool IsActive => _isActive;
 
-    private void KickNonWhitelistedPlayers()
-    {
-        foreach (var player in Player.List.ToList())
+        public void Enable()
         {
-            if (!_whitelist.Contains(player.UserId))
+            if (_isActive) return;
+            _isActive = true;
+            Log.Info("Server whitelist mode enabled");
+            KickNonWhitelistedPlayers();
+        }
+
+        public void Disable()
+        {
+            if (!_isActive) return;
+            _isActive = false;
+            Log.Info("Server whitelist mode disabled");
+        }
+
+        private void KickNonWhitelistedPlayers()
+        {
+            foreach (var player in Player.List)
             {
-                player.Kick(KickReason);
-                Log.Info($"Kicked {player.Nickname} ({player.UserId}) because server is whitelisted");
+                if (!_whitelist.Contains(player.UserId))
+                {
+                    player.Kick(KickReason);
+                    Log.Info($"Kicked {player.Nickname} ({player.UserId}) because server is whitelisted");
+                }
             }
         }
-    }
 
-    public void AddToWhitelist(string userId)
-    {
-        if (!_whitelist.Contains(userId))
+        public void AddToWhitelist(Player player)
         {
-            _whitelist.Add(userId);
-            Log.Info($"Added {userId} to whitelist");
+            if (_whitelist.Add(player.UserId))
+                Log.Info($"Added {player.Nickname} ({player.UserId}) to whitelist");
         }
-    }
 
-    public void RemoveFromWhitelist(string userId)
-    {
-        if (_whitelist.Contains(userId))
+        public void RemoveFromWhitelist(Player player)
         {
-            _whitelist.Remove(userId);
-            Log.Info($"Removed {userId} from whitelist");
+            if (_whitelist.Remove(player.UserId))
+                Log.Info($"Removed {player.Nickname} ({player.UserId}) from whitelist");
         }
+
+        public bool IsWhitelisted(Player player) => _whitelist.Contains(player.UserId);
+
+        protected override void Tick()
+        {
+            if (!_isActive) return;
+
+            foreach (var player in Player.List)
+            {
+                if (!_whitelist.Contains(player.UserId))
+                {
+                    player.Kick(KickReason);
+                    Log.Info($"Kicked {player.Nickname} ({player.UserId}) during Tick check");
+                }
+            }
+        }
+
+        public override bool IsAlive => true;
+        public override UnityEngine.Transform Transform => null;
     }
 
-    public bool IsWhitelisted(string userId) => _whitelist.Contains(userId);
+    public static class WhitelistFeature
+    {
+        private static readonly AutoWhitelist Core = StaticActor.Get<AutoWhitelist>();
 
-    public override Transform Transform { get; } = null;
-    public override bool IsAlive { get; } = false;
-}
-
-public static class WhitelistFeature
-{
-    private static readonly AutoWhitelist Core = StaticActor.Get<AutoWhitelist>();
-
-    public static void Enable() => Core.Enable();
-    public static void Disable() => Core.Disable();
-    public static void AddUser(string userId) => Core.AddToWhitelist(userId);
-    public static void RemoveUser(string userId) => Core.RemoveFromWhitelist(userId);
-    public static bool IsUserWhitelisted(string userId) => Core.IsWhitelisted(userId);
+        public static void Enable() => Core.Enable();
+        public static void Disable() => Core.Disable();
+        public static void AddUser(Player player) => Core.AddToWhitelist(player);
+        public static void RemoveUser(Player player) => Core.RemoveFromWhitelist(player);
+        public static bool IsUserWhitelisted(Player player) => Core.IsWhitelisted(player);
+    }
 }
