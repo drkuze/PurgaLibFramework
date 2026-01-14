@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CommandSystem;
 using InventorySystem;
 using PlayerRoles;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core.Interfaces;
+using RemoteAdmin;
 using UnityEngine;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
@@ -97,6 +99,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 
             return Get(lab);
         }
+        
 
         public static Player Get(LabApi.Features.Wrappers.Player player)
         {
@@ -111,6 +114,14 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 
             return wrapped;
         }
+        public static Player Get(ICommandSender sender)
+        {
+            if (sender is not PlayerCommandSender playerSender)
+                return null;
+
+            return Get(playerSender);
+        }
+        
 
         public static IReadOnlyCollection<Player> GetSpectatorsOf(Player target)
         {
