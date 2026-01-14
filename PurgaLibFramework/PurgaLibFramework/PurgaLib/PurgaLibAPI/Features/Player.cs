@@ -121,7 +121,6 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 
             return Get(playerSender);
         }
-        
 
         public static IReadOnlyCollection<Player> GetSpectatorsOf(Player target)
         {

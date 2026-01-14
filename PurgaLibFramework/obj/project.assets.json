@@ -2349,7 +2349,8 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Users\\ciste\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.pkg.github.com/FlorentinaSL/index.json": {}
       },
       "frameworks": {
         "net48": {

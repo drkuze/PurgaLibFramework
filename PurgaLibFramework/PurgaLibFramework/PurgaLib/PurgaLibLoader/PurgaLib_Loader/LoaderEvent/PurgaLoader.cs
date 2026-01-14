@@ -78,7 +78,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                                 continue;
 
                             var requiredVersion = (Version)requireProp.GetValue(pluginInstance);
-                            if (requiredVersion > new Version(1, 3, 0))
+                            if (requiredVersion > new Version(1, 5, 0))
                                 continue;
 
                             var configProperty = type.GetProperty("Config");
