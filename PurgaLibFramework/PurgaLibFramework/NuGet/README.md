@@ -11,8 +11,5 @@ Status **RELEASE**
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-For version 1.1.0 ChangeLogs:
-- API fixes
-- Event depends on our framework and no more in LabAPI
-
-TY ALL FOR 1,6K DOWNLOADS!!
+For version 1.2.0 ChangeLogs:
+- Auto Updater Fixes.

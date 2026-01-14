@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
 {
     public static class PlayerExtensions
     {
+        [Obsolete("Use RoleTypeExtensions instead", false)]
         public static bool IsSCP(this Player player)
         {
             return player.Role == PlayerRoles.RoleTypeId.Scp049 ||
@@ -14,7 +16,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
                    player.Role == PlayerRoles.RoleTypeId.Scp079 ||
                    player.Role == PlayerRoles.RoleTypeId.Scp939;
         }
-
+        
+        [Obsolete("Use RoleTypeExtensions instead", false)]
         public static bool IsHuman(this Player player)
         {
             return !player.IsSCP() && player.Role != PlayerRoles.RoleTypeId.Spectator;

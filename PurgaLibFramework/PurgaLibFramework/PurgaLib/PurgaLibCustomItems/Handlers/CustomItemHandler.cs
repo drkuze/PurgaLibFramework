@@ -64,6 +64,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handl
         {
             PlayerEvents.UsedItem += ev =>
             {
+                #pragma warning disable CS0618
                 var item = ev.Item;
                 if (!TryGet(item, out var custom)) return;
 

@@ -15,7 +15,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
 {
     internal sealed class PurgaUpdater
     {
-        private const long RepoId = 0;
+        private const long RepoId = 1119120886;
         private const string InstallerWin = "PurgaLib.Installer-Win.exe";
         private const string InstallerLinux = "PurgaLib.Installer-Linux";
 
