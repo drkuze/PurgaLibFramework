@@ -11,5 +11,5 @@ Status **RELEASE**
 Usage
 Add `PurgaLibFramework.dll` to LabAPI/plugins/Global and reference it in your plugin project.
 
-For version 1.6.0 ChangeLogs:
-- Fixed bugs.
+For version 1.7.0 ChangeLogs:
+- Just Updated Logo.
