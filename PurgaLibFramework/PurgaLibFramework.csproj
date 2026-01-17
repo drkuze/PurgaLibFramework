@@ -35,11 +35,14 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony">
+          <HintPath>..\..\..\Downloads\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="Assembly-CSharp">
-          <HintPath>..\..\Elevium Pl\Elevium Pl\References\Assembly-CSharp.dll</HintPath>
+          <HintPath>..\..\..\Downloads\cu\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Assembly-CSharp-firstpass">
-          <HintPath>..\..\Elevium Pl\Elevium Pl\References\Assembly-CSharp-firstpass.dll</HintPath>
+          <HintPath>..\..\..\Downloads\cu\Assembly-CSharp-firstpass.dll</HintPath>
         </Reference>
         <Reference Include="BouncyCastle.Cryptography">
           <HintPath>..\..\Elevium Pl\Elevium Pl\References\BouncyCastle.Cryptography.dll</HintPath>
@@ -407,7 +410,9 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Core\PObject.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Core\StaticActor.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Core\TickComponent.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\DamageHandler\DamageHandler.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\DamageType.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\DoorLockType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\DoorType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\FirearmType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\ItemCategory.cs" />
@@ -418,10 +423,11 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Extensions\Npc.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Extensions\PlayerExtensions.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Extensions\RoleTypeExtensions.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Extensions\ServerExtensions.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Extensions\Vector3Extensions.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\AutoWhiteList.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Door.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Elevator.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Item.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Player.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Server\Cassie.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Server\Log.cs" />
@@ -442,25 +448,26 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibCustomRoles\Handlers\CustomRoleHandler.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\Attribute.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\Event{T}.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\IEvent.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\Interfaces\IEvent.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Attribute\PatchALL.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnDoorInteracting.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnElevatorUsing.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Map\OnInteractingTesla.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerBannedEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerChangedRoleEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerChangingRoleEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerDiedEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerDyingEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerHurtingEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerJoinedEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerKickedEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerLeftEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerVerifiedEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\UpgradingPlayersEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\VerifiedCache.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnRoundEnded.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnRoundStarted.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerChangingRoleEventArgs.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerDyingEventArgs.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerHurtingEventArgs.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerJoinedEventArgs.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerLeftEventArgs.cs" />
-        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\RoundRestartingEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventManager.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Handler\Door.cs" />
@@ -469,6 +476,21 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Handler\Round.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\Handler\Tesla.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\PluginManager\Plugin.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Door\InteractingPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Elevator\InteractingElevatorPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\BannedPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\ChangingRole&amp;Spawn.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\Dying&amp;Died.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\HurtingPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\JoinedPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\Kicked.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\LeftPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\PickUpPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Player\UpgradingPatch.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Round\RoundEnded.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Round\RoundRestarting.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Round\RoundStarted.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Patch\Tesla\InteractingTesla.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibExample\Config.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibExample\Event\PlayerVer.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibExample\Event\RoundStarted.cs" />

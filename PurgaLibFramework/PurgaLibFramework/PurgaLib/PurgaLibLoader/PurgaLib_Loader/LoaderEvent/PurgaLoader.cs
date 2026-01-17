@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using LabApi.Features.Console;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.PluginManager;
 
@@ -29,7 +28,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
             Directory.CreateDirectory(_pluginFolder);
             Directory.CreateDirectory(_configRootFolder);
 
-            Logger.Raw("[PurgaLibFramework]: Loader Enabled.", ConsoleColor.Green);
+            Log.SendRaw("[PurgaLibFramework]: Loader Enabled.", ConsoleColor.Green);
         }
 
         public void LoadPlugins()
@@ -78,7 +77,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                                 continue;
 
                             var requiredVersion = (Version)requireProp.GetValue(pluginInstance);
-                            if (requiredVersion > new Version(1, 7, 0))
+                            if (requiredVersion > new Version(1, 8, 0))
                                 continue;
 
                             var configProperty = type.GetProperty("Config");
@@ -113,7 +112,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
                             string pluginAuthor = GetProperty(pluginInstance, "Author");
                             string pluginVersion = GetProperty(pluginInstance, "Version");
 
-                            Logger.Raw($"[PurgaLibFramework] [{pluginName}] Loaded v{pluginVersion} by {pluginAuthor}", ConsoleColor.Cyan);
+                            Log.SendRaw($"[PurgaLibFramework] [{pluginName}] Loaded v{pluginVersion} by {pluginAuthor}", ConsoleColor.Cyan);
                         }
                         catch
                         {
@@ -177,7 +176,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
             }
 
             LoadedPlugins.Clear();
-            Logger.Raw("[PurgaLibFramework] All plugins disabled", ConsoleColor.DarkYellow);
+            Log.SendRaw("[PurgaLibFramework] All plugins disabled", ConsoleColor.DarkYellow);
         }
 
         public string PluginFolder => _pluginFolder;
@@ -185,11 +184,11 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibLoader.PurgaLib_L
 
         public void ListPlugins()
         {
-            Logger.Raw("[PurgaLibFramework] Plugins:", ConsoleColor.Cyan);
+            Log.SendRaw("[PurgaLibFramework] Plugins:", ConsoleColor.Cyan);
             foreach (var plugin in LoadedPlugins)
             {
                 string pluginName = GetProperty(plugin, "Name");
-                Logger.Raw($" - {pluginName}", ConsoleColor.Cyan);
+                Log.SendRaw($" - {pluginName}", ConsoleColor.Cyan);
             }
         }
     }

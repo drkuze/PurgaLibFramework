@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using CommandSystem;
-using LabApi.Features.Wrappers;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handlers;
 

@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CommandSystem;
+using Hints;
 using InventorySystem;
+using InventorySystem.Items;
 using PlayerRoles;
+using PlayerStatsSystem;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core.Interfaces;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
 using RemoteAdmin;
 using UnityEngine;
 
@@ -13,128 +16,126 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 {
     public class Player : PActor, IEntity, IWorldObject
     {
-        internal LabApi.Features.Wrappers.Player Base { get; }
+        private static readonly Dictionary<ReferenceHub, Player> Cache = new();
 
-        private static readonly Dictionary<LabApi.Features.Wrappers.Player, Player> Cache = new();
+        public ReferenceHub ReferenceHub { get; }
 
-        public Player(LabApi.Features.Wrappers.Player player)
+        public Player(ReferenceHub gameObject)
         {
-            Base = player;
+            ReferenceHub = ReferenceHub.GetHub(gameObject);
         }
 
-        public override Transform Transform => Base.GameObject?.transform;
-        public override bool IsAlive => Base.IsAlive;
+        public override Transform Transform => ReferenceHub.transform;
 
-        public new Vector3 Position
+        public override bool IsAlive =>
+            ReferenceHub.IsAlive();
+
+        public Vector3 Position
         {
-            get => Base.Position;
-            set => Base.Position = value;
+            get => ReferenceHub.transform.position;
+            set => ReferenceHub.transform.position = value;
         }
 
-        public string UserId => Base.UserId;
-        public string Nickname => Base.Nickname;
-        public int PlayerId => Base.PlayerId;
-        public float Health => Base.Health;
-        public RoleTypeId Role => Base.Role;
-        public Inventory Inventory => Base.Inventory;
-        public ReferenceHub ReferenceHub => Base.ReferenceHub;
+        public string UserId => ReferenceHub.authManager.UserId;
+        public string Nickname => ReferenceHub.nicknameSync.DisplayName;
+        public int PlayerId => ReferenceHub.PlayerId;
 
+        public float Health =>
+            ReferenceHub.playerStats.GetModule<HealthStat>().CurValue;
+        public float MaxHealth =>
+            ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
+        public float MinHealth =>
+            ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
+        public RoleTypeId Role =>
+            ReferenceHub.roleManager.CurrentRole.RoleTypeId;
+
+        public Inventory Inventory =>
+            ReferenceHub.inventory;
+        
         public void Kill(string reason = null)
-            => Base.Kill(reason ?? throw new ArgumentNullException(nameof(reason)));
+        {
+            Hurt(null, 100000, DamageType.None, reason);
+        }
+        public void Hurt(Player attacker, float amount, DamageType damageType = DamageType.None, string cassieAnnouncement = null) =>
+            Hurt(new DamageHandler.DamageHandler(this, attacker, amount, damageType, cassieAnnouncement));
+         
+        public void Hurt(DamageHandlerBase damageHandlerBase) => ReferenceHub.playerStats.DealDamage(damageHandlerBase);
+        public void Heal(float amount, bool overrideMaxHealth = false)
+        {
+            var healthStat = ReferenceHub.playerStats.GetModule<HealthStat>();
 
-        public void Heal(float amount)
-            => Base.Heal(amount);
+            if (!overrideMaxHealth)
+                healthStat.ServerHeal(amount);
+            else
+                healthStat.CurValue += amount;
+        }
+
 
         public void GiveItem(ItemType item)
-            => Base.AddItem(item);
+            => ReferenceHub.inventory.ServerAddItem(item, ItemAddReason.Undefined);
 
         public void SetRole(RoleTypeId role)
-            => Base.SetRole(role);
+            => ReferenceHub.roleManager.ServerSetRole(role, RoleChangeReason.RemoteAdmin);
 
         public void Teleport(Vector3 position)
-            => Base.Position = position;
-
-        public void Teleport(float x, float y, float z)
-            => Base.Position = new Vector3(x, y, z);
-
-        public void TeleportRelative(Vector3 offset)
-            => Base.Position += offset;
+            => ReferenceHub.transform.position = position;
 
         public void SendBroadcast(string message, ushort duration)
-            => Base.SendBroadcast(message, duration);
+            => ReferenceHub.BroadcastMessage(message, duration);
 
-        public void SendHint(string message, float duration = 3f)
-            => Base.SendHint(message, duration);
+        public void SendHint(string message)
+            => ReferenceHub.hints.Show(new TextHint(message));
 
         public void SendMessage(string message)
-            => Base.SendConsoleMessage(message);
+            => ReferenceHub.gameConsoleTransmission.SendMessage(message);
+
         public void Kick(string reason)
-            => Base.Kick(reason ?? throw new ArgumentNullException(nameof(reason)));
-        public void Ban(string reason, long duration)
-            => Base.Ban(reason, duration);
+            => ReferenceHub.connectionToClient?.Disconnect();
+
+        public void Ban(BanDetails reason, BanHandler.BanType duration)
+            => BanHandler.IssueBan(
+                reason,
+                duration
+            );
+
         public static IReadOnlyCollection<Player> List =>
-            LabApi.Features.Wrappers.Player.List
+            ReferenceHub.AllHubs
                 .Select(Get)
                 .Where(p => p != null)
                 .ToList();
 
         public static int Count =>
-            LabApi.Features.Wrappers.Player.List.Count;
+            ReferenceHub.AllHubs.Count;
 
-        public static Player Get(string userId)
+        public static Player Get(ReferenceHub hub)
         {
-            if (string.IsNullOrWhiteSpace(userId))
+            if (hub == null)
                 return null;
 
-            var lab = LabApi.Features.Wrappers.Player.List
-                .FirstOrDefault(p => p.UserId == userId);
-
-            return Get(lab);
-        }
-
-        public static Player Get(int playerId)
-        {
-            var lab = LabApi.Features.Wrappers.Player.List
-                .FirstOrDefault(p => p.PlayerId == playerId);
-
-            return Get(lab);
-        }
-        
-
-        public static Player Get(LabApi.Features.Wrappers.Player player)
-        {
-            if (player == null)
-                return null;
-
-            if (!Cache.TryGetValue(player, out var wrapped))
+            if (!Cache.TryGetValue(hub, out var player))
             {
-                wrapped = new Player(player);
-                Cache.Add(player, wrapped);
+                player = new Player(hub);
+                Cache.Add(hub, player);
             }
 
-            return wrapped;
+            return player;
         }
+
+        public static Player Get(int playerId) =>
+            Get(ReferenceHub.AllHubs.FirstOrDefault(h => h.PlayerId == playerId));
+
+        public static Player Get(string userId) =>
+            Get(ReferenceHub.AllHubs.FirstOrDefault(h => h.authManager.UserId == userId));
+
         public static Player Get(ICommandSender sender)
         {
-            if (sender is not PlayerCommandSender playerSender)
-                return null;
+            if (sender is PlayerCommandSender pcs)
+                return Get(pcs.ReferenceHub);
 
-            return Get(playerSender);
+            return null;
         }
 
-        public static IReadOnlyCollection<Player> GetSpectatorsOf(Player target)
-        {
-            if (target == null)
-                return new List<Player>();
-
-            return LabApi.Features.Wrappers.Player.List
-                .Where(p => p.CurrentSpectators.Contains(target.Base))
-                .Select(Get)
-                .Where(p => p != null)
-                .ToList();
-        }
-
-        internal static void Remove(LabApi.Features.Wrappers.Player player)
-            => Cache.Remove(player);
+        internal static void Remove(ReferenceHub hub)
+            => Cache.Remove(hub);
     }
 }

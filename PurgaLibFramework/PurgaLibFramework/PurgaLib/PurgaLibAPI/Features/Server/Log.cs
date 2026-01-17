@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
-using LabApi.Features.Console;
+using Discord;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server
 {
-    public static class Log 
+    public static partial class Log
     {
         private static readonly AsyncLocal<string> CurrentPlugin = new();
 
@@ -17,32 +18,30 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Serv
         {
             CurrentPlugin.Value = null;
         }
+        public static void Info(object message) => Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}",
+            LogLevel.Info, ConsoleColor.Cyan);
+        public static void Info(string message) => Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}",
+            LogLevel.Info, ConsoleColor.Cyan);
 
-        private static string Prefix => CurrentPlugin.Value != null ? $"[{CurrentPlugin.Value}] " : "";
+        public static void Warn(object message) => Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}",
+            LogLevel.Warn, ConsoleColor.Yellow);
+        public static void Warn(string message) => Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}",
+            LogLevel.Warn, ConsoleColor.Yellow);
 
-        public static void Info(string message)
+        public static void Error(object message) => Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}",
+            LogLevel.Error, ConsoleColor.DarkRed);
+        public static void Error(string message) => Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}",
+            LogLevel.Error, ConsoleColor.DarkRed);
+
+        public static void Success(object message) =>
+            Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}", LogLevel.Info, ConsoleColor.Green);
+        public static void Success(string message) =>
+            Send($"[{Assembly.GetCallingAssembly().GetName().Name}] {message}", LogLevel.Info, ConsoleColor.Green);
+
+        public static void Send(string message, LogLevel level, ConsoleColor color = ConsoleColor.DarkGray)
         {
-            Logger.Info($"{Prefix}{message}");
+            SendRaw($"[{level.ToString().ToUpper()}] {message}", color);
         }
-
-        public static void Success(string message)
-        {
-            Logger.Raw($"{Prefix}{message}", ConsoleColor.Green);
-        }
-
-        public static void Warn(string message)
-        {
-            Logger.Warn($"{Prefix}{message}");
-        }
-
-        public static void Error(string message)
-        {
-            Logger.Error($"{Prefix}{message}");
-        }
-
-        public static void Debug(string message)
-        {
-            Logger.Debug($"{Prefix}{message}");
-        }
+        public static void SendRaw(object message, ConsoleColor color) => ServerConsole.AddLog(message.ToString(), color);
     }
 }

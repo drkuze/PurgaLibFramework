@@ -1,10 +1,10 @@
 ﻿using PlayerRoles;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player
+namespace PurgaLibEvents.PurgaLibEvent.Events.EventArgs.Player
 {
     public class PlayerChangedRoleEventArgs : System.EventArgs
     {
-        public PurgaLibAPI.Features.Player Player { get; }
+        public PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
         public ReferenceHub ReferenceHub => Player?.ReferenceHub;
         public PlayerRoleBase NewRole { get; }
         public RoleTypeId OldRole { get; }
@@ -13,7 +13,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Even
         public bool IsAllowed { get; set; } = true;
 
         public PlayerChangedRoleEventArgs(
-            PurgaLibAPI.Features.Player player,
+            PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player player,
             RoleTypeId oldRole,
             PlayerRoleBase newRole,
             RoleChangeReason changeReason,

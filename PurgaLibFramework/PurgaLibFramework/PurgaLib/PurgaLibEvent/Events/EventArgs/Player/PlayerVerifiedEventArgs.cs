@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player
+namespace PurgaLibEvents.PurgaLibEvent.Events.EventArgs.Player
 {
     public class PlayerVerifiedEventArgs : System.EventArgs
     {
-        public PurgaLibAPI.Features.Player Player { get; }
+        public PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
 
-        public PlayerVerifiedEventArgs(PurgaLibAPI.Features.Player player)
+        public PlayerVerifiedEventArgs(PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player player)
         {
             Player = player  ?? throw new ArgumentNullException(nameof(player));
             

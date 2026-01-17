@@ -7,19 +7,19 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
         public static void LockTemporarily(this Door door, float duration)
         {
             if (door == null) return;
-            door.Base.IsLocked = true;
-            MEC.Timing.CallDelayed(duration, () => door.Base.IsLocked = false);
+            door.IsLocked = true;
+            MEC.Timing.CallDelayed(duration, () => door.IsLocked = false);
         }
 
         public static void ToggleLock(this Door door)
         {
             if (door == null) return;
-            door.Base.IsLocked = !door.Base.IsLocked;
+            door.IsLocked = !door.IsLocked;
         }
 
         public static bool IsOpen(this Door door)
         {
-            return door != null && door.Base.IsOpened;
+            return door != null && door.IsOpen;
         }
     }
 }

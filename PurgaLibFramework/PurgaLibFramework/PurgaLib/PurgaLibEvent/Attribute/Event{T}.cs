@@ -2,27 +2,39 @@
 using System.Collections.Generic;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Attribute
+namespace PurgaLibEvents.PurgaLibEvent.Attribute
 {
     public sealed class Event<T> : IEvent
     {
         private readonly List<Action<T>> _handlers = new();
-        
+        private readonly object _lock = new();
+
         public void Add(Action<T> handler)
         {
-            if (handler == null) return;
-            _handlers.Add(handler);
+            if (handler == null)
+                return;
+
+            lock (_lock)
+                _handlers.Add(handler);
         }
 
         public void Remove(Action<T> handler)
         {
-            if (handler == null) return;
-            _handlers.Remove(handler);
+            if (handler == null)
+                return;
+
+            lock (_lock)
+                _handlers.Remove(handler);
         }
-        
+
         public void Invoke(T args)
         {
-            foreach (var handler in _handlers)
+            Action<T>[] snapshot;
+
+            lock (_lock)
+                snapshot = _handlers.ToArray();
+
+            foreach (var handler in snapshot)
             {
                 try
                 {
@@ -30,23 +42,11 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Attribute
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"[PurgaLib] Event error: {ex}");
+                    Log.Error($"[PurgaLib] Event handler error: {ex}");
                 }
             }
         }
-        
-        public static Event<T> operator +(Event<T> ev, Action<T> handler)
-        {
-            ev.Add(handler);
-            return ev;
-        }
 
-        public static Event<T> operator -(Event<T> ev, Action<T> handler)
-        {
-            ev.Remove(handler);
-            return ev;
-        }
-        
         void IEvent.Add(Action<object> handler)
         {
             if (handler is Action<T> typed)
@@ -63,6 +63,18 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Attribute
         {
             if (args is T typed)
                 Invoke(typed);
+        }
+
+        public static Event<T> operator +(Event<T> ev, Action<T> handler)
+        {
+            ev.Add(handler);
+            return ev;
+        }
+
+        public static Event<T> operator -(Event<T> ev, Action<T> handler)
+        {
+            ev.Remove(handler);
+            return ev;
         }
     }
 }

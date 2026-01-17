@@ -1,11 +1,11 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+﻿namespace PurgaLibEvents.PurgaLibEvent.Events.EventArgs.Player;
 
 public class PlayerKickedEventArgs : System.EventArgs
 {
-    public PurgaLibAPI.Features.Player Player { get; }
+    public PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
     public string Reason { get; }
 
-    public PlayerKickedEventArgs(PurgaLibAPI.Features.Player player, string reason)
+    public PlayerKickedEventArgs(PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player player, string reason)
     {
         Player = player;
         Reason = reason;

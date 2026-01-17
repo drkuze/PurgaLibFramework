@@ -1,30 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using LabApi.Events.Handlers;
-using LabApi.Features.Wrappers;
-using PlayerRoles;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
+﻿using System.Collections.Generic;
+using PlayerRoles; 
+using PurgaLibEvents.PurgaLibEvent.Attribute;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handlers
 {
     public static class CustomRoleHandler
     {
         public static readonly List<CustomRole> Registered = new();
-        
-        private static EventHandler<Player> _assigned;
-        private static EventHandler<Player> _removed;
 
-        public static event EventHandler<Player> Assigned
-        {
-            add { bool wasEmpty = _assigned == null; _assigned += value; if (wasEmpty) RegisterEvents(); }
-            remove => _assigned -= value;
-        }
-
-        public static event EventHandler<Player> Removed
-        {
-            add { bool wasEmpty = _removed == null; _removed += value; if (wasEmpty) RegisterEvents(); }
-            remove => _removed -= value;
-        }
+        public static Event<Player> Assigned = new();
+        public static Event<Player> Removed = new();
         
         public static void Register(CustomRole role)
         {
@@ -34,29 +20,29 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handl
         
         public static void Give(Player player, CustomRole role)
         {
+            if (player == null || role == null) return;
+
             role.OnAssign(player);
+            Assigned?.Invoke(player);
         }
         
         public static void Remove(Player player, CustomRole role)
         {
+            if (player == null || role == null) return;
+
             role.OnRemove(player);
+            Removed?.Invoke(player);
         }
         
-        public static void RegisterEvents()
+        public static void OnPlayerJoin(Player player)
         {
-            PlayerEvents.Joined += ev =>
-            {
-                var defaultRole = GetDefaultRole();
-                defaultRole.OnAssign(ev.Player);
-            };
+            var defaultRole = GetDefaultRole();
+            Give(player, defaultRole);
         }
 
         private static CustomRole GetDefaultRole()
         {
             return new CustomRole("default", "Player", "", "White", RoleTypeId.ClassD);
         }
-        
-        internal static void InvokeAssigned(Player player) => _assigned?.Invoke(null, player);
-        internal static void InvokeRemoved(Player player) => _removed?.Invoke(null, player);
     }
 }

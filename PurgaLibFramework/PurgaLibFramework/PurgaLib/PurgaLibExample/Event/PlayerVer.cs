@@ -1,5 +1,6 @@
-﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+﻿using PurgaLibEvents.PurgaLibEvent.Events.EventArgs.Player;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handler;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibExample.Event;
 
@@ -13,11 +14,11 @@ public class PlayerVer
 
     public void Register()
     {
-        PurgaLibEvent.Events.Handler.PlayerHandler.Verified += PlayerVeri;
+        PlayerHandler.Verified += PlayerVeri;
     }
 
     public void UnRegister()
     {
-        PurgaLibEvent.Events.Handler.PlayerHandler.Verified -= PlayerVeri;
+        PlayerHandler.Verified -= PlayerVeri;
     }
 }

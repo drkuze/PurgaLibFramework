@@ -1,6 +1,7 @@
 ﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI;
 
-public class Version
+public static class Version
 {
-    public static string version = "1.1.0";
+    //No Dependencies from LabAPI
+    public static string version => "1.2.0";
 }

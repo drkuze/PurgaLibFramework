@@ -5,42 +5,53 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Serv
 {
     public sealed class MapActor : PActor
     {
-        public void TurnOffAllLights(ushort duration)
+        private static Light[] _allLights;
+        private static void InitLights()
         {
-            LabApi.Features.Wrappers.Map.TurnOffLights(duration);
+            if (_allLights == null)
+                _allLights = GameObject.FindObjectsOfType<Light>();
+        }
+        public static void TurnOffAllLights(float duration)
+        {
+            InitLights();
+            foreach (var light in _allLights)
+                light.enabled = false;
+            
+            if (duration > 0f)
+            {
+                UnityEngine.MonoBehaviour dummy = new GameObject("TempLightTimer").AddComponent<MonoBehaviour>();
+                dummy.StartCoroutine(TurnOnAfterDelay(dummy, duration));
+            }
         }
 
-        public void ResetAllLights()
+        private static System.Collections.IEnumerator TurnOnAfterDelay(MonoBehaviour mb, float duration)
         {
-            LabApi.Features.Wrappers.Map.ResetColorOfLights();
+            yield return new WaitForSeconds(duration);
+            TurnOnAllLights();
+            GameObject.Destroy(mb.gameObject);
         }
-
-        public void SetColorOfAllLights(Color color)
+        
+        public static void TurnOnAllLights()
         {
-            LabApi.Features.Wrappers.Map.SetColorOfLights(color);
+            InitLights();
+            foreach (var light in _allLights)
+                light.enabled = true;
         }
-
-        public void TurnOnAllLights()
+        
+        public static void SetColorOfAllLights(Color color)
         {
-            LabApi.Features.Wrappers.Map.TurnOnLights();
+            InitLights();
+            foreach (var light in _allLights)
+                light.color = color;
         }
-
+        
+        public static void ResetAllLights()
+        {
+            SetColorOfAllLights(Color.white);
+        }
+        
         public override bool IsAlive => true;
         public override Transform Transform => null;
-
         protected override void Tick() { }
-    }
-
-    public static class Map
-    {
-        private static readonly MapActor Core = StaticActor.Get<MapActor>();
-
-        public static void TurnOffAllLights(ushort duration) => Core.TurnOffAllLights(duration);
-
-        public static void ResetAllLights() => Core.ResetAllLights();
-
-        public static void SetColorOfAllLights(Color color) => Core.SetColorOfAllLights(color);
-
-        public static void TurnOnAllLights() => Core.TurnOnAllLights();
     }
 }

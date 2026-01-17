@@ -1,56 +1,59 @@
-﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round;
+﻿using System;
+using GameCore;
+using RoundRestarting;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
+
+public static class Round
 {
-    public sealed class RoundActor : PActor
+    public static TimeSpan ElapsedTime => RoundStart.RoundLength;
+    public static DateTime StartedTime => DateTime.Now - ElapsedTime;
+    public static bool IsStarted => ReferenceHub.TryGetHostHub(out ReferenceHub hub) && hub.characterClassManager.RoundStarted;
+    public static bool InProgress => !IsEnded && RoundSummary.RoundInProgress();
+    public static bool IsEnded => RoundSummary.singleton.IsRoundEnded && RoundSummary.singleton.IsRoundEnded;
+    public static bool IsLobby => !(IsEnded || IsStarted);
+    
+    public static RoundSummary.SumInfo_ClassList LastClassList { get; internal set; }
+    public static bool IsLocked
     {
-        public RoundActor() { }
-
-        public bool IsStarted { get; private set; } = false;
-
-        public void Start()
-        {
-            PurgaLibEvent.Events.Handler.RoundHandler.OnStarting(new RoundStartingEventArgs());
-            LabApi.Features.Wrappers.Round.Start();
-            IsStarted = true;
-            PurgaLibEvent.Events.Handler.RoundHandler.OnStarted(new RoundStartedEventArgs());
-        }
-
-        public void Restart()
-        {
-            PurgaLibEvent.Events.Handler.RoundHandler.OnRestarting(new RoundRestartingEventArgs());
-            LabApi.Features.Wrappers.Round.Restart();
-            IsStarted = true;
-            PurgaLibEvent.Events.Handler.RoundHandler.OnStarted(new RoundStartedEventArgs());
-        }
-
-        public void Stop()
-        {
-            LabApi.Features.Wrappers.Round.End();
-            IsStarted = false;
-            PurgaLibEvent.Events.Handler.RoundHandler.OnEnded(new RoundEndedEventArgs("Unknown"));
-        }
-
-        public override bool IsAlive => true;
-        public override UnityEngine.Transform Transform => null;
-
-        protected override void Tick()
-        {
-            base.Tick();
-        }
+        get => RoundSummary.RoundLock;
+        set => RoundSummary.RoundLock = value;
     }
-
-    public static class Round
+    public static bool IsLobbyLocked
     {
-        private static readonly RoundActor Core = StaticActor.Get<RoundActor>();
-
-        public static bool IsStarted => Core.IsStarted;
-
-        public static void Start() => Core.Start();
-
-        public static void Restart() => Core.Restart();
-
-        public static void Stop() => Core.Stop();
+        get => RoundStart.LobbyLock;
+        set => RoundStart.LobbyLock = value;
     }
+    public static short LobbyWaitingTime
+    {
+        get => RoundStart.singleton.NetworkTimer;
+        set => RoundStart.singleton.NetworkTimer = value;
+    }
+    public static void Restart(bool fastRestart = true, bool overrideRestartAction = false, ServerStatic.NextRoundAction restartAction = ServerStatic.NextRoundAction.DoNothing)
+    {
+        if (overrideRestartAction)
+            ServerStatic.StopNextRound = restartAction;
+        bool oldValue = CustomNetworkManager.EnableFastRestart;
+        CustomNetworkManager.EnableFastRestart = fastRestart;
+
+        RoundRestart.InitiateRoundRestart();
+
+        CustomNetworkManager.EnableFastRestart = oldValue;
+    }
+        
+    public static bool End(bool End = false)
+    {
+        if (RoundSummary.singleton.KeepRoundOnOne && Player.List.Count < 2 && !End)
+            return false;
+
+        if ((IsStarted && !IsLocked) || End)
+        {
+            RoundSummary.singleton.ForceEnd();
+            return true;
+        }
+
+        return false;
+    }
+        
+    public static void Start() => CharacterClassManager.ForceRoundStart();
 }

@@ -1,12 +1,14 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Map
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
+
+namespace PurgaLibEvents.PurgaLibEvent.Events.EventArgs.Map
 {
     public class DoorInteractingEventArgs : System.EventArgs
     {
-        public PurgaLibAPI.Features.Player Player { get; }
-        public PurgaLibAPI.Features.Door Door { get; }
+        public PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
+        public Door Door { get; }
         public bool IsAllowed { get; set; } = true;
 
-        public DoorInteractingEventArgs(PurgaLibAPI.Features.Player player, PurgaLibAPI.Features.Door door)
+        public DoorInteractingEventArgs(PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player player, Door door)
         {
             Player = player;
             Door = door;

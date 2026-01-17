@@ -1,87 +1,123 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MEC;
+using Interactables.Interobjects.DoorUtils;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
 using UnityEngine;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 {
     public sealed class Door
     {
-        internal LabApi.Features.Wrappers.Door Base { get; }
+        private readonly DoorVariant _door;
+        private static readonly Dictionary<DoorVariant, Door> Cache = new();
 
-        private static readonly Dictionary<LabApi.Features.Wrappers.Door, Door> Cache = new();
-
-        private Door(LabApi.Features.Wrappers.Door door)
+        public Door(DoorVariant door)
         {
-            Base = door;
+            _door = door;
         }
 
-        public Vector3 Position => Base.Transform.position;
-        public string Name => Base.GameObject.name;
+        public DoorVariant Base => _door;
 
-        public bool IsLocked
-        {
-            get => Base.IsLocked;
-            set => Base.IsLocked = value;
-        }
+        public Vector3 Position => _door.gameObject.transform.position;
+        public string Name => _door.gameObject.name;
 
         public bool IsOpen
         {
-            get => Base.IsOpened;
-            set => Base.IsOpened = value;
+            get => _door.NetworkTargetState;
+            set => _door.NetworkTargetState = value;
         }
 
-        public void Open()
-            => Base.IsOpened = true;
-
-        public void Close()
-            => Base.IsOpened = false;
-
-        public void Lock()
-            => Base.IsLocked = true;
-
-        public void Unlock()
-            => Base.IsLocked = false;
-
-        public void Lock(float duration)
+        public bool IsLocked
         {
-            Base.IsLocked = true;
-            Timing.CallDelayed(duration, () => Base.IsLocked = false);
+            get => DoorLockType > 0;
+            set
+            {
+                if (value) Lock(DoorLockType.None);
+                else Unlock();
+            }
         }
+
+        
+        public DoorLockType DoorLockType
+        {
+            get => (DoorLockType)Base.NetworkActiveLocks;
+            set => ChangeLock(value);
+        }
+        
+        public void ChangeLock(DoorLockType lockType)
+        {
+            if (lockType is DoorLockType.None)
+            {
+                Base.NetworkActiveLocks = 0;
+            }
+            else
+            {
+                DoorLockType locks = DoorLockType;
+                if (locks.HasFlag(lockType))
+                    locks &= ~lockType;
+                else
+                    locks |= lockType;
+
+                Base.NetworkActiveLocks = (ushort)locks;
+            }
+
+            DoorEvents.TriggerAction(Base, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
+        }
+        public void Lock(float time, DoorLockType lockType)
+        {
+            Lock(lockType);
+            Unlock(time, lockType);
+        }
+        public void Lock(DoorLockType lockType)
+        {
+            DoorLockType locks = DoorLockType;
+            locks |= lockType;
+            Base.NetworkActiveLocks = (ushort)locks;
+            DoorEvents.TriggerAction(Base, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
+        }
+        public void Unlock() => ChangeLock(DoorLockType.None);
+        public void Unlock(float time, DoorLockType flagsToUnlock) => DoorScheduledUnlocker.UnlockLater(Base, time, (DoorLockReason)flagsToUnlock);
+        public float ExactState => _door.TargetState.GetHashCode();
+
+        public bool IsFullyOpen => ExactState >= 1f;
+        public bool IsFullyClosed => ExactState <= 0f;
 
         public static IReadOnlyCollection<Door> List =>
-            LabApi.Features.Wrappers.Door.List
+            DoorVariant.AllDoors
                 .Select(Get)
                 .Where(d => d != null)
                 .ToList();
 
-        public static Door Get(LabApi.Features.Wrappers.Door door)
+        public static Door Get(DoorVariant variant)
         {
-            if (door == null)
-                return null;
-
-            if (!Cache.TryGetValue(door, out var wrapped))
+            if (variant == null) return null;
+            if (!Cache.TryGetValue(variant, out var door))
             {
-                wrapped = new Door(door);
-                Cache.Add(door, wrapped);
+                door = new Door(variant);
+                Cache.Add(variant, door);
+            }
+            return door;
+        }
+
+        public static Door GetClosest(Vector3 pos, out float distance)
+        {
+            Door best = null;
+            float bestDist = float.MaxValue;
+
+            foreach (var variant in DoorVariant.AllDoors)
+            {
+                float d = Vector3.Distance(pos, variant.gameObject.transform.position);
+                if (d < bestDist)
+                {
+                    bestDist = d;
+                    best = Get(variant);
+                }
             }
 
-            return wrapped;
+            distance = bestDist;
+            return best;
         }
 
-        public static void LockAll(float duration)
-        {
-            foreach (var door in List)
-                door.Lock(duration);
-        }
-
-        public static void UnlockAll()
-        {
-            foreach (var door in List)
-                door.Unlock();
-        }
-
-        internal static void Remove(LabApi.Features.Wrappers.Door door)
-            => Cache.Remove(door);
+        public override string ToString() => $"{Name} ({Position})";
     }
 }

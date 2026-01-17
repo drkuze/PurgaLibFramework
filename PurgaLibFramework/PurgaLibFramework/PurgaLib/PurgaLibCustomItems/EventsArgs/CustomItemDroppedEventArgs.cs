@@ -1,4 +1,4 @@
-﻿using LabApi.Features.Wrappers;
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.EventsArgs;
 
