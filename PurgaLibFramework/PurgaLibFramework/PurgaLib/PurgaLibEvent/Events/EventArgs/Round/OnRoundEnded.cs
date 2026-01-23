@@ -1,7 +1,10 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round;
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventSystem.Interfaces;
 
-public class RoundEndedEventArgs : System.EventArgs
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round;
+
+public class RoundEndedEventArgs : IEventArgs
 {
-    public string LeadingTeam { get; }
-    public RoundEndedEventArgs(string team) => LeadingTeam = team;
+    public RoundSummary.LeadingTeam LeadingTeam { get; }
+    public RoundEndedEventArgs(RoundSummary.LeadingTeam team) => LeadingTeam = team;
+    public bool IsAllowed { get; set; }
 }

@@ -1,26 +1,23 @@
-﻿using System;
-using PlayerRoles;
+﻿using PlayerRoles;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventSystem.Interfaces;
 
-public class PlayerChangedRoleEventArgs : EventArgs
+public class PlayerChangedRoleEventArgs : IEventArgs
 {
     public Player Player { get; }
     public RoleTypeId OldRole { get; }
     public RoleTypeId NewRole { get; }
-    public RoleChangeReason Reason { get; }
-    public RoleSpawnFlags SpawnFlags { get; }
 
     public PlayerChangedRoleEventArgs(
         Player player,
         RoleTypeId oldRole,
-        RoleTypeId newRole,
-        RoleChangeReason reason,
-        RoleSpawnFlags spawnFlags)
+        RoleTypeId newRole
+        )
     {
         Player = player;
         OldRole = oldRole;
         NewRole = newRole;
-        Reason = reason;
-        SpawnFlags = spawnFlags;
     }
+
+    public bool IsAllowed { get; set; }
 }

@@ -1,15 +1,17 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventSystem.Interfaces;
 
-public class PlayerBannedEventArgs : System.EventArgs
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+
+public class PlayerBannedEventArgs : IEventArgs
 {
-    public global::PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
-    public string Reason { get; }
-    public long Duration { get; }
+    public PurgaLibAPI.Features.Player Player { get; }
+    public BanHandler.BanType BanType { get; }
 
-    public PlayerBannedEventArgs(global::PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player player, string reason, long duration)
+    public PlayerBannedEventArgs(PurgaLibAPI.Features.Player player, BanHandler.BanType banType)
     {
         Player = player;
-        Duration = duration;
-        Reason = reason;
+        BanType = banType;
     }
+
+    public bool IsAllowed { get; set; }
 }

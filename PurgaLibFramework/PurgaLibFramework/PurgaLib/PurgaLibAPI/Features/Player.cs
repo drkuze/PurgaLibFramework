@@ -135,6 +135,11 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 
             return null;
         }
+        public static bool TryGet(string userId, out Player player)
+        {
+            player = Get(userId); 
+            return player != null;
+        }
 
         internal static void Remove(ReferenceHub hub)
             => Cache.Remove(hub);

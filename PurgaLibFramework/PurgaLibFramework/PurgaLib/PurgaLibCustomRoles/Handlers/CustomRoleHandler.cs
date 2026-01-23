@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PlayerRoles;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Attribute;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handlers
 {
@@ -9,8 +9,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles.Handl
     {
         public static readonly List<CustomRole> Registered = new();
 
-        public static Event<Player> Assigned = new();
-        public static Event<Player> Removed = new();
+        public static event Action<Player> Assigned;
+        public static event Action<Player> Removed;
         
         public static void Register(CustomRole role)
         {

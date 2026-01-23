@@ -1,5 +1,13 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventSystem.Interfaces;
+
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Round
 {
-    public class RoundStartingEventArgs : System.EventArgs { }
-    public class RoundStartedEventArgs : System.EventArgs { }
+    public class RoundStartingEventArgs : IEventArgs
+    {
+        public bool IsAllowed { get; set; }
+    }
+    public class RoundStartedEventArgs : IEventArgs
+    {
+        public bool IsAllowed { get; set; }
+    }
 }

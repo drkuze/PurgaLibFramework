@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using InventorySystem;
 using InventorySystem.Items;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.EventsArgs;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Attribute;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handlers
 {
@@ -13,9 +13,9 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomItems.Handl
 
         internal static readonly Dictionary<Item, CustomItem> ItemMap = new();
         
-        public static Event<CustomItemDroppedEventArgs> DroppedItem = new();
-        public static Event<CustomItemPickedUpEventArgs> PickedUpItem = new();
-        public static Event<CustomItemUsedEventArgs> UsedItem = new();
+        public static event Action<CustomItemDroppedEventArgs> DroppedItem;
+        public static event Action<CustomItemPickedUpEventArgs> PickedUpItem;
+        public static event Action<CustomItemUsedEventArgs> UsedItem;
         
         public static void Register(CustomItem customItem)
         {

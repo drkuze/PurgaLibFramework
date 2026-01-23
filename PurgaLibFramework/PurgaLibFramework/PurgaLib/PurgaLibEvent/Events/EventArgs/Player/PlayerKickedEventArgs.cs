@@ -1,6 +1,8 @@
-﻿namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventSystem.Interfaces;
 
-public class PlayerKickedEventArgs : System.EventArgs
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+
+public class PlayerKickedEventArgs : IEventArgs
 {
     public global::PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
     public string Reason { get; }
@@ -10,4 +12,6 @@ public class PlayerKickedEventArgs : System.EventArgs
         Player = player;
         Reason = reason;
     }
+
+    public bool IsAllowed { get; set; }
 }

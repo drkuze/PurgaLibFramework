@@ -1,8 +1,9 @@
-﻿using Scp914;
+﻿using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventSystem.Interfaces;
+using Scp914;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.SCP;
 
-public class UpgradingPlayersEventArgs : System.EventArgs
+public class UpgradingPlayersEventArgs : IEventArgs
 {
     public global::PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Player Player { get; }
     public Scp914KnobSetting Setting { get;}
@@ -12,5 +13,6 @@ public class UpgradingPlayersEventArgs : System.EventArgs
         Player = player;
         Setting = setting;
     }
-    
+
+    public bool IsAllowed { get; set; }
 }
