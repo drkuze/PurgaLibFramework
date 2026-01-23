@@ -51,7 +51,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hook
 
         [HarmonyPatch(typeof(ServerConsole), nameof(ServerConsole.Disconnect), new Type[] { typeof(GameObject), typeof(string) })]
         [HarmonyPostfix]
-        public static void Postfix_Disconnect(GameObject player, string message) // usa i nomi originali!
+        public static void Postfix_Disconnect(GameObject player, string message) 
         {
             if (player == null) return;
 
@@ -61,10 +61,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hook
 
             try
             {
-                // LEFT event
                 PlayerHandlers.InvokeSafely(new PlayerLeftEventArgs(pl));
-
-                // KICKED event
                 PlayerHandlers.InvokeSafely(new PlayerKickedEventArgs(pl, message));
             }
             catch (Exception ex)
