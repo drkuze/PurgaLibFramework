@@ -5,9 +5,12 @@ using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl.Spawnpoints;
 using PlayerStatsSystem;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Server;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.EventArgs.Player;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Handlers;
+using Respawning;
+using Respawning.Waves;
 using UnityEngine;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hooks
@@ -198,5 +201,25 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibEvent.Events.Hook
             }
         }
 
+        [HarmonyPatch(typeof(RespawnTokensManager), nameof(RespawnTokensManager.OnWaveSpawned))]
+        [HarmonyPostfix]
+        public static void Postfix_TeamRespawned(SpawnableWaveBase wave) 
+        {
+            if (wave == null) return;
+            
+            Team team = RoleTypeExtensions.FactionToTeam(wave.TargetFaction);
+            
+            int count = wave.MaxWaveSize;
+            var ev = new RespawnedTeamEventArgs(team, count);
+            try
+            {
+                PlayerHandlers.InvokeSafely(ev);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[PurgaLib] Respawned Team error:\n{ex}");
+            }
+        }
+        
     }
 }

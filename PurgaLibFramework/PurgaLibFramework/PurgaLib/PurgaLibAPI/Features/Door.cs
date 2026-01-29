@@ -2,6 +2,7 @@
 using System.Linq;
 using Interactables.Interobjects.DoorUtils;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.DoorVariantMapper;
 using UnityEngine;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
@@ -14,9 +15,12 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
         public Door(DoorVariant door)
         {
             _door = door;
+            Type = DoorMapper.GetDoorType(door); // assegna subito il DoorType
         }
 
         public DoorVariant Base => _door;
+        
+        public DoorType Type { get; private set; } = DoorType.UnknownDoor;
 
         public Vector3 Position => _door.gameObject.transform.position;
         public string Name => _door.gameObject.name;
@@ -29,7 +33,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 
         public bool IsLocked
         {
-            get => DoorLockType > 0;
+            get => DoorLockType != DoorLockType.None;
             set
             {
                 if (value) Lock(DoorLockType.None);
@@ -37,60 +41,64 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
             }
         }
 
-        
         public DoorLockType DoorLockType
         {
-            get => (DoorLockType)Base.NetworkActiveLocks;
+            get => (DoorLockType)_door.NetworkActiveLocks;
             set => ChangeLock(value);
         }
-        
+
         public void ChangeLock(DoorLockType lockType)
         {
-            if (lockType is DoorLockType.None)
-            {
-                Base.NetworkActiveLocks = 0;
-            }
+            if (lockType == DoorLockType.None)
+                _door.NetworkActiveLocks = 0;
             else
             {
-                DoorLockType locks = DoorLockType;
+                var locks = DoorLockType;
                 if (locks.HasFlag(lockType))
                     locks &= ~lockType;
                 else
                     locks |= lockType;
 
-                Base.NetworkActiveLocks = (ushort)locks;
+                _door.NetworkActiveLocks = (ushort)locks;
             }
 
-            DoorEvents.TriggerAction(Base, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
+            DoorEvents.TriggerAction(_door, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
         }
+
+        public void Lock(DoorLockType lockType)
+        {
+            var locks = DoorLockType;
+            locks |= lockType;
+            _door.NetworkActiveLocks = (ushort)locks;
+
+            DoorEvents.TriggerAction(_door, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
+        }
+
         public void Lock(float time, DoorLockType lockType)
         {
             Lock(lockType);
             Unlock(time, lockType);
         }
-        public void Lock(DoorLockType lockType)
-        {
-            DoorLockType locks = DoorLockType;
-            locks |= lockType;
-            Base.NetworkActiveLocks = (ushort)locks;
-            DoorEvents.TriggerAction(Base, IsLocked ? DoorAction.Locked : DoorAction.Unlocked, null);
-        }
+
         public void Unlock() => ChangeLock(DoorLockType.None);
-        public void Unlock(float time, DoorLockType flagsToUnlock) => DoorScheduledUnlocker.UnlockLater(Base, time, (DoorLockReason)flagsToUnlock);
-        public float ExactState => _door.TargetState.GetHashCode();
+
+        public void Unlock(float time, DoorLockType flagsToUnlock)
+        {
+            DoorScheduledUnlocker.UnlockLater(_door, time, (DoorLockReason)flagsToUnlock);
+        }
+
+        public float ExactState => _door.GetExactState();
 
         public bool IsFullyOpen => ExactState >= 1f;
         public bool IsFullyClosed => ExactState <= 0f;
 
         public static IReadOnlyCollection<Door> List =>
-            DoorVariant.AllDoors
-                .Select(Get)
-                .Where(d => d != null)
-                .ToList();
+            DoorVariant.AllDoors.Select(Get).Where(d => d != null).ToList();
 
         public static Door Get(DoorVariant variant)
         {
             if (variant == null) return null;
+
             if (!Cache.TryGetValue(variant, out var door))
             {
                 door = new Door(variant);
@@ -118,6 +126,6 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
             return best;
         }
 
-        public override string ToString() => $"{Name} ({Position})";
+        public override string ToString() => $"{Name} ({Position}) - Type: {Type}";
     }
 }

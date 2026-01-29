@@ -19,7 +19,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Serv
             
             if (duration > 0f)
             {
-                UnityEngine.MonoBehaviour dummy = new GameObject("TempLightTimer").AddComponent<MonoBehaviour>();
+                MonoBehaviour dummy = new GameObject("TempLightTimer").AddComponent<MonoBehaviour>();
                 dummy.StartCoroutine(TurnOnAfterDelay(dummy, duration));
             }
         }

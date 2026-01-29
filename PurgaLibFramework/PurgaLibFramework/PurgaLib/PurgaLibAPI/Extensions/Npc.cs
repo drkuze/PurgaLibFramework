@@ -29,8 +29,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
             NetworkServer.AddPlayerForConnection(fakeConn, obj);
 
             var hub = obj.GetComponent<ReferenceHub>();
-
-            // Imposta valori base del player
+            
             int id = _nextConId++;
             hub.nicknameSync.Network_myNickSync = name;
             hub.roleManager.InitializeNewRole(RoleTypeId.None, RoleChangeReason.None);

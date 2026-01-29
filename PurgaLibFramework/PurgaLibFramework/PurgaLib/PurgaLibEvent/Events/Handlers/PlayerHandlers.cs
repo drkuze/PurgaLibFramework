@@ -17,7 +17,8 @@ public static class PlayerHandlers
     public static event Action<PlayerSpawningEventArgs> Spawning;
     public static event Action<PlayerSpawnedEventArgs> Spawned;
     public static event Action<PlayerVerifiedEventArgs> Verified;
-
+    public static event Action<RespawnedTeamEventArgs> TeamRespawned;
+    
     public static void InvokeSafely(PlayerBannedEventArgs ev) => Banned?.Invoke(ev);
     public static void InvokeSafely(PlayerChangedRoleEventArgs ev) => ChangedRole?.Invoke(ev);
     public static void InvokeSafely(PlayerChangingRoleEventArgs ev) => ChangingRole?.Invoke(ev);
@@ -30,4 +31,5 @@ public static class PlayerHandlers
     public static void InvokeSafely(PlayerSpawningEventArgs ev) => Spawning?.Invoke(ev);
     public static void InvokeSafely(PlayerSpawnedEventArgs ev) => Spawned?.Invoke(ev);
     public static void InvokeSafely(PlayerVerifiedEventArgs ev) => Verified?.Invoke(ev);
+    public static void InvokeSafely(RespawnedTeamEventArgs ev) => TeamRespawned?.Invoke(ev);
 }

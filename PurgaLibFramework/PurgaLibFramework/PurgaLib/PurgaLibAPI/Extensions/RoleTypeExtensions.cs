@@ -18,5 +18,17 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
         {
             return !role.IsSCP() && role != RoleTypeId.Spectator;
         }
+        public static Team FactionToTeam(Faction faction)
+        {
+            return faction switch
+            {
+                Faction.FoundationStaff => Team.FoundationForces,
+                Faction.FoundationEnemy => Team.ChaosInsurgency,
+                Faction.SCP => Team.SCPs, 
+                Faction.Unclassified => Team.Dead,
+                _ => Team.OtherAlive
+            };
+        }
+
     }
 }

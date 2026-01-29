@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CommandSystem;
+using CustomPlayerEffects;
 using Hints;
 using InventorySystem;
 using InventorySystem.Items;
@@ -9,6 +10,7 @@ using PlayerStatsSystem;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core.Interfaces;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Effects;
 using RemoteAdmin;
 using UnityEngine;
 
@@ -19,10 +21,12 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
         private static readonly Dictionary<ReferenceHub, Player> Cache = new();
 
         public ReferenceHub ReferenceHub { get; }
+        public PlayerEffectHandler EffectHandler { get; }
 
         public Player(ReferenceHub gameObject)
         {
             ReferenceHub = ReferenceHub.GetHub(gameObject);
+            EffectHandler = new PlayerEffectHandler(gameObject);
         }
 
         public override Transform Transform => ReferenceHub.transform;
@@ -47,9 +51,11 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
             ReferenceHub.playerStats.GetModule<HealthStat>().MaxValue;
         public float MinHealth =>
             ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
+
         public RoleTypeId Role =>
             ReferenceHub.roleManager.CurrentRole.RoleTypeId;
-
+        public Team Team => 
+            ReferenceHub.roleManager.CurrentRole.Team;
         public Inventory Inventory =>
             ReferenceHub.inventory;
         
@@ -98,6 +104,51 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
                 reason,
                 duration
             );
+        
+        public bool EnableEffect(Effect effect) 
+        {
+            if (effect == null)
+                return false;
+
+            if (!effect.IsEnabled)
+                return false;
+
+            if (!EffectHandler.TryGetEffect(effect.Type, out StatusEffectBase status))
+                return false;
+
+            if (effect.AddDurationIfActive && status.IsEnabled)
+            {
+                status.ServerChangeDuration(effect.Duration, addDuration: true);
+            }
+            else
+            {
+                status.Intensity = effect.Intensity;
+                status.ServerSetState(effect.Intensity, effect.Duration);
+            }
+
+            return true;
+        }
+        
+        public bool DisableEffect(EffectType type)
+        {
+            if (!EffectHandler.TryGetEffect(type, out StatusEffectBase effect))
+                return false;
+
+            effect.ServerDisable();
+            return true;
+        }
+        
+        public bool HasEffect(EffectType type)
+        {
+            return EffectHandler.TryGetEffect(type, out StatusEffectBase effect)
+                   && effect.IsEnabled;
+        }
+
+        public StatusEffectBase GetEffect(EffectType type)
+        {
+            EffectHandler.TryGetEffect(type, out StatusEffectBase effect);
+            return effect;
+        }
 
         public static IReadOnlyCollection<Player> List =>
             ReferenceHub.AllHubs

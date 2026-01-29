@@ -412,6 +412,7 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\DamageType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\DoorLockType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\DoorType.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\EffectType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\FirearmType.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\ItemCategory.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Enums\PlayerRole.cs" />
@@ -424,6 +425,10 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Extensions\Vector3Extensions.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\AutoWhiteList.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Door.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\DoorVariantMapper\DoorVariantMapper.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Effects\Effect.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Effects\EffectMapper.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Effects\PlayerEffectHandler.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Elevator.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Item.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Player.cs" />
@@ -432,6 +437,7 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Server\Map.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Server\Round.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Server\Server.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Features\Warhead.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibAPI\Version.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibCredit\CreditTagsHandler.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibCredit\Enums\CreditRank.cs" />
@@ -458,6 +464,7 @@
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerLeftEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerSpawningEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\PlayerVerifiedEventArgs.cs" />
+        <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\RespawnedTeamEventArgs.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Player\VerifiedCache.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnRoundEnded.cs" />
         <Compile Include="PurgaLibFramework\PurgaLib\PurgaLibEvent\Events\EventArgs\Round\OnRoundStarted.cs" />
@@ -498,10 +505,6 @@
       <Content Include="PurgaLibFramework\NuGet\nuget.exe" />
       <Content Include="PurgaLibFramework\NuGet\pack.nuspec" />
       <Content Include="PurgaLibFramework\NuGet\ico.png" />
-      <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.6.nupkg" />
-      <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.7.nupkg" />
-      <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.8.nupkg" />
-      <Content Include="PurgaLibFramework\NuGet\PurgaLibFramework.0.0.9.nupkg" />
       <Content Include="PurgaLibFramework\NuGet\README.md" />
       <Content Include="PurgaLibFramework\PurgaLib\PurgaLibInstaller\Linux\Installer.sh" />
       <Content Include="PurgaLibFramework\PurgaLib\PurgaLibInstaller\Windows\Installer.ps1" />
