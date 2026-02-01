@@ -2,7 +2,7 @@
 using System.Linq;
 using Interactables.Interobjects.DoorUtils;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
-using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.DoorVariantMapper;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions.DoorVariantMapper;
 using UnityEngine;
 
 namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features

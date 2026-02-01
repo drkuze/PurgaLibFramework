@@ -28,9 +28,9 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles
             if (player == null) return;
 
             if (!OriginalRoles.ContainsKey(player))
-                OriginalRoles[player] = player.Role;
+                OriginalRoles[player] = player.Role.Type;
 
-            player.SetRole(BaseRoleType);
+            player.Role.Set(BaseRoleType);
         }
 
         public void OnRemove(Player player)
@@ -39,7 +39,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCustomRoles
 
             if (OriginalRoles.TryGetValue(player, out var original))
             {
-                player.SetRole(original);
+                player.Role.Set(original);
                 OriginalRoles.Remove(player);
             }
         }

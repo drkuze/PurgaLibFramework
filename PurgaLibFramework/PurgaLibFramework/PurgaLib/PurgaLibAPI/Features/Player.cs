@@ -4,15 +4,17 @@ using CommandSystem;
 using CustomPlayerEffects;
 using Hints;
 using InventorySystem;
-using InventorySystem.Items;
 using Mirror;
 using PlayerRoles;
 using PlayerStatsSystem;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Core.Interfaces;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions.AttachmentExtension;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Effects;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Hints;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.Role;
 using RemoteAdmin;
 using UnityEngine;
 
@@ -59,8 +61,8 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
         public float MinHealth =>
             ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
 
-        public RoleTypeId Role =>
-            ReferenceHub.roleManager.CurrentRole.RoleTypeId;
+        public PlayerRole Role =>
+            new PlayerRole(this, ReferenceHub.roleManager.CurrentRole);
         public Team Team => 
             ReferenceHub.roleManager.CurrentRole.Team;
         public Inventory Inventory =>
@@ -83,14 +85,65 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
             else
                 healthStat.CurValue += amount;
         }
+        
+        public Item AddItem(ItemType type)
+        {
+            Item item = Item.Create(type, this);
+            Inventory.UserInventory.Items[item.Serial] = item.Base;
+            item.ChangeOwner(null, this); 
+            return item;
+        }
+        
+        public Item AddItem(FirearmType firearmType, IEnumerable<AttachmentIdentifier> attachments = null)
+        {
+            Item item = AddItem(firearmType.GetItemType());
 
+            if (item.IsWeapon && attachments != null)
+            {
+                item.Firearm.AddAttachment(attachments);
+            }
 
-        public void GiveItem(ItemType item)
-            => ReferenceHub.inventory.ServerAddItem(item, ItemAddReason.Undefined);
+            return item;
+        }
+        
+        public IEnumerable<Item> AddItems(IEnumerable<ItemType> items)
+        {
+            List<Item> addedItems = new();
+            foreach (var type in items)
+                addedItems.Add(AddItem(type));
+            return addedItems;
+        }
+        
+        public IEnumerable<Item> AddItems(Dictionary<FirearmType, IEnumerable<AttachmentIdentifier>> firearms)
+        {
+            List<Item> added = new();
+            foreach (var kvp in firearms)
+                added.Add(AddItem(kvp.Key, kvp.Value));
+            return added;
+        }
 
-        public void SetRole(RoleTypeId role)
-            => ReferenceHub.roleManager.ServerSetRole(role, RoleChangeReason.RemoteAdmin);
+        public void RemoveItem(Item item)
+        {
+            if (item == null) return;
 
+            Inventory.ServerRemoveItem(item.Serial, null);
+        }
+        
+        public void GiveItem(Item item, Player target)
+        {
+            if (item == null || target == null) return;
+
+            RemoveItem(item);
+            target.AddItem(item.Type);
+        }
+        
+        public void DropItem(Item item, Vector3 position)
+        {
+            if (item == null) return;
+
+            Inventory.ServerDropItem(item.Serial);
+        }
+        
         public void Teleport(Vector3 position)
             => ReferenceHub.transform.position = position;
 
@@ -264,6 +317,5 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features
 
         internal static void Remove(ReferenceHub hub)
             => Cache.Remove(hub);
-        
     }
 }

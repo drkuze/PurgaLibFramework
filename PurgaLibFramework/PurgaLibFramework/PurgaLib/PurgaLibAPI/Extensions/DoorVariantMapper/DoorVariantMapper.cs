@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.DoorVariantMapper
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions.DoorVariantMapper
 {
     public static class DoorMapper
     {

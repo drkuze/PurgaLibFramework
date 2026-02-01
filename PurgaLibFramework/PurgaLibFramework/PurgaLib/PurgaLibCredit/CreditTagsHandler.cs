@@ -10,7 +10,6 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibCredit
         {
             if (player == null)
                 return;
-
             if (!CreditDatabase.TryGetRank(player.UserId, out var rank))
                 return;
             

@@ -1,9 +1,10 @@
 using System.Linq;
 using MapGeneration;
 using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Enums;
+using PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features;
 using UnityEngine;
 
-namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Features.SpawnLocationMapper
+namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions.SpawnLocationMapper
 {
     public static class LocationMapper
     {

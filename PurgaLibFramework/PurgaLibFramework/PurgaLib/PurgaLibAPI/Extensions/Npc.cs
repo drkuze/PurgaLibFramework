@@ -36,7 +36,7 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
             hub.authManager.UserId = $"{id}";
 
             var playerWrapper = Player.Get(hub);
-            playerWrapper.SetRole(role);
+            playerWrapper.Role.Set(role);
             playerWrapper.Position = position;
 
             var npc = new Npc(playerWrapper);
@@ -45,11 +45,11 @@ namespace PurgaLibFramework.PurgaLibFramework.PurgaLib.PurgaLibAPI.Extensions
         }
         
         public string Name => Player.Nickname;
-        public RoleTypeId Role => Player.Role;
+        public RoleTypeId Role => Player.Role.Type;
         public Vector3 Position { get => Player.Position; set => Player.Position = value; }
         public bool IsAlive => Player.IsAlive;
         
-        public void SetRole(RoleTypeId role) => Player.SetRole(role);
+        public void SetRole(RoleTypeId role) => Player.Role.Set(role);
 
         public void Kill(string reason = "NPC killed")
         {
