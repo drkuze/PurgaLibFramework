@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11408.102 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurgaLib", "PurgaLib\PurgaLib.csproj", "{097B585F-438D-4D50-A8AC-0FE0E3A7DE77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{097B585F-438D-4D50-A8AC-0FE0E3A7DE77}.Debug|x64.ActiveCfg = Debug|x64
+		{097B585F-438D-4D50-A8AC-0FE0E3A7DE77}.Debug|x64.Build.0 = Debug|x64
+		{097B585F-438D-4D50-A8AC-0FE0E3A7DE77}.Release|x64.ActiveCfg = Release|x64
+		{097B585F-438D-4D50-A8AC-0FE0E3A7DE77}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B04AF78C-191C-48C6-90BE-88FD27A738EF}
+	EndGlobalSection
+EndGlobal
