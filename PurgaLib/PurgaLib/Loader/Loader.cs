@@ -19,10 +19,10 @@ namespace PurgaLib.Loader
         public override string Name { get; } = "Loader";
         public override string Description { get; } = "The loader of PurgaLib";
         public override string Author { get; } = "PurgaLib Team";
-        public override Version Version { get; } = new Version(2, 1, 0);
-        public override Version RequiredApiVersion { get; } = new Version(1, 0, 0, 0);
+        public override Version Version { get; } = new Version(2, 4, 0);
+        public override Version RequiredApiVersion { get; } = new Version(2, 4, 0);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
-        public static string ApiVersion => "1.3.0";
+        public static string ApiVersion => "1.4.0"; //<-- Added Mirror Extensions
         public static readonly string _PurgaFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
         public override void Enable()
         {
@@ -32,7 +32,6 @@ namespace PurgaLib.Loader
             var harmony = new Harmony("PurgaLib");
             var assembly = Assembly.GetExecutingAssembly();
             harmony.PatchAll(assembly);
-
 
             _register = new PEventRegister();
             _register.RegisterAll();

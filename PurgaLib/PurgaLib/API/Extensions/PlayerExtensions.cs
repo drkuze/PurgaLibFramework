@@ -1,5 +1,4 @@
-﻿using PurgaLib.API.Enums;
-using PurgaLib.API.Features;
+﻿using PurgaLib.API.Features;
 using System;
 using UnityEngine;
 

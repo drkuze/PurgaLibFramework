@@ -119,6 +119,7 @@
     <Compile Include="API\Extensions\AttachmentExtension\AttachmentIdentifier.cs" />
     <Compile Include="API\Extensions\DoorVariantMapper\DoorVariantMapper.cs" />
     <Compile Include="API\Extensions\FirearmExtensions.cs" />
+    <Compile Include="API\Extensions\Mirror\MirrorExtensions.cs" />
     <Compile Include="API\Extensions\RoleExtension.cs" />
     <Compile Include="API\Features\Firearm.cs" />
     <Compile Include="API\Features\Players\Hints\CurrentHintPatch.cs" />
@@ -230,6 +231,18 @@
     <None Include="Installer\Windows\Installer.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="bin\x64\Debug\Assembly-CSharp-firstpass.dll" />
+    <Content Include="bin\x64\Debug\Assembly-CSharp-publicized.dll" />
+    <Content Include="bin\x64\Debug\CommandSystem.Core.dll" />
+    <Content Include="bin\x64\Debug\NorthwoodLib.dll" />
+    <Content Include="bin\x64\Debug\PurgaLib.dll" />
+    <Content Include="bin\x64\Debug\YamlDotNet.dll" />
+    <Content Include="Lib\Copyright.txt" />
+    <Content Include="Lib\ico.png" />
+    <Content Include="Lib\nuget.exe" />
+    <Content Include="Lib\pack.nuspec" />
+    <Content Include="Lib\README.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,7 +2,6 @@
 using CustomPlayerEffects;
 using Hints;
 using InventorySystem;
-using InventorySystem.Items;
 using Mirror;
 using PlayerRoles;
 using PlayerStatsSystem;
