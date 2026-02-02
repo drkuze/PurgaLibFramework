@@ -17,7 +17,10 @@ using PurgaLib.API.Features.Role;
 using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
+using Footprinting;
+using Respawning.Objectives;
 using UnityEngine;
+using static ReferenceHub;
 
 namespace PurgaLib.API.Features
 {
@@ -29,10 +32,17 @@ namespace PurgaLib.API.Features
         public PlayerEffectHandler EffectHandler { get; }
         public Player(ReferenceHub gameObject)
         {
-            ReferenceHub = ReferenceHub.GetHub(gameObject);
+            ReferenceHub = GetHub(gameObject);
             EffectHandler = new PlayerEffectHandler(gameObject);
         }
-
+        public static Player Host
+        {
+            get
+            {
+                global::ReferenceHub.TryGetHostHub(out var hub);
+                return hub == null ? null : Get(hub);
+            }
+        }
         public override Transform Transform => ReferenceHub.transform;
 
         public override bool IsAlive => ReferenceHub.IsAlive();
@@ -47,7 +57,7 @@ namespace PurgaLib.API.Features
         public bool IsHost => ReferenceHub.isLocalPlayer;
         public bool IsNpc => !IsHost && ReferenceHub.connectionToClient.GetType() != typeof(NetworkConnectionToClient);
         public bool IsConnected => ReferenceHub.connectionToClient != null;
-
+        public Footprint Footprint { get; private set; }
 
         public PlyHint CurrentHint { get; internal set; }
         public bool HasHint => CurrentHint != null;
@@ -280,13 +290,13 @@ namespace PurgaLib.API.Features
         }
 
         public static IReadOnlyCollection<Player> List =>
-            ReferenceHub.AllHubs
+            AllHubs
                 .Select(Get)
                 .Where(p => p != null)
                 .ToList();
 
         public static int Count =>
-            ReferenceHub.AllHubs.Count;
+            AllHubs.Count;
 
 
         public static Player Get(ReferenceHub hub)
@@ -305,10 +315,10 @@ namespace PurgaLib.API.Features
 
 
         public static Player Get(int playerId) =>
-            Get(ReferenceHub.AllHubs.FirstOrDefault(h => h.PlayerId == playerId));
+            Get(AllHubs.FirstOrDefault(h => h.PlayerId == playerId));
 
         public static Player Get(string userId) =>
-            Get(ReferenceHub.AllHubs.FirstOrDefault(h => h.authManager.UserId == userId));
+            Get(AllHubs.FirstOrDefault(h => h.authManager.UserId == userId));
 
         public static Player Get(ICommandSender sender)
         {

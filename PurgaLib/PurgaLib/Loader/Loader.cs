@@ -22,7 +22,7 @@ namespace PurgaLib.Loader
         public override Version Version { get; } = new Version(2, 4, 0);
         public override Version RequiredApiVersion { get; } = new Version(2, 4, 0);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
-        public static string ApiVersion => "1.4.0"; //<-- Added Mirror Extensions.
+        public static string ApiVersion => "1.5.0"; //<-- Added Coin, Pickup, PrefabHelper, Respawning, Scp914, TeslaGate, WorkStation, Added more features to Server and Player.
         public static readonly string _PurgaFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
         public override void Enable()
         {

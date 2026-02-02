@@ -6,5 +6,5 @@ public enum TeamSide
     Human,
     Mtf,
     ChaosInsurgency,
-    SCP,
+    Scp,
 }

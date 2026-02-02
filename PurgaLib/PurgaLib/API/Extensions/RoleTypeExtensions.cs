@@ -29,6 +29,6 @@ namespace PurgaLib.API.Extensions
                 _ => Team.OtherAlive
             };
         }
-
+        
     }
 }

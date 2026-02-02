@@ -17,6 +17,8 @@ namespace PurgaLib.API.Features
 
         public bool IsEquipped => Owner != null && Owner.Inventory.CurItem.SerialNumber == Serial;
         public bool IsPickup => Pickup != null;
+        public bool IsDestroyed => Base == null || !Base.isActiveAndEnabled;
+        public bool IsPrefab => Base != null && Base.gameObject.scene.rootCount == 0;
 
 #pragma warning disable
         public ItemPickupBase Pickup { get; private set; }
@@ -51,9 +53,16 @@ namespace PurgaLib.API.Features
         public Firearm Firearm => Base is InventorySystem.Items.Firearms.Firearm f ? new(f, this) : null;
         public bool IsConsumable => Base is Consumable;
         public Consumable Consumable => Base as Consumable;
-
+        
         public bool IsKeycard => Base is KeycardItem;
         public KeycardItem Keycard => Base as KeycardItem;
+        protected bool CanCache
+          {
+            get
+            {
+              return !this.IsDestroyed && !this.IsPrefab && this.Serial != (ushort) 0 && this.Base.isActiveAndEnabled;
+            }
+          }
 
         #endregion
 
