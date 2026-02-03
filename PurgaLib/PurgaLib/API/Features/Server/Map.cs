@@ -8,6 +8,7 @@ namespace PurgaLib.API.Features.Server
         private static Light[] _allLights;
         private static void InitLights()
         {
+            #pragma warning disable CS0618
             if (_allLights == null)
                 _allLights = GameObject.FindObjectsOfType<Light>();
         }

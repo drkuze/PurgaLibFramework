@@ -8,7 +8,8 @@ namespace PurgaLib.API.Features
     public static class Warhead
     {
         public static AlphaWarheadController Controller => AlphaWarheadController.Singleton;
-
+        
+        #pragma warning disable CS0618
         private static AlphaWarheadOutsitePanel OutsitePanel => Object.FindObjectOfType<AlphaWarheadOutsitePanel>();
 
         private static AlphaWarheadNukesitePanel SitePanel => AlphaWarheadOutsitePanel.nukeside;

@@ -6,9 +6,11 @@ namespace PurgaLib.API.Features
 {
     public class CoinItem : Item
     {
+        #pragma warning disable CS0109
         public static new Dictionary<Coin, CoinItem> Dictionary { get; } = new();
         public static new IReadOnlyCollection<CoinItem> List => Dictionary.Values;
-
+        
+        #pragma warning disable CS8632
         public static CoinItem? Get(Coin? coin, Player owner = null)
         {
             if (coin == null) return null;

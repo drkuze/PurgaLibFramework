@@ -1,5 +1,4 @@
-﻿using GameCore;
-using InventorySystem;
+﻿using InventorySystem;
 using InventorySystem.Items;
 using PurgaLib.API.Enums;
 using PurgaLib.API.Extensions.SpawnLocationMapper;

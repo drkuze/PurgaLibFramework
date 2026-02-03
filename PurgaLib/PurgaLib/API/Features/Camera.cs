@@ -132,7 +132,8 @@ namespace PurgaLib.API.Features
         static Camera()
         {
             Camera079ToCamera = new Dictionary<Scp079Camera, Camera>(256);
-
+            
+            #pragma warning disable CS0618
             foreach (var cam in UnityEngine.Object.FindObjectsOfType<Scp079Camera>())
                 _ = Get(cam);
         }
