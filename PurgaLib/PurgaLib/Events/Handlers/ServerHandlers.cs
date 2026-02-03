@@ -1,9 +1,9 @@
 using System;
-using PurgaLib.Events.EventArgs.Round;
+using PurgaLib.Events.EventArgs.Server;
 
 namespace PurgaLib.Events.Handlers;
 
-public static class RoundHandlers
+public static class ServerHandlers
 {
     public static event Action<RoundEndedEventArgs> Ended;
     public static event Action<RoundStartedEventArgs> Started;

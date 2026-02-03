@@ -1,6 +1,6 @@
 ﻿using PurgaLib.Events.EventSystem.Interfaces;
 
-namespace PurgaLib.Events.EventArgs.Round;
+namespace PurgaLib.Events.EventArgs.Server;
 
 public class WaitingForPlayersEventArgs : IEventArgs
 {

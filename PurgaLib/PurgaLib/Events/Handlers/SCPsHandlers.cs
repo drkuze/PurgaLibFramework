@@ -3,7 +3,7 @@ using PurgaLib.Events.EventArgs.SCP;
 
 namespace PurgaLib.Events.Handlers;
 
-public class SCPHandlers
+public class SCPsHandlers
 {
     public static event Action<UpgradingPlayersEventArgs> Upgrading;
     

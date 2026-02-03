@@ -4,27 +4,25 @@
     #pragma warning disable SA1313
     using HarmonyLib;
     using Interactables.Interobjects.DoorUtils;
+    using PurgaLib.API.Features;
     using PurgaLib.Events.EventArgs.Map;
+    using Door = API.Features.Door;
     using PurgaLib.Events.Handlers;
+    using System;
+    using PurgaLib.API.Features.Server;
 
-    [HarmonyPatch(typeof(DoorVariant), nameof(DoorVariant.ServerInteract))]
+    [HarmonyPatch(typeof(DoorVariant), nameof(DoorVariant.ServerInteract), typeof(ReferenceHub), typeof(byte))]
     public static class DoorInteracting
     {
-        [HarmonyPrefix]
-        public static bool Prefix(DoorVariant __instance, ReferenceHub ply, byte colliderId)
+        public static void Prefix(DoorVariant __instance, ReferenceHub ply, byte colliderId)
         {
-            var player = API.Features.Player.Get(ply);
-            if (player == null)
-                return true;
+            var player = Player.Get(ply);
+            if (player == null) return;
 
-            var door = API.Features.Door.Get(__instance);
-            if (door == null)
-                return true;
-
+            var door = new Door(__instance);
             var ev = new DoorInteractingEventArgs(player, door);
-            MapHandlers.InvokeSafely(ev);
-
-            return ev.IsAllowed;
+            try { MapHandlers.InvokeSafely(ev); }
+            catch (Exception ex) { Logged.Error($"[PurgaLib] DoorInteracting error:\n{ex}"); }
         }
     }
 }
