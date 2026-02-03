@@ -6,7 +6,7 @@ using PurgaLib.API.Extensions.SpawnLocationMapper;
 using PurgaLib.API.Features;
 using PurgaLib.API.Features.Server;
 using PurgaLib.CustomItems.EventsArgs;
-using PurgaLib.Events.EventArgs.Round;
+using PurgaLib.Events.EventArgs.Server;
 using PurgaLib.Events.Handlers;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace PurgaLib.CustomItems.Handlers
 
         public static void RegisterNaturalEvent()
         {
-            RoundHandlers.Started += NaturalSpawn;
+            ServerHandlers.Started += NaturalSpawn;
         }
         public static void Give(Player player, CustomItem custom)
         {

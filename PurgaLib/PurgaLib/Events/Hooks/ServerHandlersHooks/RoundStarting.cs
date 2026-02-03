@@ -1,10 +1,10 @@
-﻿namespace PurgaLib.Events.Hooks.RoundHandlersHooks
+﻿namespace PurgaLib.Events.Hooks.ServerHandlersHooks
 {
     #pragma warning disable SA1402
     #pragma warning disable SA1313
     using HarmonyLib;
     using PurgaLib.API.Features.Server;
-    using PurgaLib.Events.EventArgs.Round;
+    using PurgaLib.Events.EventArgs.Server;
     using PurgaLib.Events.Handlers;
     using System;
 
@@ -16,7 +16,7 @@
             try
             {
                 var ev = new RoundStartingEventArgs();
-                RoundHandlers.InvokeSafely(ev);
+                ServerHandlers.InvokeSafely(ev);
             }
             catch (Exception ex)
             {
