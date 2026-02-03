@@ -5,9 +5,6 @@ using UnityEngine;
 
 namespace PurgaLib.API.Features
 {
-    /// <summary>
-    /// Wrapper completo per TeslaGate in stile PurgaLib.
-    /// </summary>
     public class TeslaGate
     {
         private static readonly Dictionary<global::TeslaGate, TeslaGate> BaseToWrapper = new();

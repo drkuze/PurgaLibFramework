@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Interactables.Interobjects.DoorUtils;
 using UnityEngine;
 using Mirror;
-using MapGeneration;
 
 namespace PurgaLib.API.Features
 {

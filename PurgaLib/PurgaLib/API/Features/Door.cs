@@ -19,7 +19,7 @@ namespace PurgaLib.API.Features
         }
 
         public DoorVariant Base => _door;
-        
+
         public DoorType Type { get; private set; } = DoorType.UnknownDoor;
 
         public Vector3 Position => _door.gameObject.transform.position;
