@@ -36,8 +36,10 @@ namespace PurgaLib.CreditTags
             if (CreditUsers.TryGetValue(ev.Player.UserId, out var badge))
             {
                 Logged.Info($"[PurgaLib] {ev.Player.Nickname} is a PurgaLib Contributor!");
+                #pragma warning disable CS0618
                 ev.Player.RankName(badge.Text);
                 ev.Player.RankColor(badge.Color);
+                #pragma warning restore CS0618
             }
         }
         
