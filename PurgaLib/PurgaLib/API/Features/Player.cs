@@ -18,8 +18,9 @@ using RemoteAdmin;
 using System.Collections.Generic;
 using System.Linq;
 using Footprinting;
-using Respawning.Objectives;
+using PlayerRoles.FirstPersonControl;
 using UnityEngine;
+using Utils.Networking;
 using static ReferenceHub;
 
 namespace PurgaLib.API.Features
@@ -47,9 +48,9 @@ namespace PurgaLib.API.Features
 
         public override bool IsAlive => ReferenceHub.IsAlive();
 
-        public bool IsNTF => Team == Team.FoundationForces;
-        public bool IsHuman => IsAlive && !IsSCP;
-        public bool IsSCP => Team == Team.SCPs;
+        public bool IsNtf => Team == Team.FoundationForces;
+        public bool IsHuman => IsAlive && !IsScp;
+        public bool IsScp => Team == Team.SCPs;
         public bool IsChaos => Team == Team.ChaosInsurgency;
         public bool IsTutorial => Role == RoleTypeId.Tutorial;
 
@@ -83,6 +84,31 @@ namespace PurgaLib.API.Features
         public float MinHealth => ReferenceHub.playerStats.GetModule<HealthStat>().MinValue;
 
         public PlayerRole Role => new PlayerRole(this, ReferenceHub.roleManager.CurrentRole);
+        public Badge? Badge
+        {
+            get
+            {
+                string text = ReferenceHub.serverRoles.Network_myText;
+                string color = ReferenceHub.serverRoles.Network_myColor;
+
+                if (string.IsNullOrEmpty(text))
+                    return null;
+
+                return new Badge(text, color, true);
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    ReferenceHub.serverRoles.SetText(null);
+                    return;
+                }
+
+                ReferenceHub.serverRoles.SetText(value.Value.Text);
+                ReferenceHub.serverRoles.SetColor(value.Value.Color);
+            }
+        }
         public Team Team => ReferenceHub.roleManager.CurrentRole.Team;
         public Inventory Inventory => ReferenceHub.inventory;
         
@@ -188,7 +214,16 @@ namespace PurgaLib.API.Features
                 null,
                 duration);
         }
-
+        public float CassieAnnouncement(Cassie.CassieAnnouncement cassieAnnouncement)
+        {
+            Cassie.CassieAnnouncementDispatcher.CurrentAnnouncement.OnStartedPlaying();
+            var payload = cassieAnnouncement.Payload;
+            if (!Cassie.CassieTtsAnnouncer.TryPlay(payload, out float total_duration))
+                return 0;
+            payload.SendToHubsConditionally(x => x == ReferenceHub);
+            return total_duration;
+        }
+        
         public void ShowHint(string message, HintEffect[] hintEffects, float duration = 3f)
         {
             ShowHint(message,
@@ -221,7 +256,7 @@ namespace PurgaLib.API.Features
             ShowHint(hint.Message, hint.Duration);
         }
 
-        public void SendMessage(string message) => ReferenceHub.gameConsoleTransmission.SendMessage(message);
+        public void SendMessage(string message, string color) => ReferenceHub.gameConsoleTransmission.SendToClient(message, color);
 
         public void Kick(string reason) => ReferenceHub.connectionToClient?.Disconnect();
 
@@ -242,8 +277,17 @@ namespace PurgaLib.API.Features
             ReferenceHub.serverRoles.Network_myColor = color.ToString();
         }
 
-
-
+        public void SetScale(Vector3 scale)
+        {
+            ReferenceHub.transform.localScale = scale;
+            new SyncedScaleMessages.ScaleMessage(scale, ReferenceHub).SendToAuthenticated();
+        }
+        public void SetScale(Vector3 scale, IEnumerable<Player> viewers)
+        {
+            ReferenceHub.transform.localScale = scale;
+            new SyncedScaleMessages.ScaleMessage(scale, ReferenceHub).SendToHubsConditionally(x => x != null && viewers.Contains(Get(x)));
+        }
+        
         public bool EnableEffect(Effect effect) 
         {
             if (effect == null)

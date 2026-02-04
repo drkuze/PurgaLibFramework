@@ -69,8 +69,8 @@ namespace PurgaLib.API.Features
                 Base.NetworkInfo.OwnerHub,
                 Base.NetworkInfo.Handler,
                 Base.NetworkInfo.RoleType,
-                Base.NetworkInfo.StartPosition,
-                Base.NetworkInfo.StartRotation,
+                Base.NetworkInfo.StartRelativePosition,
+                Base.NetworkInfo.StartRelativeRotation,
                 Base.NetworkInfo.Scale,
                 value,
                 Base.NetworkInfo.CreationTime

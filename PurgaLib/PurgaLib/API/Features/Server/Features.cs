@@ -60,7 +60,7 @@ namespace PurgaLib.API.Features.Server
             global::Shutdown.Quit();
 
         public static string ExecuteCommand(string command, CommandSender sender = null) =>
-            GameCore.Console.singleton.TypeCommand(command, sender);
+            GameCore.Console.Singleton.TypeCommand(command, sender);
 
         public static void Broadcast(string message, float duration = 5f)
         {

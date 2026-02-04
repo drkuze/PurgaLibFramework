@@ -23,7 +23,7 @@ namespace PurgaLib.API.Features
             Wrappers[baseWindow] = this;
 
             if (Type == GlassType.Unknown)
-                Logged.Debug($"[GLASS UNKNOWN] Room={Room} Base={Base?.name} HP={Base?.health}");
+                Logged.Debug($"[GLASS UNKNOWN] Room={Room} Base={Base?.name} HP={Base?.Health}");
         }
 
         public static IReadOnlyCollection<Window> List => Wrappers.Values;
@@ -52,18 +52,18 @@ namespace PurgaLib.API.Features
             set => Transform.rotation = value;
         }
 
-        public bool IsBreakable => !Base.isBroken;
+        public bool IsBreakable => !Base.IsBroken;
 
         public bool IsBroken
         {
-            get => Base.isBroken;
-            set => Base.isBroken = value;
+            get => Base.IsBroken;
+            set => Base.IsBroken = value;
         }
 
         public float Health
         {
-            get => Base.health;
-            set => Base.health = value;
+            get => Base.Health;
+            set => Base.Health = value;
         }
 
         public bool DisableScpDamage

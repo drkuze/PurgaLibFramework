@@ -88,9 +88,9 @@ namespace PurgaLib.API.Features
 
         public static bool TryKillScp079() => Base.TryKill079();
 
-        public static void PlayAnnouncement(string announcement, float glitchyMultiplier = 1f) 
-            => Base.PlayAnnouncement(announcement, glitchyMultiplier);
-
+        public static void PlayAnnouncement(string announcement)
+            => Base.PlayAnnouncement(announcement, false, false);
+        
         public static void BeginOvercharge(bool endOvercharge = true)
         {
             Base.BeginOvercharge();
@@ -106,7 +106,7 @@ namespace PurgaLib.API.Features
             => Base.UpdateStatus(engagedGenerators);
 
         public static void RefreshEngamentStatus() => Base.RefreshAmount();
-        public static void Recontain() => Base.Recontain();
+        public static void Recontain() => Base.Recontain(false);
         public static void RefreshActivator() => Base.RefreshActivator();
         public static void BreakGlass() => ActivatorWindow.Base.BreakWindow();
     }

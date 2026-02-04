@@ -28,8 +28,9 @@ namespace PurgaLib.Loader.PurgaLib_Loader.Command
                 string name = GetProp(plugin, "Name");
                 string version = GetProp(plugin, "Version");
                 string author = GetProp(plugin, "Author");
+                string description = GetProp(plugin, "Description");
 
-                response += $" - {name} v{version} by {author}\n";
+                response += $" - {name} v{version} by {author}\n {description}";
             }
 
             return true;

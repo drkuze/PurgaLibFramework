@@ -1,7 +1,4 @@
-﻿using MEC;
-using PlayerRoles;
-using PurgaLib.API.Enums;
-using PurgaLib.API.Extensions;
+﻿using PurgaLib.API.Enums;
 using PurgaLib.API.Features.PluginManager;
 using PurgaLib.API.Features.Server;
 using PurgaLib.Events.EventArgs.Player;
@@ -43,8 +40,7 @@ namespace PurgaLib.CreditTags
                 ev.Player.RankColor(badge.Color);
             }
         }
-
-
+        
         public class CreditBadge
         {
             public string Text { get; set; }
@@ -65,7 +61,7 @@ namespace PurgaLib.CreditTags
                 "76561199555131749@steam",
                 new CreditBadge
                 {
-                    Text = GetBadgeText(CreditTagsBadgeNameType.Contributor),
+                    Text = GetBadgeText(CreditTagsBadgeNameType.Developer),
                     Color = RankColorsType.yellow
                 }
             }

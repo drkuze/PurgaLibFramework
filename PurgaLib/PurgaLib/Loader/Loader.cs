@@ -19,10 +19,10 @@ namespace PurgaLib.Loader
         public override string Name { get; } = "Loader";
         public override string Description { get; } = "The loader of PurgaLib";
         public override string Author { get; } = "PurgaLib Team";
-        public override Version Version { get; } = new Version(2, 5, 0);
+        public override Version Version { get; } = new Version(2, 6, 0);
         public override Version RequiredApiVersion { get; } = new Version(2, 4, 0);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
-        public static string ApiVersion => "1.6.0"; //<-- Added a lot of features, enums and Extensions
+        public static string ApiVersion => "1.7.0"; //<-- Added a lot of features, enums and Extensions, SetScale in Player and Cassie
         public static readonly string _PurgaFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
         public override void Enable()
         {
