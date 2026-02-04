@@ -1,4 +1,5 @@
-﻿using CommandSystem;
+﻿using System;
+using CommandSystem;
 using CustomPlayerEffects;
 using Hints;
 using InventorySystem;
@@ -262,14 +263,15 @@ namespace PurgaLib.API.Features
 
         public void Ban(BanDetails reason, BanHandler.BanType duration) => BanHandler.IssueBan(reason, duration);
 
-
+        [Obsolete("Use Badge System instead")]
         public void RankName(string text)
         {
             if (ReferenceHub == null) return;
 
             ReferenceHub.serverRoles.Network_myText = text;
         }
-
+        
+        [Obsolete("Use Badge System instead")]
         public void RankColor(RankColorsType color)
         {
             if (ReferenceHub == null) return;
