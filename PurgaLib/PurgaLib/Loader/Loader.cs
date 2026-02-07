@@ -7,6 +7,7 @@ using PurgaLib.CustomItems.Handlers;
 using PurgaLib.Loader.PurgaLib_Loader.LoaderEvent;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using LabApi.Features;
 
@@ -20,11 +21,38 @@ namespace PurgaLib.Loader
         public override string Name { get; } = "Loader";
         public override string Description { get; } = "The loader of PurgaLib";
         public override string Author { get; } = "PurgaLib Team";
-        public override Version Version { get; } = new Version(2, 6, 0);
+        public override Version Version { get; } = new Version(2, 7, 0);
         public override Version RequiredApiVersion { get; } = new Version(LabApiProperties.CompiledVersion);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
         public static string ApiVersion => "1.7.0"; //<-- Added a lot of features, enums and Extensions, SetScale in Player and Cassie
         public static readonly string _PurgaFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+        static Loader()
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveEmbeddedAssembly;
+        }
+        
+        private static Assembly ResolveEmbeddedAssembly(object sender, ResolveEventArgs args)
+        {
+            var asmName = new AssemblyName(args.Name).Name + ".dll";
+
+            var currentAsm = Assembly.GetExecutingAssembly();
+            var resourceName = currentAsm.GetManifestResourceNames()
+                .FirstOrDefault(r => r.EndsWith(asmName));
+
+            if (resourceName == null)
+                return null;
+
+            using (var stream = currentAsm.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null)
+                    return null;
+
+                byte[] data = new byte[stream.Length];
+                stream.Read(data, 0, data.Length);
+                return Assembly.Load(data);
+            }
+        }
+        
         public override void Enable()
         {
             Instance = this;

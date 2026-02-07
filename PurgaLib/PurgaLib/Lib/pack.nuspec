@@ -30,12 +30,9 @@
     </metadata>
 
     <files>
-        <file src="C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLib\PurgaLib\bin\x64\Debug\PurgaLib.dll" target="lib\net48" />
-        <file src="C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLib\PurgaLib\bin\x64\Debug\NorthwoodLib.dll" target="lib\net48" />
-        <file src="C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLib\PurgaLib\bin\x64\Debug\Assembly-CSharp-firstpass.dll" target="lib\net48" />
-        <file src="C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLib\PurgaLib\bin\x64\Debug\Assembly-CSharp-publicized.dll" target="lib\net48" />
-        <file src="C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLib\PurgaLib\bin\x64\Debug\CommandSystem.Core.dll" target="lib\net48" />
-        <file src="C:\Users\ciste\RiderProjects\PurgaLibFramework\PurgaLib\PurgaLib\bin\x64\Debug\YamlDotNet.dll" target="lib\net48" />
+        <file src="C:\Users\ciste\RiderProjects\PurgaLib\PurgaLib\PurgaLib\bin\x64\Debug\PurgaLib.dll" target="lib\net48" />
+        <file src="C:\Users\ciste\RiderProjects\PurgaLib\PurgaLib\PurgaLib\bin\x64\Debug\CommandSystem.Core.dll" target="lib\net48" />
+        <file src="C:\Users\ciste\RiderProjects\PurgaLib\PurgaLib\packages\YamlDotNet.16.3.0\lib\net47\YamlDotNet.dll" target="lib\net48" />
         <file src="Copyright.txt" target="" />
         <file src="ico.png" target="" />
         <file src="README.md" target="" />
