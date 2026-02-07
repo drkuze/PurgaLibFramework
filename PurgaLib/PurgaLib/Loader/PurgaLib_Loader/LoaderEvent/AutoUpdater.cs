@@ -30,7 +30,6 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
                 ? "global"
                 : Server.Port.ToString();
 
-
         private string InstallerName =>
             Platform == PlatformID.Win32NT ? InstallerWin :
             Platform == PlatformID.Unix ? InstallerLinux : null;
@@ -75,12 +74,22 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
         {
             Thread.Sleep(5000);
 
-            var current = Assembly.GetExecutingAssembly().GetName().Version;
+            // Usa la versione corrente dal tuo file Properties
+            var current = Version.Parse(PurgaLibProperties.CurrVersion);
+
             var releases = GitHubApi.GetReleases(client, RepoId);
 
             foreach (var r in releases)
             {
-                if (Version.Parse(r.Tag) <= current)
+                // Controllo null/empty
+                if (string.IsNullOrWhiteSpace(r.Tag))
+                    continue;
+
+                // Parse sicuro
+                if (!Version.TryParse(r.Tag, out var remoteVersion))
+                    continue;
+
+                if (remoteVersion <= current)
                     continue;
 
                 asset = r.Assets.FirstOrDefault(a =>

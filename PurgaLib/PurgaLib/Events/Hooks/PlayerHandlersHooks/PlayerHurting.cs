@@ -1,4 +1,6 @@
-﻿namespace PurgaLib.Events.Hooks.PlayerHandlersHooks
+﻿using PurgaLib.Loader.PurgaLib_Loader;
+
+namespace PurgaLib.Events.Hooks.PlayerHandlersHooks
 {
     #pragma warning disable SA1402
     #pragma warning disable SA1313
