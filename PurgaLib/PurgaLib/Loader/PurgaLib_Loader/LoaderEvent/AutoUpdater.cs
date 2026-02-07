@@ -73,19 +73,15 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
         private bool FindUpdate(HttpClient client, out GitHubRelease release, out GitHubAsset asset)
         {
             Thread.Sleep(5000);
-
-            // Usa la versione corrente dal tuo file Properties
+            
             var current = Version.Parse(PurgaLibProperties.CurrVersion);
 
             var releases = GitHubApi.GetReleases(client, RepoId);
 
             foreach (var r in releases)
             {
-                // Controllo null/empty
                 if (string.IsNullOrWhiteSpace(r.Tag))
                     continue;
-
-                // Parse sicuro
                 if (!Version.TryParse(r.Tag, out var remoteVersion))
                     continue;
 
