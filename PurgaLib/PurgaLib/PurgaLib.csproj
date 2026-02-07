@@ -109,6 +109,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Core\Interfaces\ISchematic.cs" />
+    <Compile Include="API\Core\Interfaces\ISchematicBlockFactory.cs" />
     <Compile Include="API\Core\PEventRegister.cs" />
     <Compile Include="API\Core\Interfaces\IEvent.cs" />
     <Compile Include="API\Enums\CameraType.cs" />
@@ -147,6 +149,18 @@
     <Compile Include="API\Features\Role\PlayerRole.cs" />
     <Compile Include="API\Features\Room.cs" />
     <Compile Include="API\Extensions\SpawnLocationMapper\LocationMapper.cs" />
+    <Compile Include="API\Features\Schematics\ApplyColor.cs" />
+    <Compile Include="API\Features\Schematics\ApplyTransform.cs" />
+    <Compile Include="API\Features\Schematics\Factory\EmptyFactory.cs" />
+    <Compile Include="API\Features\Schematics\Factory\GamePrefabFactory.cs" />
+    <Compile Include="API\Features\Schematics\Factory\LightFactory.cs" />
+    <Compile Include="API\Features\Schematics\Factory\PrimitiveFactory.cs" />
+    <Compile Include="API\Features\Schematics\PrefabDataBase.cs" />
+    <Compile Include="API\Features\Schematics\SchematicBlock.cs" />
+    <Compile Include="API\Features\Schematics\SchematicCommand.cs" />
+    <Compile Include="API\Features\Schematics\SchematicRoot.cs" />
+    <Compile Include="API\Features\Schematics\SchematicSpawner.cs" />
+    <Compile Include="API\Features\Schematics\Settings.cs" />
     <Compile Include="API\Features\Scp914.cs" />
     <Compile Include="API\Features\Server\Cassie.cs" />
     <Compile Include="API\Features\TeslaGate.cs" />
@@ -178,6 +192,7 @@
     <Compile Include="Events\Hooks\ServerHandlersHooks\WaitingForPlayers.cs" />
     <Compile Include="Loader\PurgaLib_Loader\GithHubAPI\API.cs" />
     <Compile Include="Loader\PurgaLib_Loader\LoaderEvent\AutoUpdater.cs" />
+    <Compile Include="Loader\PurgaLib_Loader\LoaderEvent\CommandLoader.cs" />
     <Compile Include="Loader\PurgaLib_Loader\PurgaLibProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="API\Core\Interfaces\IEntity.cs" />

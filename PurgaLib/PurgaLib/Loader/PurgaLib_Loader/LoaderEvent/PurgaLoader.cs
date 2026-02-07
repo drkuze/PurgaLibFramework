@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using PurgaLib.API.Core;
 using PurgaLib.API.Features.PluginManager;
 using PurgaLib.API.Features.Server;
 
@@ -15,6 +16,7 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
         private readonly string _purgaLibFolder;
         private readonly string _pluginFolder;
         private readonly string _configRootFolder;
+        private readonly PEventRegister _register = new();
 
         public PurgaLoader()
         {
@@ -59,9 +61,11 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
                 try
                 {
                     var assembly = Assembly.LoadFrom(file);
+                    _register.RegisterAssembly(assembly);
+                    
                     var pluginTypes = assembly.GetTypes()
                         .Where(t => t.IsClass && !t.IsAbstract && IsPluginType(t));
-
+                    
                     foreach (var type in pluginTypes)
                     {
                         RegisterPlugin(type, configFolder);
@@ -77,6 +81,7 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
         public void LoadInternalPlugins()
         {
             var assembly = Assembly.GetExecutingAssembly();
+            _register.RegisterAssembly(assembly);
             var pluginTypes = assembly.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && IsPluginType(t));
 
@@ -113,6 +118,7 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
                 }
 
                 LoadedPlugins.Add(pluginInstance);
+                CommandLoader.RegisterCommands(pluginInstance);
 
                 bool enabled = true;
                 if (configProperty != null)
@@ -177,7 +183,8 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
                         var configPath = Path.Combine(pluginConfigFolder, "config.yml");
                         ConfigManager.SaveConfig(configPath, configValue);
                     }
-
+                    
+                    CommandLoader.UnregisterCommands(plugin);
                     var onDisabled = type.GetMethod("OnDisabled", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                     Logged.SetPlugin(pluginName);
                     onDisabled?.Invoke(plugin, null);
@@ -190,6 +197,7 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
             }
 
             LoadedPlugins.Clear();
+            _register.UnRegisterAll();
             Logged.SendRaw("[PurgaLib] All plugins disabled", ConsoleColor.White);
         }
 

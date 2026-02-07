@@ -2,6 +2,6 @@
 
 public interface IEvent
 {
-    public abstract void Register();
-    public abstract void UnRegister();
+    void Register();
+    void UnRegister();
 }

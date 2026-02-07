@@ -1,57 +1,55 @@
 ﻿using PurgaLib.API.Core.Interfaces;
-using PurgaLib.API.Features.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using PurgaLib.API.Features.Server;
 
-namespace PurgaLib.API.Core;
-
-public class PEventRegister : PComponent
+namespace PurgaLib.API.Core
 {
-    private readonly List<IEvent> _events = new();
-
-    public void RegisterAll()
+    public class PEventRegister : PComponent
     {
-        Assembly assembly = Assembly.GetExecutingAssembly();
+        private readonly List<IEvent> _events = new();
 
-        var types = assembly.GetTypes()
-            .Where(t =>
-                typeof(IEvent).IsAssignableFrom(t) &&
-                !t.IsInterface &&
-                !t.IsAbstract
-            );
-
-        foreach (var type in types)
+        public void RegisterAssembly(Assembly assembly)
         {
-            try
-            {
-                IEvent instance = (IEvent)Activator.CreateInstance(type);
-                instance.Register();
-                _events.Add(instance);
+            if (assembly == null) return;
 
-                Logged.Info($"[AutoRegister] Event Registered: {type.Name}");
-            }
-            catch (Exception ex)
+            var types = assembly.GetTypes()
+                .Where(t => typeof(IEvent).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
+
+            foreach (var type in types)
             {
-                Logged.Error($"[AutoRegister] Error while registering: {type.Name}: {ex}");
+                try
+                {
+                    var instance = (IEvent)Activator.CreateInstance(type);
+                    instance.Register();
+                    _events.Add(instance);
+
+                    Logged.Info($"[AutoRegister] [{assembly.GetName().Name}] Event Registered: {type.FullName}");
+                }
+                catch (Exception ex)
+                {
+                    Logged.Error($"[AutoRegister] Error while registering: {type.FullName}: {ex}");
+                }
             }
         }
-    }
 
-    public void UnRegisterAll()
-    {
-        foreach (var ev in _events)
+        public void UnRegisterAll()
         {
-            try
+            foreach (var ev in _events)
             {
-                ev.UnRegister();
+                try
+                {
+                    ev.UnRegister();
+                }
+                catch (Exception ex)
+                {
+                    Logged.Error($"[AutoRegister] Error UnRegistering: {ev.GetType().Name}: {ex}");
+                }
             }
-            catch (Exception ex)
-            {
-                Logged.Error($"[AutoRegister] Error UnRegistering: {ev.GetType().Name}: {ex}");
-            }
+
+            _events.Clear();
         }
-        _events.Clear();
     }
 }

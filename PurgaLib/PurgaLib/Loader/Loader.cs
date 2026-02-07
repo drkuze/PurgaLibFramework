@@ -21,7 +21,7 @@ namespace PurgaLib.Loader
         public override string Name { get; } = "Loader";
         public override string Description { get; } = "The loader of PurgaLib";
         public override string Author { get; } = "PurgaLib Team";
-        public override Version Version { get; } = new Version(2, 7, 0);
+        public override Version Version { get; } = new Version(2, 8, 0);
         public override Version RequiredApiVersion { get; } = new Version(LabApiProperties.CompiledVersion);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
         public static string ApiVersion => "1.7.0"; //<-- Added a lot of features, enums and Extensions, SetScale in Player and Cassie
@@ -63,7 +63,6 @@ namespace PurgaLib.Loader
             harmony.PatchAll(assembly);
 
             _register = new PEventRegister();
-            _register.RegisterAll();
 
             CustomItemHandler.RegisterNaturalEvent();
 
@@ -94,7 +93,6 @@ Welcome to:
             _purgaLoader?.UnloadPlugins();
             Logged.SendRaw("Bye bye from PurgaLib", ConsoleColor.Magenta);
             _purgaLoader?.UnloadPlugins();
-            _register.UnRegisterAll();
         }
     }
     
