@@ -26,7 +26,7 @@ namespace PurgaLib.API.Core
                     instance.Register();
                     _events.Add(instance);
 
-                    Logged.Info($"[AutoRegister] [{assembly.GetName().Name}] Event Registered: {type.FullName}");
+                    Logged.Info($"[AutoRegister] -> [{assembly.GetName().Name}] Event Registered: {type.FullName}");
                 }
                 catch (Exception ex)
                 {

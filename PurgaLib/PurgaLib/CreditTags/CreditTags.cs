@@ -5,7 +5,6 @@ using PurgaLib.Events.EventArgs.Player;
 using PurgaLib.Events.Handlers;
 using System;
 using System.Collections.Generic;
-using PurgaLib.API.Extensions;
 using PurgaLib.API.Features.HintSystem;
 
 
@@ -65,7 +64,7 @@ namespace PurgaLib.CreditTags
                 new CreditBadge
                 {
                     Text = GetBadgeText(CreditTagsBadgeNameType.Owner),
-                    Color = RankColorsType.tomato
+                    Color = RankColorsType.deep_pink
                 }
             },
             {
@@ -73,7 +72,7 @@ namespace PurgaLib.CreditTags
                 new CreditBadge
                 {
                     Text = GetBadgeText(CreditTagsBadgeNameType.Developer),
-                    Color = RankColorsType.yellow
+                    Color = RankColorsType.aqua
                 }
             }
         };

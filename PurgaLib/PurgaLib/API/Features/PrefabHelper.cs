@@ -40,7 +40,11 @@ namespace PurgaLib.API.Features
         public static GameObject Spawn(PrefabType prefabType, Vector3 position = default, Quaternion? rotation = null)
         {
             if (!TryGetPrefab(prefabType, out GameObject prefab))
-                return null;
+            {
+                prefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                prefab.transform.localScale = Vector3.one;
+                prefab.GetComponent<Renderer>().material.color = Color.magenta;
+            }
 
             GameObject obj = UnityEngine.Object.Instantiate(prefab, position, rotation ?? Quaternion.identity);
             NetworkServer.Spawn(obj);
