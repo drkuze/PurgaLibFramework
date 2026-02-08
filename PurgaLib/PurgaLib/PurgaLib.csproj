@@ -117,6 +117,7 @@
     <Compile Include="API\Enums\FirearmType.cs" />
     <Compile Include="API\Enums\GeneratorState.cs" />
     <Compile Include="API\Enums\GlassType.cs" />
+    <Compile Include="API\Enums\HintZone.cs" />
     <Compile Include="API\Enums\PrefabType.cs" />
     <Compile Include="API\Enums\RankColorsType.cs" />
     <Compile Include="API\Enums\RoomType.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="API\Extensions\FactionExtensions.cs" />
     <Compile Include="API\Extensions\FirearmExtensions.cs" />
     <Compile Include="API\Extensions\Mirror\MirrorExtensions.cs" />
+    <Compile Include="API\Extensions\PlayerHintExtensions.cs" />
     <Compile Include="API\Extensions\RoleExtension.cs" />
     <Compile Include="API\Extensions\SpawnableWaveExtensions.cs" />
     <Compile Include="API\Extensions\ZoneTypeExtensions.cs" />
@@ -136,6 +138,9 @@
     <Compile Include="API\Features\CoinItem.cs" />
     <Compile Include="API\Features\Firearm.cs" />
     <Compile Include="API\Features\Generator.cs" />
+    <Compile Include="API\Features\HintSystem\HintController.cs" />
+    <Compile Include="API\Features\HintSystem\HintElement.cs" />
+    <Compile Include="API\Features\HintSystem\HintService.cs" />
     <Compile Include="API\Features\Intercom.cs" />
     <Compile Include="API\Features\Pickup.cs" />
     <Compile Include="API\Features\Players\Hints\CurrentHintPatch.cs" />

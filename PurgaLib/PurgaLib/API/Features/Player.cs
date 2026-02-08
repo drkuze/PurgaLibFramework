@@ -20,9 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Footprinting;
 using PlayerRoles.FirstPersonControl;
+using PurgaLib.API.Features.HintSystem;
 using UnityEngine;
 using Utils.Networking;
 using static ReferenceHub;
+using HintZone = PurgaLib.API.Enums.HintZone;
 
 namespace PurgaLib.API.Features
 {
@@ -256,7 +258,61 @@ namespace PurgaLib.API.Features
 
             ShowHint(hint.Message, hint.Duration);
         }
+        public void ShowCustomHint(string message,
+            float duration = 3f,
+            string id = null,
+            int priority = 0,
+            bool sticky = false,
+            HintZone zone = HintZone.Middle)
+        {
+            if (string.IsNullOrEmpty(message)) return;
 
+            var hint = new HintElement(message, duration, id, priority, sticky, zone);
+            HintService.Get(this).Show(hint);
+        }
+
+        public void ShowCustomHint(HintElement hint)
+        {
+            if (hint == null) return;
+            HintService.Get(this).Show(hint);
+        }
+
+        public void ShowCustomHintBar(string message,
+            float duration,
+            int barSize = 10,
+            char filledChar = '#',
+            char emptyChar = '.',
+            string id = null,
+            HintZone zone = HintZone.Middle)
+        {
+            var hint = new HintElement(message, duration, id, zone: zone)
+            {
+                UseProgressBar = true,
+                BarSize = barSize,
+                FilledChar = filledChar,
+                EmptyChar = emptyChar
+            };
+
+            HintService.Get(this).Show(hint);
+        }
+
+        public void RemoveCustomHint(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            HintService.Get(this).Remove(id);
+        }
+
+        public void ClearCustomHints()
+        {
+            HintService.Get(this).Clear();
+        }
+
+        public bool HasCustomHint(string id)
+        {
+            var controller = HintService.Get(this);
+            return controller.GetHint(id) != null;
+        }
+        
         public void SendMessage(string message, string color) => ReferenceHub.gameConsoleTransmission.SendToClient(message, color);
 
         public void Kick(string reason) => ReferenceHub.connectionToClient?.Disconnect();

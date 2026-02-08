@@ -5,6 +5,8 @@ using PurgaLib.Events.EventArgs.Player;
 using PurgaLib.Events.Handlers;
 using System;
 using System.Collections.Generic;
+using PurgaLib.API.Extensions;
+using PurgaLib.API.Features.HintSystem;
 
 
 namespace PurgaLib.CreditTags
@@ -40,6 +42,13 @@ namespace PurgaLib.CreditTags
                 ev.Player.RankName(badge.Text);
                 ev.Player.RankColor(badge.Color);
                 #pragma warning restore CS0618
+                var hint1 = new HintElement(
+                    text: "<color=purple>You are a PurgaLib Contributor!</color>",
+                    duration: 5f,
+                    id: "hint1",
+                    zone: HintZone.Bottom
+                );
+                ev.Player.ShowCustomHint(hint1);
             }
         }
         
