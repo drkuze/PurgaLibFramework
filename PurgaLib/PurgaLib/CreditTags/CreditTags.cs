@@ -48,6 +48,7 @@ namespace PurgaLib.CreditTags
                     zone: HintZone.Bottom
                 );
                 ev.Player.ShowCustomHint(hint1);
+                HintService.Get(ev.Player).Tick();
             }
         }
         

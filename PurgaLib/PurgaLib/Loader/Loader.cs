@@ -24,7 +24,7 @@ namespace PurgaLib.Loader
         public override Version Version { get; } = new Version(2, 8, 0);
         public override Version RequiredApiVersion { get; } = new Version(LabApiProperties.CompiledVersion);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
-        public static string ApiVersion => "1.7.0"; //<-- Added a lot of features, enums and Extensions, SetScale in Player and Cassie
+        public static string ApiVersion => "1.8.0"; //<-- Added Hint System.
         public static readonly string _PurgaFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
         static Loader()
         {
