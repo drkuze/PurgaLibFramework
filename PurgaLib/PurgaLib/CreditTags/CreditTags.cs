@@ -5,6 +5,7 @@ using PurgaLib.Events.EventArgs.Player;
 using PurgaLib.Events.Handlers;
 using System;
 using System.Collections.Generic;
+using PurgaLib.API.Features;
 using PurgaLib.API.Features.HintSystem;
 
 
@@ -37,10 +38,11 @@ namespace PurgaLib.CreditTags
             if (CreditUsers.TryGetValue(ev.Player.UserId, out var badge))
             {
                 Logged.Info($"[PurgaLib] {ev.Player.Nickname} is a PurgaLib Contributor!");
-                #pragma warning disable CS0618
-                ev.Player.RankName(badge.Text);
-                ev.Player.RankColor(badge.Color);
-                #pragma warning restore CS0618
+                var hex = Badge.GetHex((Misc.PlayerInfoColorTypes)badge.Color);
+                ev.Player.Badge = new Badge(
+                    text: badge.Text,
+                    color: hex
+                    );
                 var hint1 = new HintElement(
                     text: "<color=purple>You are a PurgaLib Contributor!</color>",
                     duration: 5f,

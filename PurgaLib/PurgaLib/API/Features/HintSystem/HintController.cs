@@ -19,7 +19,7 @@ namespace PurgaLib.API.Features.HintSystem
         {
             _player = player;
         }
-        
+
         public void Show(HintElement hint)
         {
             var list = GetZoneList(hint.Zone);
@@ -34,7 +34,7 @@ namespace PurgaLib.API.Features.HintSystem
         {
             Show(new HintElement(text, duration, zone: zone));
         }
-        
+
         public void Remove(string id)
         {
             _top.RemoveAll(x => x.Id == id);
@@ -49,7 +49,7 @@ namespace PurgaLib.API.Features.HintSystem
             _bottom.Clear();
             _lastRendered = null;
         }
-        
+
         public HintElement GetHint(string id)
         {
             if (string.IsNullOrEmpty(id)) return null;
@@ -57,7 +57,7 @@ namespace PurgaLib.API.Features.HintSystem
         }
 
         public bool HasHint(string id) => GetHint(id) != null;
-        
+
         public void Tick()
         {
             RemoveExpired(_top);
@@ -65,13 +65,17 @@ namespace PurgaLib.API.Features.HintSystem
             RemoveExpired(_bottom);
 
             string text = BuildFinalText();
-            if (text == _lastRendered) return;
+
+            if (text == _lastRendered)
+                return;
 
             _lastRendered = text;
-            _player.ShowHint(text, 1.1f); 
+
+            _player.ShowHint(text, 1.1f);
         }
-        
-        private void RemoveExpired(List<HintElement> list) => list.RemoveAll(h => h.Expired);
+
+        private void RemoveExpired(List<HintElement> list)
+            => list.RemoveAll(h => h.Expired);
 
         private List<HintElement> GetZoneList(HintZone zone) => zone switch
         {
@@ -93,7 +97,8 @@ namespace PurgaLib.API.Features.HintSystem
 
         private void AppendZone(StringBuilder sb, List<HintElement> list)
         {
-            if (list.Count == 0) return;
+            if (list.Count == 0)
+                return;
 
             foreach (var hint in list.OrderByDescending(h => h.Priority))
                 sb.AppendLine(hint.GetRenderedText());

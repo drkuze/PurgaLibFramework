@@ -21,10 +21,10 @@ namespace PurgaLib.Loader
         public override string Name { get; } = "Loader";
         public override string Description { get; } = "The loader of PurgaLib";
         public override string Author { get; } = "PurgaLib Team";
-        public override Version Version { get; } = new Version(2, 8, 0);
+        public override Version Version { get; } = new Version(2, 9, 0);
         public override Version RequiredApiVersion { get; } = new Version(LabApiProperties.CompiledVersion);
         public override LoadPriority Priority { get; } = LoadPriority.Lowest;
-        public static string ApiVersion => "1.8.0"; //<-- Added Hint System.
+        public static string ApiVersion => "1.9.0"; //<-- Added Admin toys, Better CreditTags, Added coordinates for hint system.
         public static readonly string _PurgaFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
         static Loader()
         {

@@ -156,6 +156,11 @@
     <Compile Include="API\Features\Scp914.cs" />
     <Compile Include="API\Features\Server\Cassie.cs" />
     <Compile Include="API\Features\TeslaGate.cs" />
+    <Compile Include="API\Features\Toys\AdminToy.cs" />
+    <Compile Include="API\Features\Toys\GenericToy.cs" />
+    <Compile Include="API\Features\Toys\LightToy.cs" />
+    <Compile Include="API\Features\Toys\PrimitiveToy.cs" />
+    <Compile Include="API\Features\Toys\TextToyWrapper.cs" />
     <Compile Include="API\Features\Window.cs" />
     <Compile Include="API\Features\WorkStation.cs" />
     <Compile Include="CreditTags\Config.cs" />
