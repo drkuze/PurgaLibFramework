@@ -1,13 +1,8 @@
 ﻿using System;
 
-namespace PurgaLib.API.Features.PluginManager
+namespace PurgaLib.API.Interfaces
 {
-    public interface IConfig
-    {
-        bool Enabled { get; set; }
-    }
-    
-    public abstract class Plugin<TConfig> where TConfig : class, IConfig, new()
+    public abstract class IPlugin<TConfig> where TConfig : class, IConfig, new()
     {
         public abstract string Name { get; }
         public abstract string Author { get; }

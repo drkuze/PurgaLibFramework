@@ -45,12 +45,12 @@
     <Reference Include="0Harmony, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.2.3.6\lib\net48\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-publicized">
+      <HintPath>..\..\..\Nova\Plugin\Dependencies\Assembly-CSharp-publicized.dll</HintPath>
     </Reference>
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,13 +96,16 @@
       <HintPath>..\Dependencies\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\Dependencies\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>..\..\..\Nova\Plugin\Dependencies\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Nova\Plugin\Dependencies\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\Nova\Plugin\Dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\..\..\Nova\Plugin\Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=16.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.16.3.0\lib\net47\YamlDotNet.dll</HintPath>
@@ -112,7 +115,7 @@
     <Compile Include="API\Core\Interfaces\ISchematic.cs" />
     <Compile Include="API\Core\Paths.cs" />
     <Compile Include="API\Core\PEventRegister.cs" />
-    <Compile Include="API\Core\Interfaces\IEvent.cs" />
+    <Compile Include="API\Interfaces\IEvent.cs" />
     <Compile Include="API\Enums\CameraType.cs" />
     <Compile Include="API\Enums\FirearmType.cs" />
     <Compile Include="API\Enums\GeneratorState.cs" />
@@ -172,16 +175,22 @@
     <Compile Include="API\Features\Toys\TextToyWrapper.cs" />
     <Compile Include="API\Features\Window.cs" />
     <Compile Include="API\Features\WorkStation.cs" />
+    <Compile Include="API\Interfaces\IConfig.cs" />
     <Compile Include="CreditTags\Config.cs" />
     <Compile Include="CustomItems\CustomItemCommand.cs" />
     <Compile Include="CustomRoles\CustomRolesCommand.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerDroppingItemEventArgs .cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerInteractingDoorEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerInteractingElevatorEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerInteractingEmergencyButtonEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerVoiceChattingEventArgs.cs" />
     <Compile Include="Events\EventArgs\Server\WaitingForPlayersEventArgs.cs" />
-    <Compile Include="Events\Hooks\MapHandlersHooks\DoorInteracting.cs" />
-    <Compile Include="Events\Hooks\MapHandlersHooks\ElevatorUsing.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\TeslaInteracting.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerDroppingItem.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerHurting.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingDoor.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingElevator.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingEmergencyButton.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerSpawned.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerSpawning.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerChangedRole.cs" />
@@ -190,7 +199,8 @@
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerDying.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerJoined.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerLeft.cs" />
-    <Compile Include="Events\Hooks\SCPsHandlersHooks\Scp914Upgrading.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerVoiceChatting.cs" />
+    <Compile Include="Events\Hooks\MapHandlersHooks\Scp914Upgrading.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundEnded.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundRestarting.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundStarted.cs" />
@@ -242,8 +252,6 @@
     <Compile Include="CustomItems\Handlers\CustomItemHandler.cs" />
     <Compile Include="CustomRoles\CustomRole.cs" />
     <Compile Include="CustomRoles\Handlers\CustomRoleHandler.cs" />
-    <Compile Include="Events\EventArgs\Map\OnDoorInteracting.cs" />
-    <Compile Include="Events\EventArgs\Map\OnElevatorUsing.cs" />
     <Compile Include="Events\EventArgs\Map\OnInteractingTesla.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerBannedEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerChangedRoleEventArgs.cs" />
@@ -258,13 +266,12 @@
     <Compile Include="Events\EventArgs\Server\OnRoundEnded.cs" />
     <Compile Include="Events\EventArgs\Server\OnRoundStarted.cs" />
     <Compile Include="Events\EventArgs\Server\RoundRestartingEventArgs.cs" />
-    <Compile Include="Events\EventArgs\SCP\UpgradingPlayersEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Map\UpgradingPlayersEventArgs.cs" />
     <Compile Include="Events\EventSystem\Interfaces\IEventArgs.cs" />
     <Compile Include="Events\Handlers\MapHandlers.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
     <Compile Include="Events\Handlers\ServerHandlers.cs" />
-    <Compile Include="Events\Handlers\SCPsHandlers.cs" />
-    <Compile Include="API\Features\PluginManager\Plugin.cs" />
+    <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="Loader\Config.cs" />
     <Compile Include="Loader\Loader.cs" />
     <Compile Include="Loader\PurgaLib_Loader\Command\PluginList.cs" />
@@ -281,12 +288,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\x64\Debug\Assembly-CSharp-firstpass.dll" />
-    <Content Include="bin\x64\Debug\Assembly-CSharp-publicized.dll" />
-    <Content Include="bin\x64\Debug\CommandSystem.Core.dll" />
-    <Content Include="bin\x64\Debug\NorthwoodLib.dll" />
-    <Content Include="bin\x64\Debug\PurgaLib.dll" />
-    <Content Include="bin\x64\Debug\YamlDotNet.dll" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Lib\Copyright.txt" />
     <Content Include="Lib\ico.png" />
@@ -294,15 +295,20 @@
     <Content Include="Lib\pack.nuspec" />
     <Content Include="Lib\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nova\Plugin\Dependencies\Unity.TextMeshPro.dll" />
+    <Analyzer Include="..\..\..\Nova\Plugin\Dependencies\UnityEngine.CoreModule.dll" />
+    <Analyzer Include="..\..\..\Nova\Plugin\Dependencies\UnityEngine.PhysicsModule.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Fody.6.8.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.2\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Fody.6.8.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.8.2\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.6.0.0\build\Costura.Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.9.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.9.3\build\Fody.targets'))" />
   </Target>
   <Import Project="..\packages\Costura.Fody.6.0.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" />
+  <Import Project="..\packages\Fody.6.9.3\build\Fody.targets" Condition="Exists('..\packages\Fody.6.9.3\build\Fody.targets')" />
 </Project>
