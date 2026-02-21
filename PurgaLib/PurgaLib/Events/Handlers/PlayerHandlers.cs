@@ -17,6 +17,7 @@ public static class PlayerHandlers
     public static event Action<PlayerSpawningEventArgs> Spawning;
     public static event Action<PlayerSpawnedEventArgs> Spawned;
     public static event Action<PlayerDroppingItemEventArgs> DroppingItem;
+    public static event Action<PlayerVoiceChattingEventArgs> VoiceChatting;
 
     public static void InvokeSafely(PlayerBannedEventArgs ev) => Banned?.Invoke(ev);
     public static void InvokeSafely(PlayerChangedRoleEventArgs ev) => ChangedRole?.Invoke(ev);
@@ -30,4 +31,5 @@ public static class PlayerHandlers
     public static void InvokeSafely(PlayerSpawningEventArgs ev) => Spawning?.Invoke(ev);
     public static void InvokeSafely(PlayerSpawnedEventArgs ev) => Spawned?.Invoke(ev);
     public static void InvokeSafely(PlayerDroppingItemEventArgs ev) => DroppingItem?.Invoke(ev);
+    public static void InvokeSafely(PlayerVoiceChattingEventArgs ev) => VoiceChatting?.Invoke(ev);
 }

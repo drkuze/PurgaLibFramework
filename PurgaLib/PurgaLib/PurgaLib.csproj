@@ -180,9 +180,8 @@
     <Compile Include="CustomItems\CustomItemCommand.cs" />
     <Compile Include="CustomRoles\CustomRolesCommand.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerDroppingItemEventArgs .cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerVoiceChattingEventArgs.cs" />
     <Compile Include="Events\EventArgs\Server\WaitingForPlayersEventArgs.cs" />
-    <Compile Include="Events\Hooks\MapHandlersHooks\DoorInteracting.cs" />
-    <Compile Include="Events\Hooks\MapHandlersHooks\ElevatorUsing.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\TeslaInteracting.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerDroppingItem.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerHurting.cs" />
@@ -194,7 +193,8 @@
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerDying.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerJoined.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerLeft.cs" />
-    <Compile Include="Events\Hooks\SCPsHandlersHooks\Scp914Upgrading.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerVoiceChatting.cs" />
+    <Compile Include="Events\Hooks\MapHandlersHooks\Scp914Upgrading.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundEnded.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundRestarting.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundStarted.cs" />
@@ -246,8 +246,6 @@
     <Compile Include="CustomItems\Handlers\CustomItemHandler.cs" />
     <Compile Include="CustomRoles\CustomRole.cs" />
     <Compile Include="CustomRoles\Handlers\CustomRoleHandler.cs" />
-    <Compile Include="Events\EventArgs\Map\OnDoorInteracting.cs" />
-    <Compile Include="Events\EventArgs\Map\OnElevatorUsing.cs" />
     <Compile Include="Events\EventArgs\Map\OnInteractingTesla.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerBannedEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerChangedRoleEventArgs.cs" />
@@ -262,12 +260,11 @@
     <Compile Include="Events\EventArgs\Server\OnRoundEnded.cs" />
     <Compile Include="Events\EventArgs\Server\OnRoundStarted.cs" />
     <Compile Include="Events\EventArgs\Server\RoundRestartingEventArgs.cs" />
-    <Compile Include="Events\EventArgs\SCP\UpgradingPlayersEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Map\UpgradingPlayersEventArgs.cs" />
     <Compile Include="Events\EventSystem\Interfaces\IEventArgs.cs" />
     <Compile Include="Events\Handlers\MapHandlers.cs" />
     <Compile Include="Events\Handlers\PlayerHandlers.cs" />
     <Compile Include="Events\Handlers\ServerHandlers.cs" />
-    <Compile Include="Events\Handlers\SCPsHandlers.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="Loader\Config.cs" />
     <Compile Include="Loader\Loader.cs" />
