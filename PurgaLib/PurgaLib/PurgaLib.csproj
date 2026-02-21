@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Core\Interfaces\ISchematic.cs" />
+    <Compile Include="API\Core\Paths.cs" />
     <Compile Include="API\Core\PEventRegister.cs" />
     <Compile Include="API\Core\Interfaces\IEvent.cs" />
     <Compile Include="API\Enums\CameraType.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="API\Enums\GeneratorState.cs" />
     <Compile Include="API\Enums\GlassType.cs" />
     <Compile Include="API\Enums\HintZone.cs" />
+    <Compile Include="API\Enums\ObjectiveType.cs" />
     <Compile Include="API\Enums\PrefabType.cs" />
     <Compile Include="API\Enums\RankColorsType.cs" />
     <Compile Include="API\Enums\RoomType.cs" />
@@ -141,6 +143,13 @@
     <Compile Include="API\Features\HintSystem\HintElement.cs" />
     <Compile Include="API\Features\HintSystem\HintService.cs" />
     <Compile Include="API\Features\Intercom.cs" />
+    <Compile Include="API\Features\Objectives\EscapeObjective.cs" />
+    <Compile Include="API\Features\Objectives\GeneratorObjective.cs" />
+    <Compile Include="API\Features\Objectives\HumanDamageObjective.cs" />
+    <Compile Include="API\Features\Objectives\HumanKillObjective.cs" />
+    <Compile Include="API\Features\Objectives\HumanObjective.cs" />
+    <Compile Include="API\Features\Objectives\Objective.cs" />
+    <Compile Include="API\Features\Objectives\ScpItemPickupObjective.cs" />
     <Compile Include="API\Features\Pickup.cs" />
     <Compile Include="API\Features\Players\Hints\CurrentHintPatch.cs" />
     <Compile Include="API\Features\Players\Hints\PlyHint.cs" />

@@ -1,4 +1,4 @@
-﻿﻿Write-Host "=== PurgaLib DLL Installer ===" -ForegroundColor Cyan
+﻿Write-Host "=== PurgaLib DLL Installer ===" -ForegroundColor Cyan
 
 $scpPath = Read-Host "Enter the path to the SCP:SL server folder"
 

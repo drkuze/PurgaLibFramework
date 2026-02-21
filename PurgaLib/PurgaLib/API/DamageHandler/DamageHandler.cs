@@ -20,9 +20,12 @@ namespace PurgaLib.API.DamageHandler
             )
         {
             Attacker = attacker?.ReferenceHub;
+            Victim = victim?.ReferenceHub;
         }
 
         public ReferenceHub Attacker { get; }
+        public DamageHandlerBase Base => this;
+        public ReferenceHub Victim { get; }
 
         private static string BuildReason(Player attacker, DamageType damageType)
         {
