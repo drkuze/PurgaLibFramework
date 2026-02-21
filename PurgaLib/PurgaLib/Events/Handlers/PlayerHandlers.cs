@@ -1,5 +1,5 @@
-using System;
 using PurgaLib.Events.EventArgs.Player;
+using System;
 
 namespace PurgaLib.Events.Handlers;
 
@@ -11,6 +11,7 @@ public static class PlayerHandlers
     public static event Action<PlayerDiedEventArgs> Died;
     public static event Action<PlayerDyingEventArgs> Dying;
     public static event Action<PlayerHurtingEventArgs> Hurting;
+    public static event Action<PlayerInteractingDoorEventArgs> InteractingDoor;
     public static event Action<PlayerJoinedEventArgs> Joined;
     public static event Action<PlayerKickedEventArgs>  Kicked;
     public static event Action<PlayerLeftEventArgs> Left;
@@ -25,6 +26,7 @@ public static class PlayerHandlers
     public static void InvokeSafely(PlayerDiedEventArgs ev) => Died?.Invoke(ev);
     public static void InvokeSafely(PlayerDyingEventArgs ev) => Dying?.Invoke(ev);
     public static void InvokeSafely(PlayerHurtingEventArgs ev) => Hurting?.Invoke(ev);
+    public static void InvokeSafely(PlayerInteractingDoorEventArgs ev) => InteractingDoor?.Invoke(ev);
     public static void InvokeSafely(PlayerJoinedEventArgs ev) => Joined?.Invoke(ev);
     public static void InvokeSafely(PlayerKickedEventArgs ev) => Kicked?.Invoke(ev);
     public static void InvokeSafely(PlayerLeftEventArgs ev) => Left?.Invoke(ev);
