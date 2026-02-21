@@ -8,6 +8,7 @@ public static class PlayerHandlers
     public static event Action<PlayerBannedEventArgs> Banned;
     public static event Action<PlayerChangedRoleEventArgs> ChangedRole;
     public static event Action<PlayerChangingRoleEventArgs> ChangingRole;
+    public static event Action<PlayerChangingSpectatedEventArgs> ChangingSpectated;
     public static event Action<PlayerDiedEventArgs> Died;
     public static event Action<PlayerDyingEventArgs> Dying;
     public static event Action<PlayerHurtingEventArgs> Hurting;
@@ -25,6 +26,7 @@ public static class PlayerHandlers
     public static void InvokeSafely(PlayerBannedEventArgs ev) => Banned?.Invoke(ev);
     public static void InvokeSafely(PlayerChangedRoleEventArgs ev) => ChangedRole?.Invoke(ev);
     public static void InvokeSafely(PlayerChangingRoleEventArgs ev) => ChangingRole?.Invoke(ev);
+    public static void InvokeSafely(PlayerChangingSpectatedEventArgs ev) => ChangingSpectated?.Invoke(ev);
     public static void InvokeSafely(PlayerDiedEventArgs ev) => Died?.Invoke(ev);
     public static void InvokeSafely(PlayerDyingEventArgs ev) => Dying?.Invoke(ev);
     public static void InvokeSafely(PlayerHurtingEventArgs ev) => Hurting?.Invoke(ev);
