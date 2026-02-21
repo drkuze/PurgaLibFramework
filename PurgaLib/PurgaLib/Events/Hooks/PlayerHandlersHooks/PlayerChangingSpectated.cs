@@ -56,7 +56,6 @@
                 new CodeInstruction(OpCodes.Ret),
             });
 
-            // Attach retLabel to first original instruction
             newInstructions[14].WithLabels(retLabel);
 
             foreach (CodeInstruction instruction in newInstructions)

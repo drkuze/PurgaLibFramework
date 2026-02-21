@@ -185,6 +185,7 @@
     <Compile Include="Events\EventArgs\Player\PlayerInteractingElevatorEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerInteractingEmergencyButtonEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerVoiceChattingEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Server\RespawningTeamEventArgs.cs" />
     <Compile Include="Events\EventArgs\Server\WaitingForPlayersEventArgs.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\TeslaInteracting.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerChangingSpectated.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerLeft.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerVoiceChatting.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\Scp914Upgrading.cs" />
+    <Compile Include="Events\Hooks\ServerHandlersHooks\RespawningTeam.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundEnded.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundRestarting.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundStarted.cs" />
