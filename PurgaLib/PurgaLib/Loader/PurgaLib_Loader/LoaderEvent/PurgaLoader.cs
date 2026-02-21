@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using PurgaLib.API.Core;
-using PurgaLib.API.Features.PluginManager;
+using PurgaLib.API.Interfaces;
 using PurgaLib.API.Features.Server;
 
 namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
@@ -155,7 +155,7 @@ namespace PurgaLib.Loader.PurgaLib_Loader.LoaderEvent
             if (baseType == null) return false;
             if (!baseType.IsGenericType) return false;
 
-            return baseType.GetGenericTypeDefinition() == typeof(Plugin<>);
+            return baseType.GetGenericTypeDefinition() == typeof(IPlugin<>);
         }
 
         private string GetProperty(object plugin, string propertyName)

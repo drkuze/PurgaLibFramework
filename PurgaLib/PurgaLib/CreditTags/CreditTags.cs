@@ -1,5 +1,5 @@
 ﻿using PurgaLib.API.Enums;
-using PurgaLib.API.Features.PluginManager;
+using PurgaLib.API.Interfaces;
 using PurgaLib.API.Features.Server;
 using PurgaLib.Events.EventArgs.Player;
 using PurgaLib.Events.Handlers;
@@ -11,7 +11,7 @@ using PurgaLib.API.Features.HintSystem;
 
 namespace PurgaLib.CreditTags
 {
-    public class CreditTags : Plugin<Config>
+    public class CreditTags : IPlugin<Config>
     {
         public override string Name { get; } = "CreditTags";
         public override string Author { get; } = "PurgaLib Team";
