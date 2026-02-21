@@ -182,6 +182,7 @@
     <Compile Include="Events\EventArgs\Player\PlayerDroppingItemEventArgs .cs" />
     <Compile Include="Events\EventArgs\Player\PlayerInteractingDoorEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerInteractingElevatorEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerInteractingEmergencyButtonEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerVoiceChattingEventArgs.cs" />
     <Compile Include="Events\EventArgs\Server\WaitingForPlayersEventArgs.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\TeslaInteracting.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerHurting.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingDoor.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingElevator.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingEmergencyButton.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerSpawned.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerSpawning.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerChangedRole.cs" />
