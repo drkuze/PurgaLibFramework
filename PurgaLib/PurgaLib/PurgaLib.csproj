@@ -179,13 +179,16 @@
     <Compile Include="CreditTags\Config.cs" />
     <Compile Include="CustomItems\CustomItemCommand.cs" />
     <Compile Include="CustomRoles\CustomRolesCommand.cs" />
+    <Compile Include="Events\EventArgs\Player\PlayerChangingSpectatedEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerDroppingItemEventArgs .cs" />
     <Compile Include="Events\EventArgs\Player\PlayerInteractingDoorEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerInteractingElevatorEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerInteractingEmergencyButtonEventArgs.cs" />
     <Compile Include="Events\EventArgs\Player\PlayerVoiceChattingEventArgs.cs" />
+    <Compile Include="Events\EventArgs\Server\RespawningTeamEventArgs.cs" />
     <Compile Include="Events\EventArgs\Server\WaitingForPlayersEventArgs.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\TeslaInteracting.cs" />
+    <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerChangingSpectated.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerDroppingItem.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerHurting.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerInteractingDoor.cs" />
@@ -201,6 +204,7 @@
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerLeft.cs" />
     <Compile Include="Events\Hooks\PlayerHandlersHooks\PlayerVoiceChatting.cs" />
     <Compile Include="Events\Hooks\MapHandlersHooks\Scp914Upgrading.cs" />
+    <Compile Include="Events\Hooks\ServerHandlersHooks\RespawningTeam.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundEnded.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundRestarting.cs" />
     <Compile Include="Events\Hooks\ServerHandlersHooks\RoundStarted.cs" />
