@@ -13,7 +13,7 @@ namespace PurgaLib.CreditTags
 {
     public class CreditTags : Plugin<Config>
     {
-        public override string Name { get; } = "CreditTags";
+        public override string Name { get; } = "PurgaLib.CreditTags";
         public override string Author { get; } = "PurgaLib Team";
         public override string Description { get; } = null;
         public override Version Version { get; } = new Version(Loader.Loader.ApiVersion);

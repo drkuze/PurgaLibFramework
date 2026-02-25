@@ -345,7 +345,7 @@ namespace PurgaLib.API.Features
             ReferenceHub.transform.localScale = scale;
             new SyncedScaleMessages.ScaleMessage(scale, ReferenceHub).SendToHubsConditionally(x => x != null && viewers.Contains(Get(x)));
         }
-        
+        public PlayerCommandSender Sender => ReferenceHub.queryProcessor._sender;
         public bool EnableEffect(Effect effect) 
         {
             if (effect == null)
@@ -390,7 +390,7 @@ namespace PurgaLib.API.Features
             EffectHandler.TryGetEffect(type, out StatusEffectBase effect);
             return effect;
         }
-
+        
         public static IReadOnlyCollection<Player> List =>
             AllHubs
                 .Select(Get)
@@ -399,7 +399,7 @@ namespace PurgaLib.API.Features
 
         public static int Count =>
             AllHubs.Count;
-
+        
 
         public static Player Get(ReferenceHub hub)
         {
@@ -442,7 +442,7 @@ namespace PurgaLib.API.Features
 
             return Get(hub);
         }
-
+        
         public static bool TryGet(string userId, out Player player)
         {
             player = Get(userId); 

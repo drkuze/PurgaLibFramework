@@ -1,0 +1,8 @@
+﻿default:
+  default: true
+  Permissions:
+    - purgalib.test
+admin:
+  default: false
+  Permissions:
+    - .*
