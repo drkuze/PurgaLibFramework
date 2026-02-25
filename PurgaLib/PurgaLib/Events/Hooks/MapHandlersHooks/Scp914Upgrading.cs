@@ -1,11 +1,11 @@
-﻿namespace PurgaLib.Events.Hooks.SCPsHandlersHooks
+﻿namespace PurgaLib.Events.Hooks.MapHandlersHooks
 {
     #pragma warning disable SA1402
     #pragma warning disable SA1313
     using HarmonyLib;
     using Interactables.Interobjects.DoorUtils;
     using PurgaLib.API.Features;
-    using PurgaLib.Events.EventArgs.SCP;
+    using PurgaLib.Events.EventArgs.Map;
     using PurgaLib.Events.Handlers;
     using Scp914;
 
@@ -21,7 +21,7 @@
             var player = new Player(ply);
             var ev = new UpgradingPlayersEventArgs(player, setting);
 
-            SCPsHandlers.InvokeSafely(ev);
+            MapHandlers.InvokeSafely(ev);
 
             return ev.IsAllowed;
         }

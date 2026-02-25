@@ -1,4 +1,4 @@
-﻿namespace PurgaLib.API.Core.Interfaces;
+﻿namespace PurgaLib.API.Interfaces;
 
 public interface IEvent
 {

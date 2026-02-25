@@ -1,4 +1,4 @@
-﻿using PurgaLib.API.Features.PluginManager;
+﻿using PurgaLib.API.Interfaces;
 
 namespace PurgaLib.CreditTags
 {

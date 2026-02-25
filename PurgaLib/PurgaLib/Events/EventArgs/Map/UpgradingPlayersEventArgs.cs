@@ -1,7 +1,7 @@
 ﻿using PurgaLib.Events.EventSystem.Interfaces;
 using Scp914;
 
-namespace PurgaLib.Events.EventArgs.SCP;
+namespace PurgaLib.Events.EventArgs.Map;
 
 public class UpgradingPlayersEventArgs : IEventArgs
 {
