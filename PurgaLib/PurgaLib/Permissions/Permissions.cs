@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using CommandSystem;
-using PurgaLib.API.Features.PluginManager;
 using PurgaLib.API.Features.Server;
+using PurgaLib.API.Interfaces;
 using PurgaLib.Loader.PurgaLib_Loader;
 using PurgaLib.Permissions.Groups;
 using Query;
@@ -16,7 +16,7 @@ using Player = PurgaLib.API.Features.Player;
 
 namespace PurgaLib.Permissions;
 
-public class Permissions : Plugin<Config>
+public class Permissions : IPlugin<Config>
 {
     public static Permissions Singleton { get; private set; }
     public override string Name { get; } = "PurgaLib.Permissions";

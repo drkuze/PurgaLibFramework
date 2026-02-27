@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using PurgaLib.API.Core;
-using PurgaLib.API.Features.PluginManager;
+using PurgaLib.API.Interfaces;
 
 namespace PurgaLib.Permissions;
 
